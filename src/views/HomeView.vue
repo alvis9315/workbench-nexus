@@ -59,7 +59,14 @@ const activeSkill = computed(() => skills.find((s) => s.id === openSkillId.value
     <CategoryFilter v-model="activeCategory" class="mb-6" />
 
     <div v-if="filtered.length" class="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4">
-      <SkillCard v-for="s in filtered" :key="s.id" :skill="s" @open="openSkill" />
+      <SkillCard
+        v-for="(s, i) in filtered"
+        :key="s.id"
+        :skill="s"
+        class="reveal-up"
+        :style="{ animationDelay: `${Math.min(i * 45, 400)}ms` }"
+        @open="openSkill"
+      />
     </div>
     <Empty v-else class="py-16">
       <EmptyHeader>
