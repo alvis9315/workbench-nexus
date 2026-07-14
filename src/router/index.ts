@@ -6,7 +6,11 @@ const routes: RouteRecordRaw[] = [
     name: 'home',
     component: () => import('@/views/HomeView.vue'),
   },
-  // /repos(GitHub repos 頁)為 v1.5,屆時再加路由
+  {
+    path: '/repos',
+    name: 'repos',
+    component: () => import('@/views/ReposView.vue'),
+  },
   {
     path: '/:pathMatch(.*)*',
     redirect: '/',

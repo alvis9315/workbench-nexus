@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useLocalStorage } from '@vueuse/core'
 import { Copy, Star } from 'lucide-vue-next'
 import { launchSkill } from '@/lib/launcher'
 import {
@@ -30,6 +31,15 @@ const open = computed({
 const copyInvocation = async () => {
   if (props.skill) await launchSkill(props.skill)
 }
+
+// 私人筆記(EXT-004):每 skill 一則,localStorage,即打即存。
+const notes = useLocalStorage<Record<string, string>>('wn-skill-notes', {})
+const note = computed({
+  get: () => (props.skill ? notes.value[props.skill.id] ?? '' : ''),
+  set: (v) => {
+    if (props.skill) notes.value = { ...notes.value, [props.skill.id]: v }
+  },
+})
 </script>
 
 <template>
@@ -60,6 +70,16 @@ const copyInvocation = async () => {
         <div class="rounded-md border bg-background/60 p-3">
           <code class="block whitespace-pre-wrap break-all text-xs text-foreground">{{ skill.invocation }}</code>
         </div>
+      </div>
+
+      <div>
+        <p class="mb-1.5 font-pixel text-[10px] text-muted-foreground">NOTES</p>
+        <textarea
+          v-model="note"
+          rows="2"
+          placeholder="私人筆記(即打即存,只在本機)…"
+          class="w-full resize-y rounded-md border border-border bg-background/60 p-2 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
+        />
       </div>
 
       <div class="flex gap-2">
