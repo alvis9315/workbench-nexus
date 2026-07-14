@@ -1,0 +1,52 @@
+[
+  {
+    "id": "new-project-quickstart",
+    "name": "新專案快速建置",
+    "category": "pipeline",
+    "description": "三關收需求,產出可直接交給 AI Agent 的專案初始化 Prompt",
+    "triggerKeywords": ["新專案", "建置", "初始化", "quickstart"],
+    "invocation": "/new-project-quickstart 我要建立新專案:<一句話描述>",
+    "seed": "new-project-quickstart",
+    "pinned": true
+  },
+  {
+    "id": "work-shift",
+    "name": "排班工作流",
+    "category": "pipeline",
+    "description": "三關卡備班 → 班表自走執行 → 交班報告,離開期間不斷掉工作",
+    "triggerKeywords": ["排班", "值班", "自走", "睡覺"],
+    "invocation": "排班:<今天要做的事,或說「照 roadmap 排」>",
+    "seed": "work-shift",
+    "pinned": true
+  },
+  {
+    "id": "resume-tailoring",
+    "name": "履歷客製化管線",
+    "category": "doc",
+    "description": "依 JD 客製履歷:拆解職缺 → 對應強項 → 產出投遞版本",
+    "triggerKeywords": ["履歷", "求職", "JD", "投遞"],
+    "invocation": "/resume-tailoring <貼上 JD 或職缺連結>",
+    "seed": "resume-tailoring",
+    "pinned": false
+  },
+  {
+    "id": "self-prompting",
+    "name": "Self-prompting 管線",
+    "category": "pipeline",
+    "description": "研發室→廚房→歸檔的 prompt 開發循環,Codex 當 Critic 交叉審",
+    "triggerKeywords": ["prompt", "self-prompting", "cross-review"],
+    "invocation": "用 self-prompting 管線幫我開發:<prompt 主題>",
+    "seed": "self-prompting",
+    "pinned": false
+  },
+  {
+    "id": "api-sa-merge",
+    "name": "API / SA 文件整併",
+    "category": "doc",
+    "description": "兩份文件合併、補業務邏輯",
+    "triggerKeywords": ["API文件", "SA文件", "文件整併"],
+    "invocation": "/api-sa-merge 幫我整併這兩份文件:<貼上或附檔>",
+    "seed": "api-sa-merge",
+    "pinned": false
+  }
+]
