@@ -8,6 +8,7 @@ import SkillCard from '@/components/SkillCard.vue'
 import CategoryFilter from '@/components/CategoryFilter.vue'
 import CommandPalette from '@/components/CommandPalette.vue'
 import SkillDetailDialog from '@/components/SkillDetailDialog.vue'
+import Mascot from '@/components/Mascot.vue'
 import skillsData from '@/data/skills.json'
 import type { Skill, SkillCategory } from '@/types'
 
@@ -51,5 +52,6 @@ const activeSkill = computed(() => skills.find((s) => s.id === openSkillId.value
 
     <CommandPalette ref="palette" :skills="skills" @pick="openSkill" />
     <SkillDetailDialog :skill="activeSkill" @close="openSkillId = null" />
+    <Mascot />
   </main>
 </template>
