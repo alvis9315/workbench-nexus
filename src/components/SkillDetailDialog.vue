@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useClipboard } from '@vueuse/core'
-import { toast } from 'vue-sonner'
-import { Copy } from 'lucide-vue-next'
+import { Copy, Star } from 'lucide-vue-next'
+import { launchSkill } from '@/lib/launcher'
 import {
   Dialog,
   DialogContent,
@@ -18,8 +17,8 @@ import type { Skill } from '@/types'
 
 // skill 詳情:用途、觸發關鍵字、調用 prompt + 複製鈕。
 // 「發射台不是引擎」:主要動作 = 複製調用 prompt 去 Claude 貼上。
-const props = defineProps<{ skill: Skill | null }>()
-const emit = defineEmits<{ close: [] }>()
+const props = defineProps<{ skill: Skill | null; pinned?: boolean }>()
+const emit = defineEmits<{ close: []; togglePin: [] }>()
 
 const open = computed({
   get: () => props.skill !== null,
@@ -28,15 +27,8 @@ const open = computed({
   },
 })
 
-const { copy } = useClipboard()
 const copyInvocation = async () => {
-  if (!props.skill) return
-  try {
-    await copy(props.skill.invocation)
-    toast.success(`已複製「${props.skill.name}」的調用 prompt,去 Claude 貼上即可`)
-  } catch {
-    toast.error('複製失敗,請手動選取複製')
-  }
+  if (props.skill) await launchSkill(props.skill)
 }
 </script>
 
@@ -70,9 +62,20 @@ const copyInvocation = async () => {
         </div>
       </div>
 
-      <Button class="w-full gap-2 font-bold" @click="copyInvocation">
-        <Copy class="size-4" /> 複製調用 prompt
-      </Button>
+      <div class="flex gap-2">
+        <Button class="flex-1 gap-2 font-bold" @click="copyInvocation">
+          <Copy class="size-4" /> 複製調用 prompt
+        </Button>
+        <Button
+          variant="outline"
+          class="gap-1.5"
+          :class="pinned ? 'text-primary' : 'text-muted-foreground'"
+          :title="pinned ? '取消釘選(移出 Hotbar)' : '釘選到 Hotbar'"
+          @click="emit('togglePin')"
+        >
+          <Star class="size-4" :fill="pinned ? 'currentColor' : 'none'" />
+        </Button>
+      </div>
     </DialogContent>
   </Dialog>
 </template>
