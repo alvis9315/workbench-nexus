@@ -7,6 +7,7 @@ import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from '@/components/u
 import SkillCard from '@/components/SkillCard.vue'
 import CategoryFilter from '@/components/CategoryFilter.vue'
 import CommandPalette from '@/components/CommandPalette.vue'
+import SkillDetailDialog from '@/components/SkillDetailDialog.vue'
 import skillsData from '@/data/skills.json'
 import type { Skill, SkillCategory } from '@/types'
 
@@ -20,8 +21,9 @@ const filtered = computed(() =>
 const palette = useTemplateRef('palette')
 const openSkillId = ref<string | null>(null)
 const openSkill = (id: string) => {
-  openSkillId.value = id // #4 詳情 Dialog 接手
+  openSkillId.value = id
 }
+const activeSkill = computed(() => skills.find((s) => s.id === openSkillId.value) ?? null)
 </script>
 
 <template>
@@ -48,5 +50,6 @@ const openSkill = (id: string) => {
     </Empty>
 
     <CommandPalette ref="palette" :skills="skills" @pick="openSkill" />
+    <SkillDetailDialog :skill="activeSkill" @close="openSkillId = null" />
   </main>
 </template>
