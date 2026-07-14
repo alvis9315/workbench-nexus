@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Badge } from '@/components/ui/badge'
+import SkillAvatar from '@/components/SkillAvatar.vue'
 import { categoryLabel } from '@/data/categories'
 import type { Skill, SkillStatus } from '@/types'
 
@@ -25,9 +26,7 @@ const status = () => STATUS_META[props.skill.status ?? 'ready']
   >
     <div class="flex items-start justify-between gap-2">
       <slot name="avatar">
-        <div class="flex size-12 shrink-0 items-center justify-center rounded-md bg-accent font-pixel text-lg text-primary">
-          {{ skill.name.slice(0, 1) }}
-        </div>
+        <SkillAvatar :seed="skill.seed" />
       </slot>
       <span class="rounded px-1.5 py-0.5 font-pixel text-[9px]" :class="status().cls">
         {{ status().label }}

@@ -13,6 +13,7 @@ import {
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { categoryLabel } from '@/data/categories'
+import SkillAvatar from '@/components/SkillAvatar.vue'
 import type { Skill } from '@/types'
 
 // skill 詳情:用途、觸發關鍵字、調用 prompt + 複製鈕。
@@ -45,9 +46,7 @@ const copyInvocation = async () => {
       <DialogHeader>
         <div class="flex items-center gap-3">
           <slot name="avatar">
-            <div class="flex size-12 items-center justify-center rounded-md bg-accent font-pixel text-lg text-primary">
-              {{ skill.name.slice(0, 1) }}
-            </div>
+            <SkillAvatar :seed="skill.seed" />
           </slot>
           <div>
             <DialogTitle class="text-base">{{ skill.name }}</DialogTitle>
