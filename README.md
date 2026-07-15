@@ -32,15 +32,15 @@ pnpm dev
 
 | Skill | 一句話 | 吃什麼 | 吐什麼 | 狀態 | 最後用於 |
 |---|---|---|---|---|---|
-| new-project-quickstart | 三關提問產專案初始化 Prompt | 專案想法 | 可執行的初始化 Prompt | 已轉正 | |
+| new-project-quickstart | 三關提問產專案初始化 Prompt | 專案想法 | 可執行的初始化 Prompt | 已轉正(v3.5 spec-driven 觀察中) | |
 | design-system-codify | 把視覺風格收斂成 DESIGN.md | 風格公式 / 參考 URL / 文字描述 | design-systems/&lt;slug&gt;/DESIGN.md | 觀察中 | |
-| api-sa-merge | API 文件與 SA 文件整併 | 兩份文件 | 整併後文件 | | |
-| self-prompting-pipeline | 四站管線(Planner→Executor→Critic→Refiner)工具建置 | 目標描述 | pipeline 工具 | | |
-| agent-communication-pipeline-design | 多 agent 協作架構設計 | 協作需求 | 架構 / runner / config | | |
-| resume-audit-rewriter | 履歷體檢與重寫 | 履歷 + JD | 修訂履歷與分析 | | |
-| resume-tailoring-web | 針對職缺產雙版客製履歷 | 履歷 + 職缺 | 中英雙版履歷 | | |
+| api-sa-merge | API 文件與 SA 文件整併 | 兩份文件 | 整併後文件 | 未建(規劃) | |
+| self-prompting-pipeline | 四站管線(Planner→Executor→Critic→Refiner)工具建置 | 目標描述 | pipeline 工具 | 觀察中(已裝 self-prompting) | |
+| agent-communication-pipeline-design | 多 agent 協作架構設計 | 協作需求 | 架構 / runner / config | 實驗中(repo 有,未部署為 skill) | |
+| resume-audit-rewriter | 履歷體檢與重寫 | 履歷 + JD | 修訂履歷與分析 | 未建(規劃) | |
+| resume-tailoring-web | 針對職缺產雙版客製履歷 | 履歷 + 職缺 | 中英雙版履歷 | 試用版(0 筆回填,觀察中) | |
 
-> 狀態 / 最後用於 空白欄位待補（Alvis 確認）。
+> 「最後用於」欄各 skill 實際使用後回填。狀態依 2026-07-15 盤點,如有出入請更正。
 
 ### 執行者 skill(orchestrator)
 
