@@ -23,7 +23,7 @@ pnpm dev
 
 ## Skill Map
 
-回答「我有哪些零件」——每個 skill 一行。怎麼用 → 看各 SKILL.md 開頭的 I/O 契約;
+回答「我有哪些零件」——每個 skill 一行。**忘記這一切是什麼 → 先讀 [docs/usage-guide.md](docs/usage-guide.md)(白話版)**。怎麼用 → 看各 SKILL.md 開頭的 I/O 契約;
 為什麼這樣設計 → [`specs/decisions.md`](specs/decisions.md);格式怎麼變的 →
 [`specs/skill-contract.md`](specs/skill-contract.md) 文末 Changelog。
 維護時機:新增 / 轉正 / 廢棄 skill 時各改一行。
