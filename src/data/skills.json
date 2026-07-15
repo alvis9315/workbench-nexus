@@ -40,6 +40,16 @@
     "pinned": false
   },
   {
+    "id": "design-system-codify",
+    "name": "設計系統 Codify",
+    "category": "frontend",
+    "description": "把視覺風格收斂成可跨專案重用的 DESIGN.md,quickstart 可直接路徑引用",
+    "triggerKeywords": ["design system", "DESIGN.md", "視覺風格", "codify"],
+    "invocation": "幫我把 <風格公式 / 參考網站 / 風格描述> 產成 DESIGN.md",
+    "seed": "design-system-codify",
+    "pinned": false
+  },
+  {
     "id": "api-sa-merge",
     "name": "API / SA 文件整併",
     "category": "doc",
