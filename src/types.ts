@@ -30,3 +30,27 @@ export interface Repo {
 }
 
 export type RepoCategory = 'skill' | 'product' | 'research' | 'practice' | 'reference'
+
+/** projects.json 的一筆:~/Projects 下實際有頁面的系統(Stage Select 關卡磚)。 */
+export interface Project {
+  name: string
+  folder: string
+  description: string
+  /** 可跳轉的頁面連結(部署站或本機 dev URL);null = LOCKED,等擁有者補。 */
+  deployUrl: string | null
+  repoUrl?: string
+  /** 本機 dev URL 的啟動提示(deployUrl 為 localhost 時顯示)。 */
+  devHint?: string
+}
+
+/** ui-library.json 的一筆:~/UILibrary 收錄項(vendor 唯讀參考 / custom 自製正本)。 */
+export interface UiLibraryItem {
+  name: string
+  kind: 'vendor' | 'custom'
+  /** custom 才有:vue / react / common。 */
+  tech?: string
+  description: string
+  /** vendor 的上游 repo 或文件站;custom 可留本機路徑說明。 */
+  url?: string
+  license?: string
+}

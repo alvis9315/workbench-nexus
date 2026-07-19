@@ -12,6 +12,16 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/ReposView.vue'),
   },
   {
+    path: '/projects',
+    name: 'projects',
+    component: () => import('@/views/ProjectsView.vue'),
+  },
+  {
+    path: '/uilibrary',
+    name: 'uilibrary',
+    component: () => import('@/views/UiLibraryView.vue'),
+  },
+  {
     path: '/:pathMatch(.*)*',
     redirect: '/',
   },

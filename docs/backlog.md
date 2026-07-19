@@ -2,12 +2,9 @@
 
 > 待辦唯一清單;需求正本仍是 sa-lite.md,本檔追蹤執行。做完標 ✓ 移文末。建立:2026-07-20。
 
-## A. 視覺重造(擁有者 2026-07-20 明確不滿,待調整——先記錄不動工)
+## A. 視覺重造(2026-07-20 部分完成,剩餘待調整)
 
-- [ ] **A1. 整體風格重選**:擁有者反饋「現在樣式很醜、不喜歡紫色背景、像素風人物很怪」。
-  建議路徑(吃自家狗糧):先用 `design-system-codify` 收斂新風格產 DESIGN.md → 依「主題 = token bundle」鐵則只換 `src/assets/main.css` CSS 變數,不動元件 DOM。
-  範圍:配色(去紫)、字體(font-pixel 是否保留待問)、Mascot / SkillAvatar 像素人物(DiceBear 風格更換或移除)、pixel-frame 邊框風。
-  **動工前先問擁有者偏好 / 參考**(npq 視覺必問慣例,不默默預設)。
+- [ ] **A1. 剩餘視覺項**:✓ 背景已去紫換 MvC 深宇宙藍(擁有者指定方向,token bundle 換色);✓ 技能牆已改 MvC 選角格。剩餘:字體(font-pixel 是否保留待問)、Mascot / SkillAvatar 像素人物(擁有者嫌怪,DiceBear 風格更換或換手繪/GIF——SkillCard 已留 slot)、pixel-frame 邊框風微調。**動工前先問擁有者偏好 / 參考**。
 
 ## B. 功能
 

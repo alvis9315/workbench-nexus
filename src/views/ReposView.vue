@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { RouterLink } from 'vue-router'
-import { ArrowLeft, Copy, ExternalLink, GitBranch, GitFork, Lock } from 'lucide-vue-next'
+import { Copy, ExternalLink, GitBranch, GitFork, Lock } from 'lucide-vue-next'
 import { toast } from 'vue-sonner'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+import NavTabs from '@/components/NavTabs.vue'
 import reposData from '@/data/repos.json'
 import type { Repo, RepoCategory } from '@/types'
 
@@ -39,13 +38,9 @@ const copyUrl = async (url: string, name: string) => {
 
 <template>
   <main class="mx-auto max-w-3xl px-6 py-10">
-    <RouterLink to="/" class="mb-6 inline-block">
-      <Button variant="outline" size="sm" class="gap-1.5 text-muted-foreground">
-        <ArrowLeft class="size-4" /> 回工作站
-      </Button>
-    </RouterLink>
-    <h1 class="mb-1 font-pixel text-lg text-primary">REPOSITORIES</h1>
-    <p class="mb-6 text-xs text-muted-foreground">點一下複製網址;共 {{ repos.length }} 個 repo</p>
+    <NavTabs />
+    <h1 class="mb-1 font-pixel text-lg text-primary">WEAPON GET — REPOSITORIES</h1>
+    <p class="mb-6 text-xs text-muted-foreground">點一列複製網址(裝備武器);共 {{ repos.length }} 個 repo</p>
 
     <section v-for="group in grouped" :key="group.value" class="mb-8">
       <h2 class="mb-2 flex items-center gap-2 font-pixel text-xs text-muted-foreground">
