@@ -42,6 +42,12 @@ pnpm dev
 
 > 「最後用於」欄各 skill 實際使用後回填。狀態依 2026-07-15 盤點,如有出入請更正。
 
+### 管線(pipeline)
+
+| 管線 | 站點 | 契約 | 狀態 |
+|---|---|---|---|
+| 求職履歷一條龍 | job-search-secret(UI 搜職缺)→ resume-tailoring(品質迴圈產 md)→ render(md+模板→docx) | [`specs/resume-pipeline.md`](specs/resume-pipeline.md);模板 [`resume-templates/`](resume-templates/) | 規劃定稿,站 2/3 掛接待實作(2026-07-20) |
+
 ### 執行者 skill(orchestrator)
 
 | Skill | 管哪條鏈 | 狀態 |
@@ -55,3 +61,5 @@ pnpm dev
 | [`design-systems/`](design-systems/)`<slug>/DESIGN.md` | 跨專案重用的設計系統(design-system-codify 產出) |
 | [`specs/skill-contract.md`](specs/skill-contract.md) | skill 間公共契約(唯一改了會痛的東西) |
 | [`specs/decisions.md`](specs/decisions.md) | 設計決策記錄 |
+| [`specs/resume-pipeline.md`](specs/resume-pipeline.md) | 求職履歷一條龍管線契約(站間交接 / fallback / 個資紅線) |
+| [`resume-templates/`](resume-templates/)`<slug>/` | 履歷視覺模板(reference-doc 規格;零個資) |
