@@ -7,7 +7,14 @@
     "triggerKeywords": ["新專案", "建置", "初始化", "quickstart"],
     "invocation": "/new-project-quickstart 我要建立新專案:<一句話描述>",
     "seed": "new-project-quickstart",
-    "pinned": true
+    "pinned": true,
+    "usage": [
+      "在 Claude Code 貼調用句(有 RFP / SRS 就一起丟,會先走文件攝取)",
+      "答三關選擇題:目標 MVP → 技術棧 → repo 規範(說「你決定」就用預設)",
+      "有前端且流程複雜 → 雛型關:點開靜態頁順流程,OK 才繼續",
+      "工作案 → 交付確認:驗收人 / 交付物 / 里程碑(契約項不能用預設)",
+      "拿到 14 項輸出,把最後一項 Prompt 丟給 Codex / Claude Code 開工"
+    ]
   },
   {
     "id": "work-shift",
@@ -17,17 +24,31 @@
     "triggerKeywords": ["排班", "值班", "自走", "睡覺"],
     "invocation": "排班:<今天要做的事,或說「照 roadmap 排」>",
     "seed": "work-shift",
-    "pinned": true
+    "pinned": true,
+    "usage": [
+      "離開前(睡覺 / 外出)在 Claude Code 說「排班」",
+      "過三關:任務與驗收標準 → 決策預答 → 授權邊界",
+      "確認班表後放著讓它自走執行",
+      "回來看交班報告,對照驗收標準逐項檢查"
+    ]
   },
   {
     "id": "resume-tailoring",
     "name": "履歷客製化管線",
     "category": "doc",
-    "description": "依 JD 客製履歷:拆解職缺 → 對應強項 → 產出投遞版本",
-    "triggerKeywords": ["履歷", "求職", "JD", "投遞"],
-    "invocation": "/resume-tailoring <貼上 JD 或職缺連結>",
+    "description": "求職一條龍:職缺連結進、可編輯 docx 出,品質迴圈 + 模板渲染",
+    "triggerKeywords": ["履歷", "求職", "JD", "投遞", "職缺"],
+    "invocation": "/resume-tailoring 用這個職缺跑履歷:<貼上 104 連結或 JD 全文>",
     "seed": "resume-tailoring",
-    "pinned": false
+    "pinned": false,
+    "usage": [
+      "開 job-search-secret dashboard 搜職缺,明細頁點「複製給履歷管線」",
+      "回 Claude Code 貼連結說「用這個職缺跑履歷」(沒開後端就直接貼 JD 全文)",
+      "選模式:預設(快、不外流)或 cross-review(Codex 對抗評審,個資會送 OpenAI)",
+      "品質迴圈自動跑(score≥8 或 3 輪停)→ 產雙版 md",
+      "render 站套模板產 .docx → 過目 → 手改後投遞(md=內容正本,docx=交付正本)",
+      "投遞後回報結果做回填(第一筆 ✓ 時 skill 轉正)"
+    ]
   },
   {
     "id": "self-prompting",
@@ -37,7 +58,13 @@
     "triggerKeywords": ["prompt", "self-prompting", "cross-review"],
     "invocation": "用 self-prompting 管線幫我開發:<prompt 主題>",
     "seed": "self-prompting",
-    "pinned": false
+    "pinned": false,
+    "usage": [
+      "給一句白話目標(不用寫 prompt)",
+      "四站自動跑:Planner 生成提示詞 → Executor 產初稿 → Critic 評分 → Refiner 修正",
+      "score≥8 或滿 3 輪即停,拿最終產出",
+      "跑完自動歸檔到 apps/<分類>/prompts/;好用的循環累積後固化成 skill"
+    ]
   },
   {
     "id": "design-system-codify",
@@ -47,7 +74,12 @@
     "triggerKeywords": ["design system", "DESIGN.md", "視覺風格", "codify"],
     "invocation": "幫我把 <風格公式 / 參考網站 / 風格描述> 產成 DESIGN.md",
     "seed": "design-system-codify",
-    "pinned": false
+    "pinned": false,
+    "usage": [
+      "丟輸入:風格公式 / 參考網站 URL / 截圖 / 幾句文字描述(精度不同都能產)",
+      "產出 DESIGN.md(必填三段:氛圍 / 色彩 token / 字體)存 design-systems/<slug>/",
+      "之後任何前端專案在 quickstart 視覺關卡答「有現成 DESIGN.md」+ 給路徑即可套用"
+    ]
   },
   {
     "id": "api-sa-merge",
@@ -57,6 +89,10 @@
     "triggerKeywords": ["API文件", "SA文件", "文件整併"],
     "invocation": "/api-sa-merge 幫我整併這兩份文件:<貼上或附檔>",
     "seed": "api-sa-merge",
-    "pinned": false
+    "pinned": false,
+    "usage": [
+      "(規劃中,skill 尚未建立)",
+      "預計:丟兩份文件 → 整併 + 補業務邏輯 → 產單一正本"
+    ]
   }
 ]

@@ -58,6 +58,20 @@ const note = computed({
         <DialogDescription class="pt-2 text-left">{{ skill.description }}</DialogDescription>
       </DialogHeader>
 
+      <div v-if="skill.usage?.length">
+        <p class="mb-1.5 font-pixel text-[10px] text-muted-foreground">USAGE FLOW</p>
+        <ol class="space-y-1 rounded-md border bg-background/60 p-3">
+          <li
+            v-for="(step, i) in skill.usage"
+            :key="i"
+            class="flex gap-2 text-xs leading-relaxed text-foreground"
+          >
+            <span class="shrink-0 font-pixel text-[10px] text-primary">{{ i + 1 }}.</span>
+            <span>{{ step }}</span>
+          </li>
+        </ol>
+      </div>
+
       <div>
         <p class="mb-1.5 font-pixel text-[10px] text-muted-foreground">TRIGGERS</p>
         <div class="flex flex-wrap gap-1.5">
