@@ -22,9 +22,17 @@ const delegatedProps = reactiveOmit(props, "class", "toastOptions")
   <Sonner
     :class="cn('toaster group', props.class)"
     :style="{
-      '--normal-bg': 'var(--popover)',
-      '--normal-text': 'var(--popover-foreground)',
-      '--normal-border': 'var(--border)',
+      /* 遊戲通知風(2026-07-20 擁有者定向):黃底更清楚+置頂更顯眼,取代原深色 popover 底;
+         error 保留紅色系,避免失敗訊息也變黃底而混淆成功/失敗 */
+      '--normal-bg': 'var(--primary)',
+      '--normal-text': 'var(--primary-foreground)',
+      '--normal-border': 'color-mix(in srgb, var(--primary) 55%, black)',
+      '--success-bg': 'var(--primary)',
+      '--success-text': 'var(--primary-foreground)',
+      '--success-border': 'color-mix(in srgb, var(--primary) 55%, black)',
+      '--error-bg': 'var(--destructive)',
+      '--error-text': '#fff',
+      '--error-border': 'color-mix(in srgb, var(--destructive) 55%, black)',
       '--border-radius': 'var(--radius)',
       '--gray2': 'hsl(var(--popover) / 0.9)',
       '--gray3': 'var(--border)',
@@ -34,7 +42,7 @@ const delegatedProps = reactiveOmit(props, "class", "toastOptions")
     }"
     :toast-options="props.toastOptions ?? {
       classes: {
-        toast: 'rounded-2xl',
+        toast: 'rounded-md border-2 font-bold shadow-[0_4px_0_0_rgba(0,0,0,0.45)]',
       },
     }"
     v-bind="delegatedProps"

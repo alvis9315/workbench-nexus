@@ -51,11 +51,14 @@ export interface Project {
   name: string
   folder: string
   description: string
+  category: ProjectCategory
   deployUrl: string | null
   repoUrl?: string
   /** 本機限定工具的啟動指令(多筆對應多個 terminal,依序執行)。 */
   startCommand?: string[]
 }
+
+export type ProjectCategory = 'showcase' | 'tool' | 'system' | 'internal'
 
 /** ui-library.json 的一筆:~/UILibrary 收錄項。 */
 export interface UiLibraryItem {

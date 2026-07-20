@@ -3,6 +3,7 @@
     "name": "Knowledge Inbox",
     "folder": "~/Projects/knowledge-inbox",
     "description": "個人知識收件匣:丟進來就好,剩下交給它(Vue 3 + Supabase + Claude Haiku)",
+    "category": "tool",
     "deployUrl": "https://knowledge-inbox-alvis.javacj02004.chatgpt.site",
     "repoUrl": "https://github.com/alvis9315/knowledge-inbox"
   },
@@ -10,6 +11,7 @@
     "name": "Portfolio",
     "folder": "~/Projects/portfolio",
     "description": "個人作品集:scroll 驅動 3D 鏡頭飛行(Vue 3 + Three.js)",
+    "category": "showcase",
     "deployUrl": "https://alvis-portfolio.javacj02004.chatgpt.site",
     "repoUrl": "https://github.com/alvis9315/portfolio"
   },
@@ -17,6 +19,7 @@
     "name": "Job Search Secret",
     "folder": "~/Projects/job-search-secret",
     "description": "104 職缺收集 dashboard:履歷一條龍的站 1(FastAPI + Vue)。本機限定,無法部署——後端即時打 104 API",
+    "category": "tool",
     "deployUrl": null,
     "repoUrl": "https://github.com/alvis9315/job-search-secret",
     "startCommand": [
@@ -28,6 +31,7 @@
     "name": "FigureShot Lab",
     "folder": "~/Projects/figureshot-lab",
     "description": "AI 輔助角色攝影靈感平台(Nuxt 3 + Spring Boot + Claude Adapter)",
+    "category": "showcase",
     "deployUrl": "https://figureshot-lab.javacj02004.chatgpt.site",
     "repoUrl": "https://github.com/alvis9315/figureshot-lab"
   },
@@ -35,6 +39,7 @@
     "name": "Revenue Management",
     "folder": "~/Projects/revenue-management-system",
     "description": "營收管理系統(Vue)",
+    "category": "system",
     "deployUrl": null,
     "repoUrl": "https://github.com/alvis9315/revenue-management-system"
   },
@@ -42,6 +47,7 @@
     "name": "Workbench Nexus",
     "folder": "~/Projects/workbench-nexus",
     "description": "本工作站(你在這裡)",
+    "category": "internal",
     "deployUrl": null,
     "repoUrl": "https://github.com/alvis9315/workbench-nexus"
   }

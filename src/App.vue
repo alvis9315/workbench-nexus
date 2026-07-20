@@ -18,6 +18,6 @@ import NavTabs from '@/components/NavTabs.vue'
       <NavTabs class="mt-5" />
     </header>
     <RouterView />
-    <Toaster position="bottom-center" />
+    <Toaster position="top-center" />
   </TooltipProvider>
 </template>
