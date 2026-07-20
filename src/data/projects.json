@@ -3,9 +3,8 @@
     "name": "Knowledge Inbox",
     "folder": "~/Projects/knowledge-inbox",
     "description": "個人知識收件匣:丟進來就好,剩下交給它(Vue 3 + Supabase + Claude Haiku)",
-    "deployUrl": "http://localhost:5174/",
-    "repoUrl": "https://github.com/alvis9315/knowledge-inbox",
-    "devHint": "pnpm dev(部署連結待補,先用本機)"
+    "deployUrl": "https://knowledge-inbox-alvis.javacj02004.chatgpt.site",
+    "repoUrl": "https://github.com/alvis9315/knowledge-inbox"
   },
   {
     "name": "Portfolio",
@@ -18,15 +17,14 @@
     "name": "Job Search Secret",
     "folder": "~/Projects/job-search-secret",
     "description": "104 職缺收集 dashboard:履歷一條龍的站 1(FastAPI + Vue)",
-    "deployUrl": "http://127.0.0.1:5173/",
-    "repoUrl": "https://github.com/alvis9315/job-search-secret",
-    "devHint": "本機專用:dashboard npm run dev(5173)+ 後端 8000;注意 portfolio dev 也用 5173,同時跑會搶 port"
+    "deployUrl": "https://job-search-secret.javacj02004.chatgpt.site",
+    "repoUrl": "https://github.com/alvis9315/job-search-secret"
   },
   {
     "name": "FigureShot Lab",
     "folder": "~/Projects/figureshot-lab",
     "description": "AI 輔助角色攝影靈感平台(Nuxt 3 + Spring Boot + Claude Adapter)",
-    "deployUrl": null,
+    "deployUrl": "https://figureshot-lab.javacj02004.chatgpt.site",
     "repoUrl": "https://github.com/alvis9315/figureshot-lab"
   },
   {
