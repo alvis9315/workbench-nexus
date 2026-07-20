@@ -5,8 +5,14 @@ import { shapes } from '@dicebear/collection'
 import { Blocks, Box, ExternalLink, Search, Sparkles, SwatchBook, Wrench, X } from 'lucide-vue-next'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import itemsData from '@/data/ui-library.json'
 import type { UiLibraryCategory, UiLibraryItem } from '@/types'
+
+// vendor(唯讀外部參考)/ custom(自製正本,對應 ~/UILibrary/custom/ 資料夾)顏色區分:
+// vendor 冷藍(參考用,不改)、custom 金色(自己做的,可重用)——一眼認出哪些是自己的作品。
+const kindBadgeClass = (kind: 'vendor' | 'custom') =>
+  kind === 'vendor' ? 'border-chart-3/40 bg-chart-3/15 text-chart-3' : 'border-primary/40 bg-primary/15 text-primary'
 
 // ~/UILibrary 收藏圖鑑(道具商店式卡片):預覽區優先吃 preview 截圖,
 // 沒截圖時用 shapes 生成的幾何紋樣佔位(seed=名稱,每項專屬)。
@@ -42,20 +48,26 @@ const toggleTag = (tag: string) => {
   activeTags.value = next
 }
 
-const isFiltering = computed(() => query.value.trim() !== '' || activeTags.value.size > 0)
+// 誰做的篩選(vendor/custom/全部):跟搜尋/標籤同一套「查找模式」機制,
+// 選 CUSTOM 就等於「只看我自己做的元件」——不用另開一個頁面,現有篩選加一維就是答案。
+const activeKind = ref<'all' | 'vendor' | 'custom'>('all')
+
+const isFiltering = computed(() => query.value.trim() !== '' || activeTags.value.size > 0 || activeKind.value !== 'all')
 
 const filtered = computed(() => {
   const q = query.value.trim().toLowerCase()
   return items.filter((item) => {
     const matchesQuery = !q || item.name.toLowerCase().includes(q) || item.description.toLowerCase().includes(q) || item.tags.some((t) => t.toLowerCase().includes(q))
     const matchesTags = activeTags.value.size === 0 || item.tags.some((t) => activeTags.value.has(t))
-    return matchesQuery && matchesTags
+    const matchesKind = activeKind.value === 'all' || item.kind === activeKind.value
+    return matchesQuery && matchesTags && matchesKind
   })
 })
 
 const clearFilters = () => {
   query.value = ''
   activeTags.value = new Set()
+  activeKind.value = 'all'
 }
 
 const GROUPS = computed(() =>
@@ -108,6 +120,21 @@ const placeholder = (name: string) =>
       </button>
     </div>
 
+    <div class="mb-6 flex items-center gap-1.5">
+      <span class="font-pixel text-[9px] text-muted-foreground">誰做的</span>
+      <ToggleGroup
+        type="single"
+        :model-value="activeKind"
+        variant="outline"
+        size="sm"
+        @update:model-value="(v) => v && (activeKind = v as typeof activeKind)"
+      >
+        <ToggleGroupItem value="all" class="font-pixel text-[9px]">全部</ToggleGroupItem>
+        <ToggleGroupItem value="vendor" class="font-pixel text-[9px] data-[state=on]:bg-chart-3! data-[state=on]:text-white!">VENDOR</ToggleGroupItem>
+        <ToggleGroupItem value="custom" class="font-pixel text-[9px] data-[state=on]:bg-primary! data-[state=on]:text-primary-foreground!">CUSTOM</ToggleGroupItem>
+      </ToggleGroup>
+    </div>
+
     <!-- 查找結果:搜尋或標籤篩選中時,收合成單一結果列表 -->
     <template v-if="isFiltering">
       <p class="mb-3 text-xs text-muted-foreground">找到 {{ filtered.length }} 筆</p>
@@ -147,7 +174,7 @@ const placeholder = (name: string) =>
             <div class="flex flex-wrap items-center gap-1.5">
               <p class="truncate text-sm font-bold group-hover:text-primary">{{ item.name }}</p>
               <Badge variant="outline" class="px-1 py-0 text-[9px]">{{ CATEGORY_META[item.category].label }}</Badge>
-              <Badge :variant="item.kind === 'vendor' ? 'secondary' : 'outline'" class="px-1 py-0 text-[9px]">
+              <Badge variant="outline" :class="['px-1 py-0 text-[9px]', kindBadgeClass(item.kind)]">
                 {{ item.kind }}
               </Badge>
             </div>
@@ -209,7 +236,7 @@ const placeholder = (name: string) =>
             <div class="flex flex-1 flex-col gap-1 p-3">
               <div class="flex flex-wrap items-center gap-1.5">
                 <p class="truncate text-sm font-bold group-hover:text-primary">{{ item.name }}</p>
-                <Badge :variant="item.kind === 'vendor' ? 'secondary' : 'outline'" class="px-1 py-0 text-[9px]">
+                <Badge variant="outline" :class="['px-1 py-0 text-[9px]', kindBadgeClass(item.kind)]">
                   {{ item.kind }}
                 </Badge>
                 <Badge v-if="item.tech" variant="outline" class="px-1 py-0 text-[9px]">{{ item.tech }}</Badge>
