@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouterLink, useRoute } from 'vue-router'
 
-// 分區分頁(比照本機目錄:~/Skill、~/Projects、repos、~/UILibrary)。
+// 分區分頁(比照本機目錄:~/Skill、~/Projects、repos、~/ui-asset-library)。
 // control center 只做「找到並出發」:技能=複製調用句,其餘=跳轉連結。
 const TABS = [
   { name: 'home', to: '/', label: 'SKILLS', hint: '選角' },

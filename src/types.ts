@@ -60,7 +60,7 @@ export interface Project {
 
 export type ProjectCategory = 'showcase' | 'tool' | 'system' | 'internal'
 
-/** ui-library.json 的一筆:~/UILibrary 收錄項。 */
+/** ui-library.json 的一筆:~/ui-asset-library 收錄項。 */
 export interface UiLibraryItem {
   name: string
   /** 內容類型(主分組軸):元件庫 / 3D 圖形 / agent skill / 動效素材 / 設計工具。 */

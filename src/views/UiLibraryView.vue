@@ -9,12 +9,12 @@ import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import itemsData from '@/data/ui-library.json'
 import type { UiLibraryCategory, UiLibraryItem } from '@/types'
 
-// vendor(唯讀外部參考)/ custom(自製正本,對應 ~/UILibrary/custom/ 資料夾)顏色區分:
+// vendor(唯讀外部參考)/ custom(自製正本,對應 ~/ui-asset-library/custom/ 資料夾)顏色區分:
 // vendor 冷藍(參考用,不改)、custom 金色(自己做的,可重用)——一眼認出哪些是自己的作品。
 const kindBadgeClass = (kind: 'vendor' | 'custom') =>
   kind === 'vendor' ? 'border-chart-3/40 bg-chart-3/15 text-chart-3' : 'border-primary/40 bg-primary/15 text-primary'
 
-// ~/UILibrary 收藏圖鑑(道具商店式卡片):預覽區優先吃 preview 截圖,
+// ~/ui-asset-library 收藏圖鑑(道具商店式卡片):預覽區優先吃 preview 截圖,
 // 沒截圖時用 shapes 生成的幾何紋樣佔位(seed=名稱,每項專屬)。
 // 正本是資料夾本身,這頁是索引;新增收錄 = ui-library.json 加一行。
 //
@@ -86,7 +86,7 @@ const placeholder = (name: string) =>
   <main class="mx-auto max-w-5xl px-6 pb-10">
     <h1 class="mb-1 font-pixel text-lg text-primary">UI LIBRARY</h1>
     <p class="mb-4 text-xs text-muted-foreground">
-      ~/UILibrary 收藏圖鑑;實體在本機資料夾,vendor 更新用 git pull,授權逐項看
+      ~/ui-asset-library 收藏圖鑑;實體在本機資料夾,vendor 更新用 git pull,授權逐項看
     </p>
 
     <div class="relative mb-3 max-w-sm">
