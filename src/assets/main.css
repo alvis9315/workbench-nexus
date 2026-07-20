@@ -132,13 +132,75 @@ body::before {
   box-shadow: 0 3px 0 0 color-mix(in srgb, var(--primary) 55%, black);
 }
 
-/* 卡片進場(一次性,由下浮起;禁無限循環動畫) */
+/* 卡片進場(一次性,由下浮起;禁無限循環動畫——hover 中的游標閃爍除外) */
 @keyframes reveal-up {
   from { opacity: 0; transform: translateY(14px); }
   to { opacity: 1; transform: translateY(0); }
 }
 .reveal-up {
   animation: reveal-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ===== 遊戲語彙(2026-07-20,手法移植自 figureshot-lab:斜切 clip-path / 掃描紋 / 游標)===== */
+
+/* 斜切名牌條(figureshot fs-plate 幾何) */
+.game-plate {
+  clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+}
+
+/* 低調斜向掃描紋背景(figureshot fs-game-bg) */
+.game-scanlines {
+  background-image: repeating-linear-gradient(
+    115deg,
+    transparent 0 42px,
+    color-mix(in srgb, var(--foreground) 4%, transparent) 42px 44px
+  );
+}
+
+/* 洛克人選關游標:hover / focus 時四角 L 形金框 + 8-bit 閃爍 */
+.stage-cursor { position: relative; }
+.stage-cursor::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  pointer-events: none;
+  opacity: 0;
+  --c: var(--primary);
+  background:
+    linear-gradient(var(--c), var(--c)) left 0 top 0 / 16px 3px,
+    linear-gradient(var(--c), var(--c)) left 0 top 0 / 3px 16px,
+    linear-gradient(var(--c), var(--c)) right 0 top 0 / 16px 3px,
+    linear-gradient(var(--c), var(--c)) right 0 top 0 / 3px 16px,
+    linear-gradient(var(--c), var(--c)) left 0 bottom 0 / 16px 3px,
+    linear-gradient(var(--c), var(--c)) left 0 bottom 0 / 3px 16px,
+    linear-gradient(var(--c), var(--c)) right 0 bottom 0 / 16px 3px,
+    linear-gradient(var(--c), var(--c)) right 0 bottom 0 / 3px 16px;
+  background-repeat: no-repeat;
+}
+.stage-cursor:hover::after,
+.stage-cursor:focus-visible::after {
+  opacity: 1;
+  animation: cursor-blink 0.7s steps(1) infinite;
+}
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+/* 武器選單列游標 ▶:hover 時出現 + 閃爍 */
+.weapon-row .weapon-cursor { opacity: 0; }
+.weapon-row:hover .weapon-cursor,
+.weapon-row:focus-visible .weapon-cursor {
+  opacity: 1;
+  animation: cursor-blink 0.7s steps(1) infinite;
+}
+
+/* 武器能量條(段狀,顏色由 --seg 決定;純裝飾) */
+.energy-bar {
+  width: 60px;
+  height: 10px;
+  background: repeating-linear-gradient(90deg, var(--seg, var(--primary)) 0 5px, transparent 5px 8px);
+  opacity: 0.85;
 }
 
 @media (prefers-reduced-motion: reduce) {
