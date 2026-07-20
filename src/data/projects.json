@@ -16,9 +16,13 @@
   {
     "name": "Job Search Secret",
     "folder": "~/Projects/job-search-secret",
-    "description": "104 職缺收集 dashboard:履歷一條龍的站 1(FastAPI + Vue)",
-    "deployUrl": "https://job-search-secret.javacj02004.chatgpt.site",
-    "repoUrl": "https://github.com/alvis9315/job-search-secret"
+    "description": "104 職缺收集 dashboard:履歷一條龍的站 1(FastAPI + Vue)。本機限定,無法部署——後端即時打 104 API",
+    "deployUrl": null,
+    "repoUrl": "https://github.com/alvis9315/job-search-secret",
+    "startCommand": [
+      "cd ~/Projects/job-search-secret && source .venv/bin/activate && python -m job_collector.api",
+      "cd ~/Projects/job-search-secret/dashboard && npm run dev"
+    ]
   },
   {
     "name": "FigureShot Lab",

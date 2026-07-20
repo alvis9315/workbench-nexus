@@ -40,16 +40,21 @@ export interface StarredRepo {
   language: string
 }
 
-/** projects.json 的一筆:~/Projects 下實際有頁面的系統(Stage Select 關卡磚)。 */
+/** projects.json 的一筆:~/Projects 下實際有頁面的系統(Stage Select 關卡磚)。
+ * 三態(依欄位推導,不額外存 status):
+ * - deployUrl 有值 → READY,點擊跳轉該連結
+ * - deployUrl 為 null 但 startCommand 有值 → LOCAL,點擊複製啟動指令(貼終端機自己開;
+ *   本機限定工具無法部署,也不貼假 localhost 連結——connect 到哪個 port 當下可能是別的專案)
+ * - 皆無 → LOCKED,等擁有者補
+ */
 export interface Project {
   name: string
   folder: string
   description: string
-  /** 可跳轉的頁面連結(部署站或本機 dev URL);null = LOCKED,等擁有者補。 */
   deployUrl: string | null
   repoUrl?: string
-  /** 本機 dev URL 的啟動提示(deployUrl 為 localhost 時顯示)。 */
-  devHint?: string
+  /** 本機限定工具的啟動指令(多筆對應多個 terminal,依序執行)。 */
+  startCommand?: string[]
 }
 
 /** ui-library.json 的一筆:~/UILibrary 收錄項(vendor 唯讀參考 / custom 自製正本)。 */
