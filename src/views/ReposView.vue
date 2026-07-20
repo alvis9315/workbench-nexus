@@ -1,51 +1,51 @@
 <script setup lang="ts">
-import { computed, reactive } from 'vue'
+import { computed, ref } from 'vue'
 import { createAvatar } from '@dicebear/core'
 import { identicon } from '@dicebear/collection'
-import { ChevronDown, ChevronRight, Copy, ExternalLink, GitFork, Lock, Pin, Star } from 'lucide-vue-next'
+import { Copy, ExternalLink, GitFork, Lock, Pin, Star } from 'lucide-vue-next'
 import { toast } from 'vue-sonner'
 import { Badge } from '@/components/ui/badge'
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { usePinnedRepos } from '@/composables/usePinnedRepos'
 import reposData from '@/data/repos.json'
 import githubStarsData from '@/data/github-stars.json'
 import type { Repo, RepoCategory, StarredRepo } from '@/types'
 
-// Weapon Get(洛克人武器選單):維持單一列表呈現,不做第二種顯示模式
-// ——武器選單的辨識度就來自「一種樣子」,切換樣式等於稀釋這個隱喻。
-// 「不想一直往下滑」改用兩招解:①分類預設摺疊,只展開想看的 ②PINNED 個人快取層恆展開置頂。
-//
-// 兩種「星」語意不同,圖示與詞彙刻意分開避免混淆:
-// - PINNED(Pin 圖示):自己 28 個 repo 裡挑常用的,純本機 localStorage 偏好
-// - GITHUB STARS(Star 圖示):GitHub 帳號本身加星標的「別人的」repo,外部收藏書籤
+// Weapon Get(洛克人武器選單):維持單一列表呈現,不做第二種顯示模式。
+// 「不想一直往下滑」原本想用摺疊解,但摺疊在這個量級(6 大類、42 筆)體驗仍生硬;
+// 改採 Skills 頁同款機制(CategoryFilter 的單選 chips 篩選)——同一份武器列樣式,
+// 只換「現在看哪一類」,是篩選範圍不是排版模式,不違反武器選單的單一樣式原則。
 const repos = reposData as Repo[]
 const githubStars = githubStarsData as StarredRepo[]
 const { isPinned, togglePin, pinned } = usePinnedRepos(repos)
 
-const GROUPS: { value: RepoCategory; label: string; seg: string }[] = [
-  { value: 'skill', label: 'SKILL 開發', seg: 'var(--primary)' },
-  { value: 'product', label: '產品專案', seg: 'var(--success)' },
-  { value: 'research', label: '研究', seg: 'var(--chart-3)' },
-  { value: 'practice', label: '學習・練習', seg: 'var(--muted-foreground)' },
-  { value: 'reference', label: 'FORK 參考', seg: 'var(--chart-4)' },
+// 分類 tab:統一「ENGLISH + 中文提示」命名(比照 NavTabs 慣例),取代先前中英混雜的標籤
+const TABS: { value: RepoCategory | 'stars'; label: string; hint: string; seg: string }[] = [
+  { value: 'skill', label: 'SKILL', hint: '開發', seg: 'var(--primary)' },
+  { value: 'product', label: 'PRODUCT', hint: '產品', seg: 'var(--success)' },
+  { value: 'research', label: 'RESEARCH', hint: '研究', seg: 'var(--chart-3)' },
+  { value: 'practice', label: 'PRACTICE', hint: '練習', seg: 'var(--muted-foreground)' },
+  { value: 'reference', label: 'FORK', hint: '參考', seg: 'var(--chart-4)' },
+  { value: 'stars', label: 'STARS', hint: '外部收藏', seg: 'var(--chart-5)' },
 ]
 
-const grouped = computed(() =>
-  GROUPS.map((g) => ({
-    ...g,
-    items: repos.filter((r) => r.category === g.value),
-  })).filter((g) => g.items.length > 0),
-)
+const counts = computed(() => {
+  const c: Record<string, number> = { all: repos.length + githubStars.length }
+  for (const t of TABS) c[t.value] = t.value === 'stars' ? githubStars.length : repos.filter((r) => r.category === t.value).length
+  return c
+})
 
-// 分類預設摺疊(每次進頁重置,離開分頁再回來也是摺疊狀態);GITHUB STARS 併入同一套摺疊控制
-const STAR_GROUP = 'github-stars'
-const expanded = reactive<Record<string, boolean>>({})
-const isExpanded = (value: string) => expanded[value] ?? false
-const toggleExpanded = (value: string) => {
-  expanded[value] = !isExpanded(value)
-}
-const ALL_KEYS = [...GROUPS.map((g) => g.value), STAR_GROUP]
-const expandAll = () => ALL_KEYS.forEach((k) => (expanded[k] = true))
-const collapseAll = () => ALL_KEYS.forEach((k) => (expanded[k] = false))
+// 預設落在 SKILL(數量小、最常查),不用「全部」——直接解決「不想一直滑」
+const activeTab = ref<RepoCategory | 'stars' | 'all'>('skill')
+
+const visibleRepoGroups = computed(() => {
+  const cats = activeTab.value === 'all' ? TABS.filter((t) => t.value !== 'stars').map((t) => t.value) : [activeTab.value]
+  return TABS.filter((t) => t.value !== 'stars' && (cats as string[]).includes(t.value)).map((t) => ({
+    ...t,
+    items: repos.filter((r) => r.category === t.value),
+  }))
+})
+const showStars = computed(() => activeTab.value === 'all' || activeTab.value === 'stars')
 
 const itemIcon = (name: string) =>
   createAvatar(identicon, { seed: name, size: 28, backgroundColor: [] }).toDataUri()
@@ -62,33 +62,11 @@ const copyUrl = async (url: string, name: string) => {
 
 <template>
   <main class="mx-auto max-w-5xl px-6 pb-10">
-    <div class="mb-6 flex flex-wrap items-end justify-between gap-3">
-      <div>
-        <h1 class="mb-1 font-pixel text-lg text-primary">WEAPON GET — REPOSITORIES</h1>
-        <p class="text-xs text-muted-foreground">
-          點一列複製網址(裝備武器);📌 釘選常用;共 {{ repos.length }} 個自有 repo + {{ githubStars.length }} 個 GitHub 收藏
-        </p>
-      </div>
-      <div class="flex gap-1.5">
-        <button
-          type="button"
-          class="rounded-md border border-border px-2.5 py-1 font-pixel text-[9px] text-muted-foreground hover:border-primary hover:text-primary"
-          @click="expandAll"
-        >
-          全部展開
-        </button>
-        <button
-          type="button"
-          class="rounded-md border border-border px-2.5 py-1 font-pixel text-[9px] text-muted-foreground hover:border-primary hover:text-primary"
-          @click="collapseAll"
-        >
-          全部收合
-        </button>
-      </div>
-    </div>
+    <h1 class="mb-1 font-pixel text-lg text-primary">WEAPON GET — REPOSITORIES</h1>
+    <p class="mb-5 text-xs text-muted-foreground">點一列複製網址(裝備武器);📌 釘選常用</p>
 
-    <!-- PINNED:自有 repo 的個人快取層,恆展開置頂,不受摺疊控制 -->
-    <section class="mb-8">
+    <!-- PINNED:自有 repo 的個人快取層,恆展開置頂,不受分頁篩選影響 -->
+    <section class="mb-6">
       <h2 class="mb-2 flex items-center gap-2 font-pixel text-xs text-primary">
         <Pin class="size-3.5" fill="currentColor" />
         PINNED
@@ -129,20 +107,29 @@ const copyUrl = async (url: string, name: string) => {
       </p>
     </section>
 
-    <!-- 自有 repo 分類:預設摺疊 -->
-    <section v-for="group in grouped" :key="group.value" class="mb-3">
-      <button
-        type="button"
-        class="mb-2 flex w-full items-center gap-2 rounded-md border border-transparent px-1 py-1 text-left font-pixel text-xs text-muted-foreground transition-colors hover:text-foreground"
-        @click="toggleExpanded(group.value)"
-      >
-        <ChevronDown v-if="isExpanded(group.value)" class="size-3.5 shrink-0" />
-        <ChevronRight v-else class="size-3.5 shrink-0" />
-        {{ group.label }}
-        <span class="text-[10px]">×{{ group.items.length }}</span>
-      </button>
+    <!-- 分類 tab(單選 chips,同 Skills 頁 CategoryFilter 機制):只換篩選範圍,武器列樣式不變 -->
+    <ToggleGroup
+      type="single"
+      :model-value="activeTab"
+      variant="outline"
+      class="mb-5 flex-wrap justify-start"
+      @update:model-value="(v) => v && (activeTab = v as typeof activeTab)"
+    >
+      <ToggleGroupItem value="all" class="gap-1 font-pixel text-[10px]">
+        全部 <span class="text-[9px] opacity-70">×{{ counts.all }}</span>
+      </ToggleGroupItem>
+      <ToggleGroupItem v-for="t in TABS" :key="t.value" :value="t.value" class="gap-1 font-pixel text-[10px]">
+        {{ t.label }} <span class="text-[9px] opacity-70">{{ t.hint }}</span>
+        <span class="text-[9px] opacity-70">×{{ counts[t.value] }}</span>
+      </ToggleGroupItem>
+    </ToggleGroup>
 
-      <div v-show="isExpanded(group.value)" class="space-y-1.5">
+    <!-- 自有 repo:依 activeTab 篩選後的分類 -->
+    <section v-for="group in visibleRepoGroups" :key="group.value" class="mb-6">
+      <h3 v-if="activeTab === 'all'" class="mb-2 font-pixel text-[10px] text-muted-foreground">
+        {{ group.label }} {{ group.hint }} <span class="text-[9px]">×{{ group.items.length }}</span>
+      </h3>
+      <div class="space-y-1.5">
         <button
           v-for="r in group.items"
           :key="r.name"
@@ -197,21 +184,12 @@ const copyUrl = async (url: string, name: string) => {
       </div>
     </section>
 
-    <!-- GITHUB STARS:帳號本身加星標的外部 repo(非自有,唯讀書籤),同樣預設摺疊 -->
-    <section class="mb-3">
-      <button
-        type="button"
-        class="mb-2 flex w-full items-center gap-2 rounded-md border border-transparent px-1 py-1 text-left font-pixel text-xs text-muted-foreground transition-colors hover:text-foreground"
-        @click="toggleExpanded(STAR_GROUP)"
-      >
-        <ChevronDown v-if="isExpanded(STAR_GROUP)" class="size-3.5 shrink-0" />
-        <ChevronRight v-else class="size-3.5 shrink-0" />
-        <Star class="size-3.5 shrink-0" />
-        GITHUB STARS(外部收藏)
-        <span class="text-[10px]">×{{ githubStars.length }}</span>
-      </button>
-
-      <div v-show="isExpanded(STAR_GROUP)" class="space-y-1.5">
+    <!-- GITHUB STARS:帳號本身加星標的外部 repo(非自有,唯讀書籤) -->
+    <section v-if="showStars" class="mb-6">
+      <h3 v-if="activeTab === 'all'" class="mb-2 flex items-center gap-1.5 font-pixel text-[10px] text-muted-foreground">
+        <Star class="size-3" /> STARS 外部收藏 <span class="text-[9px]">×{{ githubStars.length }}</span>
+      </h3>
+      <div class="space-y-1.5">
         <button
           v-for="s in githubStars"
           :key="`${s.owner}/${s.name}`"

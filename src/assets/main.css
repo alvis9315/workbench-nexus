@@ -89,8 +89,11 @@
   --font-sans: "Noto Sans TC", system-ui, -apple-system, sans-serif;
 }
 
-html, body, #app { height: 100%; }
+/* min-height(非 height):內容展開超過一屏時背景要跟著長高,否則露出瀏覽器預設底色形成色差接縫 */
+html, body, #app { min-height: 100%; }
+html { background: var(--background); }
 body {
+  min-height: 100vh;
   background: var(--page-bg);
   position: relative;
 }
