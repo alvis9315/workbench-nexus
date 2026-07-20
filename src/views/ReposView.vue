@@ -2,18 +2,24 @@
 import { computed, reactive } from 'vue'
 import { createAvatar } from '@dicebear/core'
 import { identicon } from '@dicebear/collection'
-import { ChevronDown, ChevronRight, Copy, ExternalLink, GitFork, Lock, Star } from 'lucide-vue-next'
+import { ChevronDown, ChevronRight, Copy, ExternalLink, GitFork, Lock, Pin, Star } from 'lucide-vue-next'
 import { toast } from 'vue-sonner'
 import { Badge } from '@/components/ui/badge'
-import { useRepoStars } from '@/composables/useRepoStars'
+import { usePinnedRepos } from '@/composables/usePinnedRepos'
 import reposData from '@/data/repos.json'
-import type { Repo, RepoCategory } from '@/types'
+import githubStarsData from '@/data/github-stars.json'
+import type { Repo, RepoCategory, StarredRepo } from '@/types'
 
 // Weapon Get(洛克人武器選單):維持單一列表呈現,不做第二種顯示模式
 // ——武器選單的辨識度就來自「一種樣子」,切換樣式等於稀釋這個隱喻。
-// 「不想一直往下滑」改用兩招解:①分類預設摺疊,只展開想看的 ②STARRED 常用快取層恆展開置頂。
+// 「不想一直往下滑」改用兩招解:①分類預設摺疊,只展開想看的 ②PINNED 個人快取層恆展開置頂。
+//
+// 兩種「星」語意不同,圖示與詞彙刻意分開避免混淆:
+// - PINNED(Pin 圖示):自己 28 個 repo 裡挑常用的,純本機 localStorage 偏好
+// - GITHUB STARS(Star 圖示):GitHub 帳號本身加星標的「別人的」repo,外部收藏書籤
 const repos = reposData as Repo[]
-const { isStarred, toggleStar, starred } = useRepoStars(repos)
+const githubStars = githubStarsData as StarredRepo[]
+const { isPinned, togglePin, pinned } = usePinnedRepos(repos)
 
 const GROUPS: { value: RepoCategory; label: string; seg: string }[] = [
   { value: 'skill', label: 'SKILL 開發', seg: 'var(--primary)' },
@@ -30,14 +36,16 @@ const grouped = computed(() =>
   })).filter((g) => g.items.length > 0),
 )
 
-// 分類預設摺疊(每次進頁重置,離開分頁再回來也是摺疊狀態)
+// 分類預設摺疊(每次進頁重置,離開分頁再回來也是摺疊狀態);GITHUB STARS 併入同一套摺疊控制
+const STAR_GROUP = 'github-stars'
 const expanded = reactive<Record<string, boolean>>({})
 const isExpanded = (value: string) => expanded[value] ?? false
 const toggleExpanded = (value: string) => {
   expanded[value] = !isExpanded(value)
 }
-const expandAll = () => GROUPS.forEach((g) => (expanded[g.value] = true))
-const collapseAll = () => GROUPS.forEach((g) => (expanded[g.value] = false))
+const ALL_KEYS = [...GROUPS.map((g) => g.value), STAR_GROUP]
+const expandAll = () => ALL_KEYS.forEach((k) => (expanded[k] = true))
+const collapseAll = () => ALL_KEYS.forEach((k) => (expanded[k] = false))
 
 const itemIcon = (name: string) =>
   createAvatar(identicon, { seed: name, size: 28, backgroundColor: [] }).toDataUri()
@@ -57,7 +65,9 @@ const copyUrl = async (url: string, name: string) => {
     <div class="mb-6 flex flex-wrap items-end justify-between gap-3">
       <div>
         <h1 class="mb-1 font-pixel text-lg text-primary">WEAPON GET — REPOSITORIES</h1>
-        <p class="text-xs text-muted-foreground">點一列複製網址(裝備武器);★ 收藏常用;共 {{ repos.length }} 個 repo</p>
+        <p class="text-xs text-muted-foreground">
+          點一列複製網址(裝備武器);📌 釘選常用;共 {{ repos.length }} 個自有 repo + {{ githubStars.length }} 個 GitHub 收藏
+        </p>
       </div>
       <div class="flex gap-1.5">
         <button
@@ -77,16 +87,16 @@ const copyUrl = async (url: string, name: string) => {
       </div>
     </div>
 
-    <!-- STARRED:常用快取層,恆展開置頂,不受摺疊控制 -->
+    <!-- PINNED:自有 repo 的個人快取層,恆展開置頂,不受摺疊控制 -->
     <section class="mb-8">
       <h2 class="mb-2 flex items-center gap-2 font-pixel text-xs text-primary">
-        <Star class="size-3.5" fill="currentColor" />
-        STARRED
-        <span class="text-[10px] text-muted-foreground">×{{ starred.length }}</span>
+        <Pin class="size-3.5" fill="currentColor" />
+        PINNED
+        <span class="text-[10px] text-muted-foreground">×{{ pinned.length }}</span>
       </h2>
-      <div v-if="starred.length" class="space-y-1.5">
+      <div v-if="pinned.length" class="space-y-1.5">
         <button
-          v-for="r in starred"
+          v-for="r in pinned"
           :key="r.name"
           type="button"
           class="weapon-row group flex w-full items-center gap-3 rounded-md border border-primary/40 bg-primary/5 px-3 py-2.5 text-left transition-colors hover:border-primary hover:bg-accent focus-visible:border-primary focus-visible:outline-none"
@@ -106,20 +116,20 @@ const copyUrl = async (url: string, name: string) => {
             role="button"
             tabindex="0"
             class="shrink-0 rounded-md p-1.5 text-primary transition-transform hover:scale-125"
-            title="取消收藏"
-            @click.stop="toggleStar(r)"
-            @keydown.enter.stop="toggleStar(r)"
+            title="取消釘選"
+            @click.stop="togglePin(r)"
+            @keydown.enter.stop="togglePin(r)"
           >
-            <Star class="size-4" fill="currentColor" />
+            <Pin class="size-4" fill="currentColor" />
           </span>
         </button>
       </div>
       <p v-else class="rounded-md border border-dashed border-border px-3 py-3 text-xs text-muted-foreground">
-        還沒有收藏的 repo——點下方任一列右側的 ☆ 加進這裡,常用武器不用每次翻分類找
+        還沒有釘選的 repo——點下方任一列右側的 📌 加進這裡,常用武器不用每次翻分類找
       </p>
     </section>
 
-    <!-- 分類:預設摺疊,點標題列展開/收合 -->
+    <!-- 自有 repo 分類:預設摺疊 -->
     <section v-for="group in grouped" :key="group.value" class="mb-3">
       <button
         type="button"
@@ -166,15 +176,68 @@ const copyUrl = async (url: string, name: string) => {
             role="button"
             tabindex="0"
             class="shrink-0 rounded-md p-1.5 transition-transform hover:scale-125"
-            :class="isStarred(r) ? 'text-primary' : 'text-muted-foreground/50 hover:text-primary'"
-            :title="isStarred(r) ? '取消收藏' : '收藏到 STARRED'"
-            @click.stop="toggleStar(r)"
-            @keydown.enter.stop="toggleStar(r)"
+            :class="isPinned(r) ? 'text-primary' : 'text-muted-foreground/50 hover:text-primary'"
+            :title="isPinned(r) ? '取消釘選' : '釘選到 PINNED'"
+            @click.stop="togglePin(r)"
+            @keydown.enter.stop="togglePin(r)"
           >
-            <Star class="size-4" :fill="isStarred(r) ? 'currentColor' : 'none'" />
+            <Pin class="size-4" :fill="isPinned(r) ? 'currentColor' : 'none'" />
           </span>
           <a
             :href="r.url"
+            target="_blank"
+            rel="noreferrer"
+            class="shrink-0 rounded-md border border-transparent p-1.5 text-muted-foreground transition-all hover:scale-110 hover:border-primary hover:bg-primary/15 hover:text-primary"
+            title="開啟 GitHub"
+            @click.stop
+          >
+            <ExternalLink class="size-4" />
+          </a>
+        </button>
+      </div>
+    </section>
+
+    <!-- GITHUB STARS:帳號本身加星標的外部 repo(非自有,唯讀書籤),同樣預設摺疊 -->
+    <section class="mb-3">
+      <button
+        type="button"
+        class="mb-2 flex w-full items-center gap-2 rounded-md border border-transparent px-1 py-1 text-left font-pixel text-xs text-muted-foreground transition-colors hover:text-foreground"
+        @click="toggleExpanded(STAR_GROUP)"
+      >
+        <ChevronDown v-if="isExpanded(STAR_GROUP)" class="size-3.5 shrink-0" />
+        <ChevronRight v-else class="size-3.5 shrink-0" />
+        <Star class="size-3.5 shrink-0" />
+        GITHUB STARS(外部收藏)
+        <span class="text-[10px]">×{{ githubStars.length }}</span>
+      </button>
+
+      <div v-show="isExpanded(STAR_GROUP)" class="space-y-1.5">
+        <button
+          v-for="s in githubStars"
+          :key="`${s.owner}/${s.name}`"
+          type="button"
+          class="weapon-row group flex w-full items-center gap-3 rounded-md border border-border/60 bg-card/70 px-3 py-2.5 text-left transition-colors hover:border-primary hover:bg-accent focus-visible:border-primary focus-visible:outline-none"
+          :aria-label="`複製 ${s.owner}/${s.name} 網址`"
+          @click="copyUrl(s.url, `${s.owner}/${s.name}`)"
+        >
+          <span class="weapon-cursor shrink-0 font-pixel text-xs text-primary">▶</span>
+
+          <span class="game-plate flex size-9 shrink-0 items-center justify-center bg-accent transition-colors group-hover:bg-primary/25">
+            <img :src="itemIcon(`${s.owner}/${s.name}`)" alt="" width="26" height="26" class="[image-rendering:pixelated]" />
+          </span>
+
+          <div class="min-w-0 flex-1">
+            <div class="flex items-center gap-1.5">
+              <p class="truncate text-sm font-bold group-hover:text-primary">{{ s.name }}</p>
+              <span class="shrink-0 text-[10px] text-muted-foreground">{{ s.owner }}</span>
+              <Badge variant="outline" class="px-1 py-0 text-[9px]">{{ s.language }}</Badge>
+            </div>
+            <p class="truncate text-xs text-muted-foreground">{{ s.description }}</p>
+          </div>
+
+          <Copy class="size-4 shrink-0 text-muted-foreground group-hover:text-primary" />
+          <a
+            :href="s.url"
             target="_blank"
             rel="noreferrer"
             class="shrink-0 rounded-md border border-transparent p-1.5 text-muted-foreground transition-all hover:scale-110 hover:border-primary hover:bg-primary/15 hover:text-primary"

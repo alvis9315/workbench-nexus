@@ -31,6 +31,15 @@ export interface Repo {
 
 export type RepoCategory = 'skill' | 'product' | 'research' | 'practice' | 'reference'
 
+/** github-stars.json 的一筆:GitHub 帳號層級加星標的「別人的」repo(外部收藏,非自有)。 */
+export interface StarredRepo {
+  owner: string
+  name: string
+  url: string
+  description: string
+  language: string
+}
+
 /** projects.json 的一筆:~/Projects 下實際有頁面的系統(Stage Select 關卡磚)。 */
 export interface Project {
   name: string

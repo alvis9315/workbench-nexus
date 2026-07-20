@@ -1,0 +1,16 @@
+[
+  { "owner": "mqnc", "name": "propwash", "url": "https://github.com/mqnc/propwash", "description": "Web FPV 無人機模擬器", "language": "JavaScript" },
+  { "owner": "hrshbrdhnn", "name": "3D-Drone-Threejs", "url": "https://github.com/hrshbrdhnn/3D-Drone-Threejs", "description": "Blender 3D 無人機渲染(.gltf 格式)", "language": "JavaScript" },
+  { "owner": "scottstts", "name": "Threejs-Awesome-Graphics-Agent-Skills", "url": "https://github.com/scottstts/Threejs-Awesome-Graphics-Agent-Skills", "description": "用於場景與遊戲圖形生成的 Three.js agent skills", "language": "JavaScript" },
+  { "owner": "bergside", "name": "design-md-chrome", "url": "https://github.com/bergside/design-md-chrome", "description": "Chrome 擴充:提取網站樣式生成設計文件", "language": "JavaScript" },
+  { "owner": "oso95", "name": "scroll-world", "url": "https://github.com/oso95/scroll-world", "description": "把任何品牌轉換為可捲動 3D 世界的 skill", "language": "JavaScript" },
+  { "owner": "nexu-io", "name": "open-design", "url": "https://github.com/nexu-io/open-design", "description": "開源設計工具,本地優先桌面應用", "language": "TypeScript" },
+  { "owner": "DavidHDev", "name": "react-bits", "url": "https://github.com/DavidHDev/react-bits", "description": "動畫、互動式可自訂 React 元件集", "language": "JavaScript" },
+  { "owner": "gcpdev", "name": "llm-council-skill", "url": "https://github.com/gcpdev/llm-council-skill", "description": "用多個 LLM 腦力激盪的 skill", "language": "Python" },
+  { "owner": "agentcrew-academy", "name": "claude-codex-harness-sync", "url": "https://github.com/agentcrew-academy/claude-codex-harness-sync", "description": "Claude Code harness 審計與遷移工具", "language": "Python" },
+  { "owner": "hex", "name": "claude-council", "url": "https://github.com/hex/claude-council", "description": "諮詢多個 AI coding agent 的外掛", "language": "Shell" },
+  { "owner": "HKUDS", "name": "RAG-Anything", "url": "https://github.com/HKUDS/RAG-Anything", "description": "全能 RAG 框架", "language": "Python" },
+  { "owner": "Egonex-AI", "name": "Understand-Anything", "url": "https://github.com/Egonex-AI/Understand-Anything", "description": "代碼轉互動知識圖譜工具", "language": "TypeScript" },
+  { "owner": "voidful", "name": "hung-yi-lee-skill", "url": "https://github.com/voidful/hung-yi-lee-skill", "description": "李宏毅教授課程 skill", "language": "HTML" },
+  { "owner": "Graphify-Labs", "name": "graphify", "url": "https://github.com/Graphify-Labs/graphify", "description": "AI 編碼助手 skill:代碼資料夾轉查詢工具", "language": "Python" }
+]
