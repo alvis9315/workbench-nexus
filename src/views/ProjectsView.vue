@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ExternalLink, GitBranch, Lock, Play } from 'lucide-vue-next'
-import NavTabs from '@/components/NavTabs.vue'
 import projectsData from '@/data/projects.json'
 import type { Project } from '@/types'
 
@@ -12,8 +11,7 @@ const isLocal = (url: string | null) => !!url && /localhost|127\.0\.0\.1/.test(u
 </script>
 
 <template>
-  <main class="mx-auto max-w-5xl px-6 py-10">
-    <NavTabs />
+  <main class="mx-auto max-w-5xl px-6 pb-10">
     <h1 class="mb-1 font-pixel text-lg text-primary">STAGE SELECT</h1>
     <p class="mb-6 text-xs text-muted-foreground">
       ~/Projects 下有頁面的系統;點擊出發。LOCKED = 部署連結待補(projects.json 補 deployUrl 即解鎖)

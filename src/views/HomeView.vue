@@ -4,7 +4,6 @@ import { Search, History } from 'lucide-vue-next'
 import { Button } from '@/components/ui/button'
 import { Kbd } from '@/components/ui/kbd'
 import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from '@/components/ui/empty'
-import NavTabs from '@/components/NavTabs.vue'
 import SkillCard from '@/components/SkillCard.vue'
 import CategoryFilter from '@/components/CategoryFilter.vue'
 import CommandPalette from '@/components/CommandPalette.vue'
@@ -35,22 +34,17 @@ const activeSkill = computed(() => skills.find((s) => s.id === openSkillId.value
 </script>
 
 <template>
-  <main class="mx-auto max-w-5xl px-6 py-10">
-    <header class="mb-6 flex items-center justify-between gap-4">
-      <h1 class="font-pixel text-lg text-primary sm:text-xl">WORKBENCH NEXUS</h1>
-      <div class="flex items-center gap-2">
-        <Button variant="outline" size="icon" class="text-muted-foreground" title="使用紀錄" @click="logOpen = true">
-          <History class="size-4" />
-        </Button>
-        <Button variant="outline" class="gap-2 text-muted-foreground" @click="palette && (palette.open = true)">
-          <Search class="size-4" />
-          <span class="text-xs">搜尋技能</span>
-          <Kbd class="ml-1">⌘K</Kbd>
-        </Button>
-      </div>
-    </header>
-
-    <NavTabs />
+  <main class="mx-auto max-w-5xl px-6 pb-10">
+    <div class="mb-4 flex items-center justify-end gap-2">
+      <Button variant="outline" size="icon" class="text-muted-foreground" title="使用紀錄" @click="logOpen = true">
+        <History class="size-4" />
+      </Button>
+      <Button variant="outline" class="gap-2 text-muted-foreground" @click="palette && (palette.open = true)">
+        <Search class="size-4" />
+        <span class="text-xs">搜尋技能</span>
+        <Kbd class="ml-1">⌘K</Kbd>
+      </Button>
+    </div>
 
     <Hotbar :pinned="pinned" />
 

@@ -3,7 +3,6 @@ import { computed } from 'vue'
 import { Copy, ExternalLink, GitBranch, GitFork, Lock } from 'lucide-vue-next'
 import { toast } from 'vue-sonner'
 import { Badge } from '@/components/ui/badge'
-import NavTabs from '@/components/NavTabs.vue'
 import reposData from '@/data/repos.json'
 import type { Repo, RepoCategory } from '@/types'
 
@@ -37,8 +36,7 @@ const copyUrl = async (url: string, name: string) => {
 </script>
 
 <template>
-  <main class="mx-auto max-w-3xl px-6 py-10">
-    <NavTabs />
+  <main class="mx-auto max-w-5xl px-6 pb-10">
     <h1 class="mb-1 font-pixel text-lg text-primary">WEAPON GET — REPOSITORIES</h1>
     <p class="mb-6 text-xs text-muted-foreground">點一列複製網址(裝備武器);共 {{ repos.length }} 個 repo</p>
 

@@ -1,13 +1,22 @@
 <script setup lang="ts">
-// App 殼只做路由出口 + 全域 chrome(splash/toast/tooltip provider)。
+// App 殼只做路由出口 + 全域 chrome(splash/toast/tooltip provider/固定頂欄)。
+// 頂欄(標題 + 分區分頁)住在 RouterView 外:換頁不重繪、位置恆定不跳動。
+import { RouterLink } from 'vue-router'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { Toaster } from '@/components/ui/sonner'
 import SplashScreen from '@/components/SplashScreen.vue'
+import NavTabs from '@/components/NavTabs.vue'
 </script>
 
 <template>
   <TooltipProvider :delay-duration="200">
     <SplashScreen />
+    <header class="mx-auto w-full max-w-5xl px-6 pt-10">
+      <RouterLink to="/" class="inline-block">
+        <h1 class="font-pixel text-lg text-primary sm:text-xl">WORKBENCH NEXUS</h1>
+      </RouterLink>
+      <NavTabs class="mt-5" />
+    </header>
     <RouterView />
     <Toaster position="bottom-center" />
   </TooltipProvider>

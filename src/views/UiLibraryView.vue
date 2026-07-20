@@ -2,7 +2,6 @@
 import { computed } from 'vue'
 import { ExternalLink, Package, Wrench } from 'lucide-vue-next'
 import { Badge } from '@/components/ui/badge'
-import NavTabs from '@/components/NavTabs.vue'
 import itemsData from '@/data/ui-library.json'
 import type { UiLibraryItem } from '@/types'
 
@@ -19,8 +18,7 @@ const GROUPS = computed(() => [
 </script>
 
 <template>
-  <main class="mx-auto max-w-3xl px-6 py-10">
-    <NavTabs />
+  <main class="mx-auto max-w-5xl px-6 pb-10">
     <h1 class="mb-1 font-pixel text-lg text-primary">UI LIBRARY</h1>
     <p class="mb-6 text-xs text-muted-foreground">
       ~/UILibrary 收錄索引;實體在本機資料夾,vendor 更新用 git pull,授權逐項看
