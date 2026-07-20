@@ -14,6 +14,7 @@
     "kind": "custom",
     "tech": "vue",
     "description": "自製可重用元件正本(custom/vue/MenuSweep)",
+    "url": "https://github.com/alvis9315/ui-asset-library/tree/main/custom/vue/MenuSweep",
     "license": "自有",
     "tags": ["動效", "vue", "選單"]
   },

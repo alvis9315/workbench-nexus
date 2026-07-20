@@ -13,6 +13,12 @@
 - 禁止 commit:API key、token、`.env`、個資
 - 無後端、無 DB、無 auth:資料來源 = `src/data/*.json`(manifest 即 source of truth);跨重整狀態用 localStorage
 - **資料驅動、零硬編碼**:技能牆/分類/hotbar 全從 JSON 迭代渲染;新增 skill = skills.json 加一行,不改元件程式碼
+- **跨 repo 內容一律連結,不搬進本 repo**:本 app 是索引/發射台,不是內容正本。任何指向外部 repo 的資料
+  (`ui-library.json`、`repos.json`、`projects.json` 等)只要條目對應到有實體檔案的外部來源,
+  **`url` 欄位為必填**,精準指到可點開的位置(GitHub 檔案/資料夾路徑,不是只指到 repo 根目錄);
+  沒有 `url` 等於「看得到存在、找不到本體」,是資料缺陷不是可接受狀態。
+  範例:`ui-library.json` 的 `custom` 項目(元件正本在 `ui-asset-library` repo)必須指到
+  `github.com/alvis9315/ui-asset-library/tree/main/custom/<tech>/<Name>`,不能只寫描述文字帶過
 - 只用 pnpm;不混包管、不刪 lockfile
 - UI 只用 shadcn-vue(Reka UI)+ Tailwind v4 token;不混其他 UI library
 - **主題 = token bundle**:換風格改 `src/assets/main.css` 的 CSS 變數,不動元件(不整套換皮 NES.css/RPGUI 的 DOM)
