@@ -11,9 +11,8 @@
     "name": "Portfolio",
     "folder": "~/Projects/portfolio",
     "description": "個人作品集:scroll 驅動 3D 鏡頭飛行(Vue 3 + Three.js)",
-    "deployUrl": "http://localhost:5173/",
-    "repoUrl": "https://github.com/alvis9315/portfolio",
-    "devHint": "npm run dev(部署連結待補,先用本機)"
+    "deployUrl": "https://alvis-portfolio.javacj02004.chatgpt.site",
+    "repoUrl": "https://github.com/alvis9315/portfolio"
   },
   {
     "name": "Job Search Secret",
@@ -21,7 +20,7 @@
     "description": "104 職缺收集 dashboard:履歷一條龍的站 1(FastAPI + Vue)",
     "deployUrl": "http://127.0.0.1:5173/",
     "repoUrl": "https://github.com/alvis9315/job-search-secret",
-    "devHint": "本機專用:後端 uvicorn(8000)+ dashboard npm run dev"
+    "devHint": "本機專用:dashboard npm run dev(5173)+ 後端 8000;注意 portfolio dev 也用 5173,同時跑會搶 port"
   },
   {
     "name": "FigureShot Lab",

@@ -52,19 +52,25 @@ const isLocal = (url: string | null) => !!url && /localhost|127\.0\.0\.1/.test(u
           <p class="truncate text-[10px] text-muted-foreground/70">
             {{ p.deployUrl ?? (p.devHint ?? '等待部署連結…') }}
           </p>
-          <div class="flex shrink-0 items-center gap-1">
+          <div class="flex shrink-0 items-center gap-1.5">
             <a
               v-if="p.repoUrl"
               :href="p.repoUrl"
               target="_blank"
               rel="noreferrer"
-              class="rounded-md p-1 text-muted-foreground hover:text-foreground"
-              title="GitHub repo"
+              class="rounded-md border border-transparent p-1.5 text-muted-foreground transition-all hover:scale-110 hover:border-primary hover:bg-primary/15 hover:text-primary"
+              title="開啟 GitHub repo"
               @click.stop
             >
-              <GitBranch class="size-3.5" />
+              <GitBranch class="size-4" />
             </a>
-            <ExternalLink v-if="p.deployUrl" class="size-3.5 text-muted-foreground group-hover:text-primary" />
+            <span
+              v-if="p.deployUrl"
+              class="rounded-md border border-transparent p-1.5 text-muted-foreground transition-all group-hover:border-primary group-hover:bg-primary/15 group-hover:text-primary"
+              title="前往頁面"
+            >
+              <ExternalLink class="size-4" />
+            </span>
           </div>
         </div>
       </component>
