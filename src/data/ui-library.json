@@ -1,35 +1,42 @@
 [
   {
     "name": "react-bits",
+    "category": "components",
     "kind": "vendor",
     "description": "React 動效元件集;曾移植 Galaxy、Threads → knowledge-inbox",
     "url": "https://reactbits.dev",
     "license": "MIT"
   },
   {
-    "name": "Threejs-Awesome-Graphics-Agent-Skills",
-    "kind": "vendor",
-    "description": "Three.js 圖形實作與 agent skills 參考",
-    "url": "https://github.com/alvis9315/UILibrary",
-    "license": "見各 repo"
-  },
-  {
-    "name": "propwash",
-    "kind": "vendor",
-    "description": "Web FPV 無人機模擬器;參考 camera rig / lerp / slerp,不搬整套物理",
-    "license": "MIT(素材另有 CC,逐項確認)"
-  },
-  {
-    "name": "3D-Drone-Threejs",
-    "kind": "vendor",
-    "description": "DJI FPV 模型 + Three.js 載入打光參考;模型 CC BY 4.0 須署名",
-    "license": "無根 LICENSE,原始碼僅供閱讀"
-  },
-  {
     "name": "MenuSweep",
+    "category": "components",
     "kind": "custom",
     "tech": "vue",
     "description": "自製可重用元件正本(custom/vue/MenuSweep)",
     "license": "自有"
+  },
+  {
+    "name": "propwash",
+    "category": "3d",
+    "kind": "vendor",
+    "description": "Web FPV 無人機模擬器;參考 camera rig / lerp / slerp,不搬整套物理",
+    "url": "https://github.com/mqnc/propwash",
+    "license": "MIT(素材另有 CC,逐項確認)"
+  },
+  {
+    "name": "3D-Drone-Threejs",
+    "category": "3d",
+    "kind": "vendor",
+    "description": "DJI FPV 模型 + Three.js 載入打光參考;模型 CC BY 4.0 須署名",
+    "url": "https://github.com/hrshbrdhnn/3D-Drone-Threejs",
+    "license": "無根 LICENSE,原始碼僅供閱讀"
+  },
+  {
+    "name": "Threejs-Awesome-Graphics-Agent-Skills",
+    "category": "agent-skill",
+    "kind": "vendor",
+    "description": "Three.js 場景與遊戲圖形生成的 agent skills 合集",
+    "url": "https://github.com/scottstts/Threejs-Awesome-Graphics-Agent-Skills",
+    "license": "見 repo"
   }
 ]

@@ -57,9 +57,12 @@ export interface Project {
   startCommand?: string[]
 }
 
-/** ui-library.json 的一筆:~/UILibrary 收錄項(vendor 唯讀參考 / custom 自製正本)。 */
+/** ui-library.json 的一筆:~/UILibrary 收錄項。 */
 export interface UiLibraryItem {
   name: string
+  /** 內容類型(主分組軸):元件庫 / 3D 圖形 / agent skill / 動效素材 / 設計工具。 */
+  category: UiLibraryCategory
+  /** 誰做的(次要標籤,非分組軸):vendor 唯讀參考 / custom 自製正本。 */
   kind: 'vendor' | 'custom'
   /** custom 才有:vue / react / common。 */
   tech?: string
@@ -70,3 +73,5 @@ export interface UiLibraryItem {
   /** 預覽圖路徑(public/ 下);未提供時卡片顯示樣式化佔位。 */
   preview?: string
 }
+
+export type UiLibraryCategory = 'components' | '3d' | 'agent-skill' | 'motion' | 'design-tool'
