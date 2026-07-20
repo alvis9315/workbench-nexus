@@ -75,6 +75,8 @@ export interface UiLibraryItem {
   license?: string
   /** 預覽圖路徑(public/ 下);未提供時卡片顯示樣式化佔位。 */
   preview?: string
+  /** 自由標籤(跨分類篩選用):技術/用途關鍵字,多選 OR 篩選。 */
+  tags: string[]
 }
 
 export type UiLibraryCategory = 'components' | '3d' | 'agent-skill' | 'motion' | 'design-tool'
