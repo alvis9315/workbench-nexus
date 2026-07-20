@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { createAvatar } from '@dicebear/core'
+import { identicon } from '@dicebear/collection'
 import { Copy, ExternalLink, GitFork, Lock } from 'lucide-vue-next'
 import { toast } from 'vue-sonner'
 import { Badge } from '@/components/ui/badge'
@@ -25,14 +27,9 @@ const grouped = computed(() =>
   })).filter((g) => g.items.length > 0),
 )
 
-// 武器代號:repo 名的字首兩碼(如 workbench-nexus → WN)
-const weaponCode = (name: string) =>
-  name
-    .split(/[-_\s]+/)
-    .map((w) => w[0])
-    .join('')
-    .slice(0, 2)
-    .toUpperCase()
+// 像素道具紋章:identicon(GitHub 式對稱像素紋)以 repo 名為 seed,每把武器一個專屬 sprite
+const itemIcon = (name: string) =>
+  createAvatar(identicon, { seed: name, size: 28, backgroundColor: [] }).toDataUri()
 
 const copyUrl = async (url: string, name: string) => {
   try {
@@ -66,9 +63,9 @@ const copyUrl = async (url: string, name: string) => {
           <span class="weapon-cursor shrink-0 font-pixel text-xs text-primary">▶</span>
 
           <span
-            class="game-plate flex size-9 shrink-0 items-center justify-center bg-accent font-pixel text-[10px] text-foreground transition-colors group-hover:bg-primary group-hover:text-primary-foreground"
+            class="game-plate flex size-9 shrink-0 items-center justify-center bg-accent transition-colors group-hover:bg-primary/25"
           >
-            {{ weaponCode(r.name) }}
+            <img :src="itemIcon(r.name)" alt="" width="26" height="26" class="[image-rendering:pixelated]" />
           </span>
 
           <div class="min-w-0 flex-1">

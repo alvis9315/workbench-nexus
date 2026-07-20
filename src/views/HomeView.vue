@@ -31,6 +31,17 @@ const openSkill = (id: string) => {
   openSkillId.value = id
 }
 const activeSkill = computed(() => skills.find((s) => s.id === openSkillId.value) ?? null)
+
+// 彈窗左右切換:沿完整 skills 順序前後移動,端點鎖定
+const activeIndex = computed(() => skills.findIndex((s) => s.id === openSkillId.value))
+const hasPrev = computed(() => activeIndex.value > 0)
+const hasNext = computed(() => activeIndex.value >= 0 && activeIndex.value < skills.length - 1)
+const goPrev = () => {
+  if (hasPrev.value) openSkillId.value = skills[activeIndex.value - 1].id
+}
+const goNext = () => {
+  if (hasNext.value) openSkillId.value = skills[activeIndex.value + 1].id
+}
 </script>
 
 <template>
@@ -74,8 +85,12 @@ const activeSkill = computed(() => skills.find((s) => s.id === openSkillId.value
     <SkillDetailDialog
       :skill="activeSkill"
       :pinned="activeSkill ? isPinned(activeSkill) : false"
+      :has-prev="hasPrev"
+      :has-next="hasNext"
       @close="openSkillId = null"
       @toggle-pin="activeSkill && togglePin(activeSkill)"
+      @prev="goPrev"
+      @next="goNext"
     />
     <LaunchLogDialog v-model:open="logOpen" :skills="skills" />
     <Mascot />

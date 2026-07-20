@@ -53,4 +53,6 @@ export interface UiLibraryItem {
   /** vendor 的上游 repo 或文件站;custom 可留本機路徑說明。 */
   url?: string
   license?: string
+  /** 預覽圖路徑(public/ 下);未提供時卡片顯示樣式化佔位。 */
+  preview?: string
 }
