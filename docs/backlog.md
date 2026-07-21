@@ -10,8 +10,8 @@
 
 - ✓ 2026-07-21 **C1 主題 manifest 化**(§3.1):`scripts/gen-theme-manifest.mjs` 從素材+meta.json 產 `characters.json`(frame_w/h 分離、idle/hover/grab/action 語意槽位、pose_cells 尺寸、idle_unsafe 裸素體防呆);`src/themes/manifest.ts` factory,兩主題模組縮成 <30 行 glob+manifest;SpriteTheme 契約加 slotPose/charFrame。素材仍 GIF,strip 換裝時只動 manifest 資料(C3 先決)
 - ✓ 2026-07-21 **C2 casting 分層**(§3.2):`src/data/casting.json`(seed→各主題出廠角色,跨主題一層),guild SKILL_CHAR 遷出;未登記 seed 由 factory hash 決定性分配;使用者 CharPicker 手選(localStorage)優先於本表
-- [ ] **C3. PixelSprite 接入 workbench**(§3.3):自 ui-asset-library 複製 PixelSprite.vue,props 改 width/height(非正方形直式畫布 64×128 / 96×160 支援);先決:C1 的 strip 素材(A–F 六角色缺源 PNG,見 ui-asset-library pipeline-flow)。
-- [ ] **C4. FallingSprites 夾娃娃機元件**(正本 `docs/falling-sprites-spec.md`):Matter.js 剛體 + grab 槽位;依 §5 順序排 C1 之後(直接吃 manifest grab 槽位,不做兩次)。
+- ✓ 2026-07-22 **C3 PixelSprite 接入**(§3.3):A–F 源 PNG 救援(反推+重配)→ guild 素材全面換 strip PNG(GIF 退役);PixelSprite.vue(width/height 分離,strip=CSS steps 播放/gif=<img> 雙模式);manifest 增 asset_kind/pose_frames/pose_ms(產生腳本讀 PNG 檔頭自動解析);SkillAvatar/Mascot/GlobalSearchDialog/CharPicker 四渲染點統一走 PixelSprite;主題 icon 用單幀 icon.png
+- [ ] **C4. FallingSprites 夾娃娃機元件**(正本 `docs/falling-sprites-spec.md`):Matter.js 剛體 + grab 槽位;**先決已全就位**(manifest grab 槽位 + strip 素材 + PixelSprite)。
 - [ ] **C5. 本命主題採樣**(§4):兩段式 AI 管線(立繪→像素化);先做一隻吉祥物驗證,通過才量產。世界觀三選一待擁有者定案。
 - [ ] **C6. 舊主題補件**:guild 逐層 CREDITS(ui-asset-library CREDITS.md 行動項)。
 - ✓ 2026-07-21 **shareable 欄位**(§3.4):SpriteTheme 契約 + 兩主題宣告(guild true / pokemon false)+ ThemePicker 私用標記(列表 badge + 啟用中圓點提醒)

@@ -1,5 +1,10 @@
 # Worklog
 
+## 2026-07-22
+- **C3 完成**:guild 素材 GIF→strip PNG(v2 重配版,透明底);PixelSprite.vue 統一渲染(strip steps 播放/gif 原樣);manifest 增 asset_kind/pose_frames/pose_ms(PNG 檔頭自動解析,oversize cell 不再靠 meta 手填);四個渲染元件改造;icon.png 單幀主題圖示
+- 前置:A–F 源檔救援(lpc_identify 反推 + fork 產生器重配,A/E 擁有者手動、B/C/D/F 自動),ui-asset-library 每角 source/+gif/+strip/ 齊備、hash 5/6 回填
+- 驗證:lint/typecheck/build 綠 + Playwright(公會牆 strip 動畫/選角彈窗/寶可夢迴歸)
+
 ## 2026-07-21(深夜)
 - **lpc-generator-fork 開工**(~/Projects/lpc-generator-fork,GitHub fork):🎲 隨機生成面板(尊重授權/動作過濾+body type 素材檢查)、動作過濾嚴格模式(AND,防裸體)、主 UI 中文化;取代 ui-asset-library 的離線 randomizer
 - **C1 manifest 化 ✓**:gen-theme-manifest.mjs → characters.json(語意槽位/pose_cells/idle_unsafe),manifest factory,兩主題模組縮成 glob+manifest;pokemon chunk 372→336KB

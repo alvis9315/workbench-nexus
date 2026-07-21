@@ -57,13 +57,15 @@ src/assets/themes/<id>/<角色>/meta.json    ← 角色中繼資料
 
 ## 各主題新增角色
 
-- **guild(冒險者公會)**:角色產線=`~/Projects/lpc-generator-fork`(官方產生器 fork:
-  🎲 隨機生成+嚴格動作過濾防裸體+中文化,`npm run dev` 啟動)選裝下載 spritesheet →
-  ui-asset-library `scripts/lpc2gif.py` 轉 GIF(注意 PIL 透明 GIF 陷阱)→ 把 `<角色>/`
-  資料夾(GIF+meta.json,meta 必含 `display_name`/`group`/`default_pose`,oversize 另加
-  `oversize_weapon_cell`)放進 `src/assets/themes/guild/` → 重跑
+- **guild(冒險者公會,strip 主題)**:角色產線=`~/Projects/lpc-generator-fork`(官方產生器 fork:
+  🎲 隨機生成+嚴格動作過濾防裸體+中文化,`npm run dev` 啟動)選裝下載 spritesheet PNG+credits
+  (**源檔必留**:歸檔 ui-asset-library `custom/sprites/<角色>/source/`,含 hash.txt)→
+  `scripts/lpc2gif.py <png> <角色> <out> --strip --transparent` → 把 strip 改名 `<pose>.png`
+  連同 meta.json(必含 `display_name`/`group`/`default_pose`;oversize cell **不用手填**,
+  腳本讀 PNG 檔頭)放進 `src/assets/themes/guild/<角色>/` → 重跑
   `node scripts/gen-theme-manifest.mjs guild`;要固定配對某 skill 就在
-  `src/data/casting.json` 登記——**主題模組零改動**
+  `src/data/casting.json` 登記——**主題模組零改動**。渲染一律經 `PixelSprite.vue`
+  (元件經 `poseAsset()` 拿 strip/gif 資訊,不碰檔案)
 - **pokemon(寶可夢圖鑑)**:不手動加。重跑
   `node scripts/import-pokemon.mjs <vscode-pokemon路徑> [gen…]` 後接
   `node scripts/gen-theme-manifest.mjs pokemon`;來源新增世代時在

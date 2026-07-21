@@ -1,4 +1,4 @@
-import type { SpriteSlot, SpriteTheme, ThemeManifest } from '@/themes/types'
+import type { PoseAsset, SpriteSlot, SpriteTheme, ThemeManifest } from '@/themes/types'
 import castingData from '@/data/casting.json'
 
 // manifest → SpriteTheme 共用 factory(theme-mainline-v2 §3.1/§3.2):
@@ -58,6 +58,19 @@ export const createManifestTheme = (
     charFrame: (char) => {
       const c = byId.get(char)
       return { w: c?.frame_w ?? manifest.base_cell, h: c?.frame_h ?? manifest.base_cell }
+    },
+    poseAsset: (char, pose): PoseAsset | undefined => {
+      const c = byId.get(char)
+      const resolved = spriteUrls[char]?.[pose] ? pose : defaultPoseOf(char)
+      const url = spriteUrls[char]?.[resolved]
+      if (!url) return undefined
+      return {
+        url,
+        kind: manifest.asset_kind,
+        frames: c?.pose_frames?.[resolved] ?? 1,
+        frameMs: c?.pose_ms?.[resolved] ?? 120,
+        cell: c?.pose_cells[resolved] ?? manifest.base_cell,
+      }
     },
   }
 }

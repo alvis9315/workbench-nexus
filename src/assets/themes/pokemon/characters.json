@@ -3,6 +3,7 @@
   "theme_name": "寶可夢圖鑑",
   "shareable": false,
   "credits": "任天堂/Creatures/Game Freak IP,僅限本機自用,不得公開部署",
+  "asset_kind": "gif",
   "base_cell": 32,
   "groups": [
     {

@@ -18,6 +18,6 @@ for (const [path, url] of Object.entries(modules)) {
 }
 
 // 體型差:大隻的本體就是大,內容貼底——底部對齊,下緣才與小隻齊平不壓名條
-export default createManifestTheme(manifest as ThemeManifest, SPRITES, {
+export default createManifestTheme(manifest as unknown as ThemeManifest, SPRITES, {
   oversizeAnchor: 'bottom',
 })

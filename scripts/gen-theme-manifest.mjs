@@ -11,12 +11,33 @@ import { fileURLToPath } from 'node:url'
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 const THEMES_DIR = join(ROOT, 'src/assets/themes')
 
+// LPC 各動作的每格毫秒(lpc2gif ANIMS 表同源;最長前綴匹配)
+const LPC_POSE_MS = {
+  spellcast: 110, thrust: 100, walk: 120, slash: 110, shoot: 90,
+  hurt: 150, climb: 150, idle: 450, jump: 130, sit: 350, emote: 300,
+  run: 100, combat_idle: 400, backslash: 90, halfslash: 110, weapon_oversize: 110,
+}
+const poseMs = (pose) => {
+  let best = 120
+  let bestLen = -1
+  for (const [prefix, ms] of Object.entries(LPC_POSE_MS))
+    if (pose.startsWith(prefix) && prefix.length > bestLen) { best = ms; bestLen = prefix.length }
+  return best
+}
+
+// PNG IHDR:寬高在位元組 16-23(big-endian)——strip 的 cell=高、frames=寬/高
+const pngSize = (path) => {
+  const buf = readFileSync(path)
+  return { w: buf.readUInt32BE(16), h: buf.readUInt32BE(20) }
+}
+
 // 主題層設定(不屬於單一角色的資料;新主題在此加一段)
 const THEME_CONFIG = {
   guild: {
     theme_name: '冒險者公會',
     shareable: true,
-    credits: 'LPC CC-BY/OGA-BY;逐層署名見 ui-asset-library CREDITS.md(補齊中)',
+    credits: 'LPC CC-BY/OGA-BY;逐層署名見各角色 source/credits.txt(正本在 ui-asset-library)',
+    asset_kind: 'strip',
     base_cell: 64,
     groups: [
       { id: 'sword', label: '劍士' },
@@ -33,20 +54,16 @@ const THEME_CONFIG = {
       grab: ['jump_down', 'walk_down'],
       action: ['slash_down', 'thrust_down', 'shoot_down', 'walk_down'],
     },
-    // meta.json 欄位對映
+    // meta.json 欄位對映(strip 主題:cell/frames 由 genTheme 從 PNG 檔頭解析,不吃 meta)
     charFromMeta: (meta, poses) => {
       const defaultPose = poses.includes(meta.default_pose) ? meta.default_pose : poses[0]
-      const poseCells = {}
-      if (meta.oversize_weapon_cell)
-        for (const p of poses)
-          if (p.startsWith('weapon_oversize')) poseCells[p] = meta.oversize_weapon_cell
       return {
         label: meta.display_name,
         group: meta.group,
         default_pose: defaultPose,
         // 服裝圖層不支援 idle 的角色(default_pose 非 idle 系)→ idle 是裸素體,輪播要濾掉
         idle_unsafe: !String(defaultPose).startsWith('idle'),
-        pose_cells: poseCells,
+        pose_cells: {},
         order: null,
       }
     },
@@ -55,6 +72,7 @@ const THEME_CONFIG = {
     theme_name: '寶可夢圖鑑',
     shareable: false,
     credits: '任天堂/Creatures/Game Freak IP,僅限本機自用,不得公開部署',
+    asset_kind: 'gif',
     base_cell: 32,
     groups: [
       { id: 'gen1', label: '一世代' },
@@ -103,12 +121,24 @@ const genTheme = (themeId) => {
     const metaPath = join(charDir, 'meta.json')
     if (!existsSync(metaPath)) continue
     const meta = JSON.parse(readFileSync(metaPath, 'utf8'))
-    const poses = readdirSync(charDir)
-      .filter((f) => f.endsWith('.gif'))
-      .map((f) => f.replace(/\.gif$/, ''))
+    const isStrip = cfg.asset_kind === 'strip'
+    const files = readdirSync(charDir).filter((f) => f.endsWith(isStrip ? '.png' : '.gif'))
+    const poses = files
+      .map((f) => f.replace(/\.(gif|png)$/, ''))
       .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
     if (!poses.length) continue
     const c = cfg.charFromMeta(meta, poses)
+    const poseFrames = {}
+    const poseMsMap = {}
+    if (isStrip) {
+      // strip 檔頭即 metadata:cell=高、frames=寬/高;毫秒查 LPC 動作表
+      for (const pose of poses) {
+        const { w, h } = pngSize(join(charDir, `${pose}.png`))
+        if (h !== cfg.base_cell) c.pose_cells[pose] = h
+        poseFrames[pose] = Math.max(1, Math.round(w / h))
+        poseMsMap[pose] = poseMs(pose)
+      }
+    }
     // 只保留與基準格不同的尺寸(等於基準的寫進去只是佔空間)
     c.pose_cells = Object.fromEntries(
       Object.entries(c.pose_cells ?? {}).filter(([, cell]) => cell !== cfg.base_cell),
@@ -123,6 +153,7 @@ const genTheme = (themeId) => {
       default_pose: c.default_pose,
       idle_unsafe: c.idle_unsafe,
       pose_cells: c.pose_cells,
+      ...(isStrip ? { pose_frames: poseFrames, pose_ms: poseMsMap } : {}),
       poses,
       slots: resolveSlots(cfg.slots, poses, c.default_pose, c.idle_unsafe),
     })
@@ -135,6 +166,7 @@ const genTheme = (themeId) => {
     theme_name: cfg.theme_name,
     shareable: cfg.shareable,
     credits: cfg.credits,
+    asset_kind: cfg.asset_kind,
     base_cell: cfg.base_cell,
     groups: cfg.groups,
     fallback_group: cfg.fallback_group,

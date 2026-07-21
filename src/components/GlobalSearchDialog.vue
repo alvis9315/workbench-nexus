@@ -13,6 +13,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { activeTheme } from '@/themes'
+import PixelSprite from '@/components/PixelSprite.vue'
 import { useSpriteChar } from '@/composables/useSpriteChar'
 import skillsData from '@/data/skills.json'
 import projectsData from '@/data/projects.json'
@@ -117,7 +118,7 @@ watch(open, (v) => {
   }
 })
 onUnmounted(() => clearInterval(timer))
-const charUrl = computed(() => activeTheme.value.spriteUrl(char.value, pose.value))
+const charAsset = computed(() => activeTheme.value.poseAsset(char.value, pose.value))
 const charDrawSize = computed(() => Math.round(144 * activeTheme.value.poseScale(char.value, pose.value)))
 // oversize 錨定比照 SkillAvatar:貼底主題(寶可夢大隻)腳踩框底、往上溢出,不會掉出彈窗外
 const charAnchorCls = computed(() =>
@@ -202,15 +203,12 @@ const charAnchorCls = computed(() =>
 
         <div class="flex w-44 shrink-0 flex-col items-center justify-center gap-2 self-stretch">
           <div class="relative size-36">
-            <img
-              v-if="charUrl"
-              :src="charUrl"
+            <PixelSprite
+              v-if="charAsset"
+              :asset="charAsset"
               :width="charDrawSize"
-              :height="charDrawSize"
-              alt=""
-              class="pointer-events-none object-contain [image-rendering:pixelated]"
+              class="pointer-events-none"
               :class="charAnchorCls"
-              :style="{ width: `${charDrawSize}px`, height: `${charDrawSize}px` }"
             />
           </div>
           <p class="font-pixel text-[10px] text-muted-foreground">{{ activeTheme.charLabel(char) }}</p>

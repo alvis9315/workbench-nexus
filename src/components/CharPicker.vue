@@ -11,6 +11,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { activeTheme } from '@/themes'
+import PixelSprite from '@/components/PixelSprite.vue'
 import { useSpriteChar } from '@/composables/useSpriteChar'
 import { useSpritePose } from '@/composables/useSpritePose'
 
@@ -109,13 +110,11 @@ const pick = (c: string) => {
             :title="activeTheme.charLabel(c)"
             @click="pick(c)"
           >
-            <img
-              :src="activeTheme.spriteUrl(c, activeTheme.defaultPoseOf(c))"
-              width="48"
-              height="48"
-              loading="lazy"
-              alt=""
-              class="pointer-events-none size-12 object-contain object-bottom [image-rendering:pixelated]"
+            <PixelSprite
+              v-if="activeTheme.poseAsset(c, activeTheme.defaultPoseOf(c))"
+              :asset="activeTheme.poseAsset(c, activeTheme.defaultPoseOf(c))!"
+              :width="48"
+              class="pointer-events-none"
             />
             <span
               class="w-full truncate text-center text-[10px]"

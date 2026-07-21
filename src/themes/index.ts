@@ -2,7 +2,8 @@ import { computed, shallowRef, watch } from 'vue'
 import { useLocalStorage } from '@vueuse/core'
 import type { SpriteTheme } from '@/themes/types'
 // 選單用的代表角色小圖:單張靜態 import 只進 URL 字串,素材本體仍按需載入
-import guildIcon from '@/assets/themes/guild/A_sword_red/walk_down.gif'
+// (guild 是 strip 主題,icon.png 為 A 角 walk_down 首幀的單幀切圖,直接 <img> 不會拖出整條 strip)
+import guildIcon from '@/assets/themes/guild/icon.png'
 import pokemonIcon from '@/assets/themes/pokemon/pikachu/idle.gif'
 
 // 主題註冊表:懶載入——只有啟用中的主題會被 import(主包零成長鐵則;

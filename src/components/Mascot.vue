@@ -5,6 +5,7 @@ import { useSpriteChar } from '@/composables/useSpriteChar'
 import { useSpritePose } from '@/composables/useSpritePose'
 import CharPicker from '@/components/CharPicker.vue'
 import PosePicker from '@/components/PosePicker.vue'
+import PixelSprite from '@/components/PixelSprite.vue'
 import GlobalSearchDialog from '@/components/GlobalSearchDialog.vue'
 
 // 角落小幫手(REQ-007 → 升級):住在 App 殼、跨分頁常駐。
@@ -12,7 +13,7 @@ import GlobalSearchDialog from '@/components/GlobalSearchDialog.vue'
 // 尺寸吃 poseScale(大隻寶可夢畫大、依主題錨定溢出),跟技能卡同一套規則。
 const char = useSpriteChar('mascot')
 const pose = useSpritePose('mascot')
-const url = computed(() => activeTheme.value.spriteUrl(char.value, pose.value))
+const asset = computed(() => activeTheme.value.poseAsset(char.value, pose.value))
 const scale = computed(() => activeTheme.value.poseScale(char.value, pose.value))
 const drawSize = computed(() => Math.round(80 * scale.value))
 const oversizeCls = computed(() =>
@@ -75,15 +76,12 @@ const searchOpen = ref(false)
       >
         <!-- 佔位框固定 80px(按鈕不跳),oversize 依主題錨定溢出(比照 SkillAvatar) -->
         <div class="relative size-20">
-          <img
-            v-if="url"
-            :src="url"
+          <PixelSprite
+            v-if="asset"
+            :asset="asset"
             :width="drawSize"
-            :height="drawSize"
-            alt="工作站小幫手"
-            class="pointer-events-none object-contain [image-rendering:pixelated]"
+            class="pointer-events-none"
             :class="scale > 1 ? oversizeCls : ''"
-            :style="{ width: `${drawSize}px`, height: `${drawSize}px` }"
           />
         </div>
       </button>

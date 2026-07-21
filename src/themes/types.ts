@@ -9,11 +9,25 @@ export interface ThemeManifest {
   theme_name: string
   shareable: boolean
   credits: string
+  /** 素材形式:'strip'=橫幅逐格 PNG(PixelSprite steps 播放)、'gif'=自帶動畫 */
+  asset_kind: 'strip' | 'gif'
   /** 標準顯示格(px);pose_cells 記錄「不同於基準」的姿勢格尺寸 */
   base_cell: number
   groups: { id: string; label: string }[]
   fallback_group: string
   characters: ManifestCharacter[]
+}
+
+/** 單一姿勢的可渲染素材(PixelSprite 的輸入) */
+export interface PoseAsset {
+  url: string
+  kind: 'strip' | 'gif'
+  /** strip 幀數;gif 恆為 1(動畫在檔案裡) */
+  frames: number
+  /** strip 每格毫秒 */
+  frameMs: number
+  /** 該姿勢原生格尺寸(px) */
+  cell: number
 }
 
 export interface ManifestCharacter {
@@ -29,6 +43,10 @@ export interface ManifestCharacter {
   idle_unsafe: boolean
   /** 姿勢格尺寸覆寫(px),只記與 base_cell 不同者 → poseScale 依此計算 */
   pose_cells: Record<string, number>
+  /** strip 主題才有:各姿勢幀數(產生腳本從 PNG 檔頭解析) */
+  pose_frames?: Record<string, number>
+  /** strip 主題才有:各姿勢每格毫秒 */
+  pose_ms?: Record<string, number>
   poses: string[]
   /** 語意槽位 → 姿勢名(素材檔存在保證由產生腳本負責) */
   slots: Record<SpriteSlot, string>
@@ -74,4 +92,6 @@ export interface SpriteTheme {
   slotPose(char: string, slot: SpriteSlot): string
   /** 角色顯示框原生尺寸(px;非正方形直式角色 frame_h > frame_w) */
   charFrame(char: string): { w: number; h: number }
+  /** 姿勢的可渲染素材(url + strip/gif + 幀數/速度/格尺寸)——元件一律經 PixelSprite 渲染 */
+  poseAsset(char: string, pose: string): PoseAsset | undefined
 }
