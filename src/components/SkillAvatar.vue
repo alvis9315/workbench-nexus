@@ -1,37 +1,26 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { createAvatar } from '@dicebear/core'
-import { pixelArt } from '@dicebear/collection'
+import { charForSeed, spriteUrl } from '@/data/lpcSprites'
+import { useSpritePose } from '@/composables/useSpritePose'
 
-// DiceBear pixel-art 頭像:seed → 專屬且風格一致的像素角色(本地生成,零 HTTP)。
-// 這顆只是「預設頭像供應商」——SkillCard/Dialog 的 avatar slot 換內容即可替換。
+// LPC sprite 頭像(2026-07-21 起取代 DiceBear 生成頭像):seed(=skill id)→ 角色,
+// 姿勢由 useSpritePose 管理(SkillCard 上有切換選單,全站同步)。
+// 素材:src/assets/sprites/<char>/<pose>.gif(透明背景),正本在 ~/ui-asset-library。
 const props = withDefaults(defineProps<{ seed: string; size?: number }>(), { size: 48 })
 
-// 女性化 preset(2026-07-20 擁有者定向:漂亮妹子形象,不要醜男/光頭):
-// 髮型白名單只留 long 系、鬍子 0%、眼鏡低機率;要調形象改這組常數即可。
-const FEMININE = {
-  hair: Array.from({ length: 21 }, (_, i) => `long${String(i + 1).padStart(2, '0')}`),
-  beardProbability: 0,
-  glassesProbability: 10,
-  accessoriesProbability: 25,
-} as object
-
-const uri = computed(() =>
-  createAvatar(pixelArt, {
-    seed: props.seed,
-    size: props.size,
-    backgroundColor: ['16305c'],
-    ...FEMININE,
-  }).toDataUri(),
-)
+const char = computed(() => charForSeed(props.seed))
+const pose = useSpritePose(props.seed)
+const url = computed(() => spriteUrl(char.value, pose.value))
 </script>
 
 <template>
   <img
-    :src="uri"
+    v-if="url"
+    :src="url"
     :width="size"
     :height="size"
     alt=""
-    class="shrink-0 rounded-md border border-border [image-rendering:pixelated]"
+    class="shrink-0 object-contain [image-rendering:pixelated]"
+    :style="{ width: `${size}px`, height: `${size}px` }"
   />
 </template>

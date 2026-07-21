@@ -1,0 +1,18 @@
+{
+  "character_id": "C_kimono_pink",
+  "display_name": "粉色和服貓耳",
+  "tags": ["LPC", "sprite", "和服", "貓耳", "粉色"],
+  "hash_status": "complete",
+  "hash": "#sex=female&head=Human_Female_Small_light&hair=Xlong_ash&dress=Split_Kimono_pink&dress_trim=Split_Kimono_Trim_pink&vest=Bodice_pink&dress_sleeves=Kimono_Oversized_Sleeves_pink&dress_sleeves_trim=Kimono_Oversized_Sleeves_Trim_pink&shoes=Sandals_brown&ears=Big_ears_light&furry_ears=Cat_Ears_rose&furry_ears_skin=Cat_Ears_Skintone_light&expression=Neutral_light&weapon=Whip_whip&wound_arm=Arm_red&body=Body_Color_light",
+  "hash_partial_notes": null,
+  "visual_description": null,
+  "known_issues": [
+    "wound_arm=Arm_red 是誤選的殘廢/傷疤層,應該移除",
+    "body=Body_Color_light 原本從產生器 URL 漏失,此處是補回的推測值,重現前請先在官方產生器實際勾選一次確認畫面正確"
+  ],
+  "gif_count": 58,
+  "oversize_weapon_cell": 192,
+  "license": "CC-BY / OGA-BY",
+  "credits_status": "missing",
+  "used_in": ["workbench-nexus(規劃中,尚未接上)"]
+}

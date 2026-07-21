@@ -1,0 +1,15 @@
+{
+  "character_id": "F_archer_orange",
+  "display_name": "橙髮弓手",
+  "tags": ["LPC", "sprite", "弓手", "橙髮"],
+  "hash_status": "missing",
+  "hash": null,
+  "hash_partial_notes": null,
+  "visual_description": "橙髮辮子、橙黃連身輕裝、弓",
+  "known_issues": [],
+  "gif_count": 54,
+  "oversize_weapon_cell": null,
+  "license": "CC-BY / OGA-BY",
+  "credits_status": "missing",
+  "used_in": ["workbench-nexus(規劃中,尚未接上)"]
+}

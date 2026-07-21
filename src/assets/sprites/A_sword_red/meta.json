@@ -1,0 +1,15 @@
+{
+  "character_id": "A_sword_red",
+  "display_name": "紅髮劍士",
+  "tags": ["LPC", "sprite", "劍士", "紅髮"],
+  "hash_status": "complete",
+  "hash": "#sex=female&body=Body_Color_light&head=Human_Female_Small_light&shoes=Sandals_brown&shadow=Shadow_brown&nose=Button_nose_light&hair=Princess_redhead&weapon=Longsword_longsword&apron=Apron_half_maroon&clothes=Tunic_maroon&cape=Solid_blue&cape_trim=Cape_Trim_red",
+  "hash_partial_notes": null,
+  "visual_description": null,
+  "known_issues": [],
+  "gif_count": 66,
+  "oversize_weapon_cell": 192,
+  "license": "CC-BY / OGA-BY",
+  "credits_status": "missing",
+  "used_in": ["workbench-nexus(規劃中,尚未接上)"]
+}

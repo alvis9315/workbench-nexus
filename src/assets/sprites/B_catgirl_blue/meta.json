@@ -1,0 +1,15 @@
+{
+  "character_id": "B_catgirl_blue",
+  "display_name": "粉髮藍衣貓耳弓手",
+  "tags": ["LPC", "sprite", "貓耳", "弓手", "藍衣"],
+  "hash_status": "partial",
+  "hash": null,
+  "hash_partial_notes": "hair=Sara_pink(色號待定)、dress=Slit_dress_blue、sash=Obi_pink、weapon=Great_steel + ammo=Ammo_arrow(大型)、ears=Big_ears_light、furry_ears=Wolf_Ears_?(色號待定)、furry_ears_skin=Cat_Ears_Skintone_light、shoes=Sandals_brown、nose=Button_nose_light、shadow",
+  "visual_description": null,
+  "known_issues": [],
+  "gif_count": 58,
+  "oversize_weapon_cell": 128,
+  "license": "CC-BY / OGA-BY",
+  "credits_status": "missing",
+  "used_in": ["workbench-nexus(規劃中,尚未接上)"]
+}

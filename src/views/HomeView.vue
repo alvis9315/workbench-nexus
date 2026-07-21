@@ -14,6 +14,8 @@ import LaunchLogDialog from '@/components/LaunchLogDialog.vue'
 import { usePins } from '@/composables/usePins'
 import skillsData from '@/data/skills.json'
 import type { Skill, SkillCategory } from '@/types'
+// skill 頭像:SkillAvatar 內建 LPC sprite(seed→角色配對在 src/data/lpcSprites.ts,
+// 姿勢由卡片上的選單切換),這裡不需要再覆蓋 avatar slot。
 
 // 主頁 = 選角室(SKILL SELECT):⌘K 搜尋 + 分類 chips + 選角格 grid。
 // 其他分區(Projects 關卡選擇 / Repos 武器選單 / UI Lib)由 NavTabs 切換。
