@@ -10,6 +10,13 @@ export interface LaunchLogItem {
 
 export const launchLog = useLocalStorage<LaunchLogItem[]>('wn-launch-log', [])
 
+/** 依發射次數統計:skillId → 次數,由多到少。在 computed 內呼叫可自動追蹤 log 變化。 */
+export const usageRanking = (): [string, number][] => {
+  const counts = new Map<string, number>()
+  for (const l of launchLog.value) counts.set(l.skillId, (counts.get(l.skillId) ?? 0) + 1)
+  return [...counts.entries()].sort((a, b) => b[1] - a[1])
+}
+
 /**
  * 發射:複製 skill 的調用 prompt(發射台的核心動作)。
  * Hotbar 與詳情 Dialog 共用同一條路(同流程同元件);成功順手記 log。

@@ -6,6 +6,7 @@ import { TooltipProvider } from '@/components/ui/tooltip'
 import { Toaster } from '@/components/ui/sonner'
 import SplashScreen from '@/components/SplashScreen.vue'
 import NavTabs from '@/components/NavTabs.vue'
+import Mascot from '@/components/Mascot.vue'
 </script>
 
 <template>
@@ -18,6 +19,7 @@ import NavTabs from '@/components/NavTabs.vue'
       <NavTabs class="mt-5" />
     </header>
     <RouterView />
+    <Mascot />
     <Toaster position="top-center" rich-colors />
   </TooltipProvider>
 </template>

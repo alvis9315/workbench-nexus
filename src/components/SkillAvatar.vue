@@ -1,26 +1,33 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { charForSeed, spriteUrl } from '@/data/lpcSprites'
+import { activeTheme } from '@/themes'
+import { useSpriteChar } from '@/composables/useSpriteChar'
 import { useSpritePose } from '@/composables/useSpritePose'
 
-// LPC sprite 頭像(2026-07-21 起取代 DiceBear 生成頭像):seed(=skill id)→ 角色,
-// 姿勢由 useSpritePose 管理(SkillCard 上有切換選單,全站同步)。
-// 素材:src/assets/sprites/<char>/<pose>.gif(透明背景),正本在 ~/ui-asset-library。
+// sprite 頭像(2026-07-21 起取代 DiceBear 生成頭像):seed(=skill id)→ 角色,
+// 素材來源由 activeTheme 決定,姿勢由 useSpritePose 管理(SkillCard 上有切換選單,全站同步)。
+// oversize 姿勢:佔位框維持 size 不動(版面不跳),圖依 poseScale 放大置中溢出——
+// 人物比例與其他姿勢一致,武器自然衝出卡片外。
 const props = withDefaults(defineProps<{ seed: string; size?: number }>(), { size: 48 })
 
-const char = computed(() => charForSeed(props.seed))
+const char = useSpriteChar(props.seed)
 const pose = useSpritePose(props.seed)
-const url = computed(() => spriteUrl(char.value, pose.value))
+const url = computed(() => activeTheme.value.spriteUrl(char.value, pose.value))
+const scale = computed(() => activeTheme.value.poseScale(char.value, pose.value))
+const drawSize = computed(() => Math.round(props.size * scale.value))
 </script>
 
 <template>
-  <img
-    v-if="url"
-    :src="url"
-    :width="size"
-    :height="size"
-    alt=""
-    class="shrink-0 object-contain [image-rendering:pixelated]"
-    :style="{ width: `${size}px`, height: `${size}px` }"
-  />
+  <div class="relative shrink-0" :style="{ width: `${size}px`, height: `${size}px` }">
+    <img
+      v-if="url"
+      :src="url"
+      :width="drawSize"
+      :height="drawSize"
+      alt=""
+      class="pointer-events-none object-contain [image-rendering:pixelated]"
+      :class="scale > 1 ? 'absolute left-1/2 top-1/2 z-20 max-w-none -translate-x-1/2 -translate-y-1/2' : ''"
+      :style="{ width: `${drawSize}px`, height: `${drawSize}px` }"
+    />
+  </div>
 </template>

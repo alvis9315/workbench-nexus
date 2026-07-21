@@ -1,0 +1,13 @@
+{
+  "display_name": "Arceus (Rock)",
+  "dex": 493,
+  "generation": "gen4",
+  "sizes": {
+    "idle": 64,
+    "walk": 64,
+    "shiny_idle": 64,
+    "shiny_walk": 64
+  },
+  "source": "https://github.com/jakobhoeg/vscode-pokemon",
+  "license": "Pokémon © Nintendo/Creatures/Game Freak — 僅限本機自用,不得公開部署"
+}

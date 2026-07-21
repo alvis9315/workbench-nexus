@@ -1,0 +1,13 @@
+{
+  "display_name": "Sandshrew",
+  "dex": 27,
+  "generation": "gen1",
+  "sizes": {
+    "idle": 32,
+    "walk": 32,
+    "shiny_idle": 32,
+    "shiny_walk": 32
+  },
+  "source": "https://github.com/jakobhoeg/vscode-pokemon",
+  "license": "Pokémon © Nintendo/Creatures/Game Freak — 僅限本機自用,不得公開部署"
+}

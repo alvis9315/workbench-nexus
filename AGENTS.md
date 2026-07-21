@@ -23,7 +23,11 @@
 - UI 只用 shadcn-vue(Reka UI)+ Tailwind v4 token;不混其他 UI library
 - **主題 = token bundle**:換風格改 `src/assets/main.css` 的 CSS 變數,不動元件(不整套換皮 NES.css/RPGUI 的 DOM)
 - App.vue 不寫主要畫面;components/ 不當垃圾桶;效果類元件放 `components/effects/`
-- 角色頭像走 `<slot name="avatar">` 解耦,預設 DiceBear pixel-art(npm 本地生成,不打 HTTP API)
+- 角色頭像走 `<slot name="avatar">` 解耦;素材來源走 **SpriteTheme 主題層**(`src/themes/`,
+  元件只呼叫介面不碰檔案)。引入新素材來源照 `docs/theme-source-spec.md` 的規範走,不得繞過
+- **第三方素材授權**:pokemon 主題的圖像是任天堂/Creatures/Game Freak IP(非 MIT 範圍),
+  僅限本機自用——這是「禁止公開部署、repo 保持 private」鐵則的加重理由;每隻角色的
+  meta.json `license` 欄必填來源與授權狀態
 - 函式一律 `const` + arrow function(ESLint 強制);TDZ 注意 immediate watcher
 - 不過度初始化:不上 Docker/CI/CD/測試框架(驗證門 = lint + typecheck + build)
 

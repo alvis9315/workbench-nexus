@@ -1,17 +1,24 @@
 import { computed } from 'vue'
-import { useLocalStorage } from '@vueuse/core'
-import { charForSeed, defaultPoseOf } from '@/data/lpcSprites'
+import { activeTheme } from '@/themes'
+import { spriteStore } from '@/composables/spriteStore'
 
 /**
- * 每個 skill 的 sprite 姿勢選擇,存 localStorage(比照 usePins:預設值管出廠設定,
- * 偏好管個人化)。卡片/Hotbar/詳情彈窗共用同一份,切換即全站同步。
+ * 每個 seed 的 sprite 姿勢選擇,存 localStorage、按主題分 key(比照 usePins:
+ * 預設值管出廠設定,偏好管個人化)。卡片/Hotbar/詳情彈窗共用,切換即全站同步。
+ * 預設姿勢跟著「目前生效的角色」走(含使用者換過的角色)。
  */
-const poses = useLocalStorage<Record<string, string>>('wn-sprite-poses', {})
-
 export const useSpritePose = (seed: string) =>
   computed({
-    get: () => poses.value[seed] ?? defaultPoseOf(charForSeed(seed)),
+    get: () => {
+      const t = activeTheme.value
+      const stored = spriteStore(`wn-sprite-poses:${t.id}`).value[seed]
+      if (stored) return stored
+      const charOverride = spriteStore(`wn-sprite-chars:${t.id}`).value[seed]
+      const char = charOverride && t.chars.includes(charOverride) ? charOverride : t.charForSeed(seed)
+      return t.defaultPoseOf(char)
+    },
     set: (v: string) => {
-      poses.value = { ...poses.value, [seed]: v }
+      const store = spriteStore(`wn-sprite-poses:${activeTheme.value.id}`)
+      store.value = { ...store.value, [seed]: v }
     },
   })
