@@ -119,6 +119,12 @@ watch(open, (v) => {
 onUnmounted(() => clearInterval(timer))
 const charUrl = computed(() => activeTheme.value.spriteUrl(char.value, pose.value))
 const charDrawSize = computed(() => Math.round(144 * activeTheme.value.poseScale(char.value, pose.value)))
+// oversize 錨定比照 SkillAvatar:貼底主題(寶可夢大隻)腳踩框底、往上溢出,不會掉出彈窗外
+const charAnchorCls = computed(() =>
+  activeTheme.value.oversizeAnchor === 'bottom'
+    ? 'absolute bottom-0 left-1/2 z-20 max-w-none -translate-x-1/2'
+    : 'absolute left-1/2 top-1/2 z-20 max-w-none -translate-x-1/2 -translate-y-1/2',
+)
 </script>
 
 <template>
@@ -202,7 +208,8 @@ const charDrawSize = computed(() => Math.round(144 * activeTheme.value.poseScale
               :width="charDrawSize"
               :height="charDrawSize"
               alt=""
-              class="pointer-events-none absolute left-1/2 top-1/2 z-20 max-w-none -translate-x-1/2 -translate-y-1/2 object-contain [image-rendering:pixelated]"
+              class="pointer-events-none object-contain [image-rendering:pixelated]"
+              :class="charAnchorCls"
               :style="{ width: `${charDrawSize}px`, height: `${charDrawSize}px` }"
             />
           </div>

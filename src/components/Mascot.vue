@@ -2,13 +2,24 @@
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { activeTheme } from '@/themes'
 import { useSpriteChar } from '@/composables/useSpriteChar'
+import { useSpritePose } from '@/composables/useSpritePose'
 import CharPicker from '@/components/CharPicker.vue'
+import PosePicker from '@/components/PosePicker.vue'
 import GlobalSearchDialog from '@/components/GlobalSearchDialog.vue'
 
 // 角落小幫手(REQ-007 → 升級):住在 App 殼、跨分頁常駐。
-// 1) 輪播使用提醒(泡泡自動換);2) hover 可換角色;3) 點角色開全域搜尋彈窗。
+// 1) 輪播使用提醒(泡泡自動換);2) hover 可換角色與姿勢;3) 點角色開全域搜尋彈窗。
+// 尺寸吃 poseScale(大隻寶可夢畫大、依主題錨定溢出),跟技能卡同一套規則。
 const char = useSpriteChar('mascot')
-const url = computed(() => activeTheme.value.spriteUrl(char.value, activeTheme.value.defaultPoseOf(char.value)))
+const pose = useSpritePose('mascot')
+const url = computed(() => activeTheme.value.spriteUrl(char.value, pose.value))
+const scale = computed(() => activeTheme.value.poseScale(char.value, pose.value))
+const drawSize = computed(() => Math.round(80 * scale.value))
+const oversizeCls = computed(() =>
+  activeTheme.value.oversizeAnchor === 'bottom'
+    ? 'absolute bottom-0 left-1/2 z-20 max-w-none -translate-x-1/2'
+    : 'absolute left-1/2 top-1/2 z-20 max-w-none -translate-x-1/2 -translate-y-1/2',
+)
 
 const TIPS = [
   '⌘K 可以直接搜尋技能',
@@ -50,9 +61,10 @@ const searchOpen = ref(false)
 
     <div class="group/mascot relative">
       <div
-        class="absolute -bottom-7 left-0 z-10 flex opacity-0 transition focus-within:opacity-100 group-hover/mascot:opacity-100 has-[[data-state=open]]:opacity-100"
+        class="absolute -bottom-7 left-0 z-10 flex gap-1 opacity-0 transition focus-within:opacity-100 group-hover/mascot:opacity-100 has-[[data-state=open]]:opacity-100"
       >
         <CharPicker seed="mascot" name="小幫手" />
+        <PosePicker seed="mascot" name="小幫手" />
       </div>
       <button
         type="button"
@@ -61,14 +73,19 @@ const searchOpen = ref(false)
         title="搜尋整個工作站"
         @click="searchOpen = true"
       >
-        <img
-          v-if="url"
-          :src="url"
-          width="80"
-          height="80"
-          alt="工作站小幫手"
-          class="pointer-events-none object-contain [image-rendering:pixelated]"
-        />
+        <!-- 佔位框固定 80px(按鈕不跳),oversize 依主題錨定溢出(比照 SkillAvatar) -->
+        <div class="relative size-20">
+          <img
+            v-if="url"
+            :src="url"
+            :width="drawSize"
+            :height="drawSize"
+            alt="工作站小幫手"
+            class="pointer-events-none object-contain [image-rendering:pixelated]"
+            :class="scale > 1 ? oversizeCls : ''"
+            :style="{ width: `${drawSize}px`, height: `${drawSize}px` }"
+          />
+        </div>
       </button>
     </div>
   </div>
