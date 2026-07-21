@@ -1,5 +1,11 @@
 # Worklog
 
+## 2026-07-21(深夜)
+- **lpc-generator-fork 開工**(~/Projects/lpc-generator-fork,GitHub fork):🎲 隨機生成面板(尊重授權/動作過濾+body type 素材檢查)、動作過濾嚴格模式(AND,防裸體)、主 UI 中文化;取代 ui-asset-library 的離線 randomizer
+- **C1 manifest 化 ✓**:gen-theme-manifest.mjs → characters.json(語意槽位/pose_cells/idle_unsafe),manifest factory,兩主題模組縮成 glob+manifest;pokemon chunk 372→336KB
+- **C2 casting 分層 ✓**:casting.json 跨主題選角層,SKILL_CHAR 遷出 guild 模組
+- 驗證:lint/typecheck/build 全綠 + Playwright 實測兩主題(公會排版復原、寶可夢貼底、casting 保留)
+
 ## 2026-07-21(晚)
 - 修排版回歸:oversize 錨定入 SpriteTheme 契約(oversizeAnchor)——pokemon 'bottom'(體型差貼底)、guild 'center'(武器大格置中),公會人物不再上飄
 - 歸檔 theme-mainline-v2.md + falling-sprites-spec.md 進 docs/,與 ui-asset-library LPC-pipeline-summary 互相連結

@@ -1,7 +1,13 @@
 {
   "character_id": "D_paladin_blonde",
   "display_name": "金髮聖騎",
-  "tags": ["LPC", "sprite", "聖騎", "金髮", "盾牌"],
+  "tags": [
+    "LPC",
+    "sprite",
+    "聖騎",
+    "金髮",
+    "盾牌"
+  ],
   "hash_status": "missing",
   "hash": null,
   "hash_partial_notes": null,
@@ -11,5 +17,9 @@
   "oversize_weapon_cell": 128,
   "license": "CC-BY / OGA-BY",
   "credits_status": "missing",
-  "used_in": ["workbench-nexus(規劃中,尚未接上)"]
+  "used_in": [
+    "workbench-nexus(規劃中,尚未接上)"
+  ],
+  "group": "paladin",
+  "default_pose": "walk_down"
 }

@@ -8,8 +8,8 @@
 
 ## C. 角色系統主線(正本 `docs/theme-mainline-v2.md`,§3 規範 vs 現行實作的落差;§5 優先序)
 
-- [ ] **C1. 主題 manifest 化**(§3.1):每主題一份 `characters.json`(frame_w/frame_h 分離 + idle/hover/grab/action 語意槽位 + 相對路徑 strip 引用),UI 只讀 manifest。現行:SpriteTheme 模組 + import.meta.glob,姿勢=檔名無語意槽位,素材是 GIF 非 strip。**大重構,與 theme-source-spec 現行流程並存過渡**。
-- [ ] **C2. casting 分層**(§3.2):skill→slot mapping 抽成跨主題獨立層(`casting.json`)。現行:guild 模組內 SKILL_CHAR 寫死 + hash fallback,換主題 mapping 邏輯跟著各主題重寫。
+- ✓ 2026-07-21 **C1 主題 manifest 化**(§3.1):`scripts/gen-theme-manifest.mjs` 從素材+meta.json 產 `characters.json`(frame_w/h 分離、idle/hover/grab/action 語意槽位、pose_cells 尺寸、idle_unsafe 裸素體防呆);`src/themes/manifest.ts` factory,兩主題模組縮成 <30 行 glob+manifest;SpriteTheme 契約加 slotPose/charFrame。素材仍 GIF,strip 換裝時只動 manifest 資料(C3 先決)
+- ✓ 2026-07-21 **C2 casting 分層**(§3.2):`src/data/casting.json`(seed→各主題出廠角色,跨主題一層),guild SKILL_CHAR 遷出;未登記 seed 由 factory hash 決定性分配;使用者 CharPicker 手選(localStorage)優先於本表
 - [ ] **C3. PixelSprite 接入 workbench**(§3.3):自 ui-asset-library 複製 PixelSprite.vue,props 改 width/height(非正方形直式畫布 64×128 / 96×160 支援);先決:C1 的 strip 素材(A–F 六角色缺源 PNG,見 ui-asset-library pipeline-flow)。
 - [ ] **C4. FallingSprites 夾娃娃機元件**(正本 `docs/falling-sprites-spec.md`):Matter.js 剛體 + grab 槽位;依 §5 順序排 C1 之後(直接吃 manifest grab 槽位,不做兩次)。
 - [ ] **C5. 本命主題採樣**(§4):兩段式 AI 管線(立繪→像素化);先做一隻吉祥物驗證,通過才量產。世界觀三選一待擁有者定案。

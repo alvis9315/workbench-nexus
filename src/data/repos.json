@@ -1,34 +1,209 @@
 [
-  { "name": "workbench-nexus", "url": "https://github.com/alvis9315/workbench-nexus", "description": "本工作站:skill 發射台 + 契約庫 + 共用資產(specs / design-systems / resume-templates)", "category": "skill", "visibility": "private" },
-  { "name": "new-project-quickstart-skill", "url": "https://github.com/alvis9315/new-project-quickstart-skill", "description": "npq skill 開發 repo:三關 + 雛型關 + 交付 gate,產專案初始化 Prompt", "category": "skill", "visibility": "private" },
-  { "name": "resume-tailoring", "url": "https://github.com/alvis9315/resume-tailoring", "description": "履歷客製化管線正本(含個資,永遠 private):品質迴圈 + criteria + 歸檔追蹤", "category": "skill", "visibility": "private" },
-  { "name": "design-system-codify-skill", "url": "https://github.com/alvis9315/design-system-codify-skill", "description": "把視覺風格收斂成 DESIGN.md 的 skill 開發 repo", "category": "skill", "visibility": "private" },
-  { "name": "self-prompting-pipeline", "url": "https://github.com/alvis9315/self-prompting-pipeline", "description": "Planner→Executor→Critic→Refiner 管線的研發室(core 定稿 + apps 歸檔)", "category": "skill", "visibility": "private" },
-  { "name": "work-shift-skill", "url": "https://github.com/alvis9315/work-shift-skill", "description": "排班工作流 skill:備班三關 → 自走執行 → 交班報告", "category": "skill", "visibility": "private" },
-  { "name": "agent-communication-pipeline-design", "url": "https://github.com/alvis9315/agent-communication-pipeline-design", "description": "多 agent 協作架構設計(實驗中,未部署為 skill)", "category": "skill", "visibility": "private" },
-
-  { "name": "job-search-secret", "url": "https://github.com/alvis9315/job-search-secret", "description": "104 職缺收集工具:FastAPI + Vue dashboard,履歷一條龍的站 1", "category": "product", "visibility": "private" },
-  { "name": "knowledge-inbox", "url": "https://github.com/alvis9315/knowledge-inbox", "description": "個人知識收件匣:Vue 3 + Supabase + Claude Haiku 自動分類", "category": "product", "visibility": "public" },
-  { "name": "figureshot-lab", "url": "https://github.com/alvis9315/figureshot-lab", "description": "AI 輔助角色攝影靈感平台:Nuxt 3 + Spring Boot + Claude Adapter", "category": "product", "visibility": "public" },
-  { "name": "portfolio", "url": "https://github.com/alvis9315/portfolio", "description": "個人作品集:scroll 驅動 3D 鏡頭飛行(Vue 3 + Three.js)", "category": "product", "visibility": "public" },
-  { "name": "job-market-insight-lab", "url": "https://github.com/alvis9315/job-market-insight-lab", "description": "工作市場數據分析工具(job-search-secret 的公開版前身)", "category": "product", "visibility": "public" },
-  { "name": "revenue-management-system", "url": "https://github.com/alvis9315/revenue-management-system", "description": "營收管理系統(Vue)", "category": "product", "visibility": "public" },
-
-  { "name": "retrieval-comparison-thesis", "url": "https://github.com/alvis9315/retrieval-comparison-thesis", "description": "碩論:檢索方法比較研究,依 master_plan 分 gate 推進", "category": "research", "visibility": "private" },
-
-  { "name": "frontend-development-guide", "url": "https://github.com/alvis9315/frontend-development-guide", "description": "前端開發指南筆記", "category": "practice", "visibility": "public" },
-  { "name": "Front-End-Npm-Intro", "url": "https://github.com/alvis9315/Front-End-Npm-Intro", "description": "NPM 套件介紹分享", "category": "practice", "visibility": "public" },
-  { "name": "side-project-vue", "url": "https://github.com/alvis9315/side-project-vue", "description": "Vue 3 待辦事項練習", "category": "practice", "visibility": "public" },
-  { "name": "MAOUNI0809", "url": "https://github.com/alvis9315/MAOUNI0809", "description": "MaoUni 專案(Java)", "category": "practice", "visibility": "public" },
-  { "name": "MaoUniSecond", "url": "https://github.com/alvis9315/MaoUniSecond", "description": "MaoUni 二代(Java)", "category": "practice", "visibility": "public" },
-  { "name": "maouni", "url": "https://github.com/alvis9315/maouni", "description": "MaoUni 早期版(Java)", "category": "practice", "visibility": "public" },
-  { "name": "GitBranchSample", "url": "https://github.com/alvis9315/GitBranchSample", "description": "Git 分支練習", "category": "practice", "visibility": "public" },
-  { "name": "Git-sample", "url": "https://github.com/alvis9315/Git-sample", "description": "Git 練習", "category": "practice", "visibility": "public" },
-  { "name": "practice-git", "url": "https://github.com/alvis9315/practice-git", "description": "Git 練習", "category": "practice", "visibility": "public" },
-  { "name": "ccc", "url": "https://github.com/alvis9315/ccc", "description": "練習用", "category": "practice", "visibility": "public" },
-  { "name": "gittest", "url": "https://github.com/alvis9315/gittest", "description": "Git 練習", "category": "practice", "visibility": "public" },
-
-  { "name": "security-audit-skill", "url": "https://github.com/alvis9315/security-audit-skill", "description": "多階段安全審計 agent skill(fork 參考)", "category": "reference", "visibility": "public", "fork": true },
-  { "name": "open-slide", "url": "https://github.com/alvis9315/open-slide", "description": "agent 專用簡報框架(fork 參考)", "category": "reference", "visibility": "public", "fork": true },
-  { "name": "xkbase-app", "url": "https://github.com/alvis9315/xkbase-app", "description": "fork 參考", "category": "reference", "visibility": "public", "fork": true }
+  {
+    "name": "workbench-nexus",
+    "url": "https://github.com/alvis9315/workbench-nexus",
+    "description": "本工作站:skill 發射台 + 契約庫 + 共用資產(specs / design-systems / resume-templates)",
+    "category": "skill",
+    "visibility": "private"
+  },
+  {
+    "name": "new-project-quickstart-skill",
+    "url": "https://github.com/alvis9315/new-project-quickstart-skill",
+    "description": "npq skill 開發 repo:三關 + 雛型關 + 交付 gate,產專案初始化 Prompt",
+    "category": "skill",
+    "visibility": "private"
+  },
+  {
+    "name": "resume-tailoring",
+    "url": "https://github.com/alvis9315/resume-tailoring",
+    "description": "履歷客製化管線正本(含個資,永遠 private):品質迴圈 + criteria + 歸檔追蹤",
+    "category": "skill",
+    "visibility": "private"
+  },
+  {
+    "name": "design-system-codify-skill",
+    "url": "https://github.com/alvis9315/design-system-codify-skill",
+    "description": "把視覺風格收斂成 DESIGN.md 的 skill 開發 repo",
+    "category": "skill",
+    "visibility": "private"
+  },
+  {
+    "name": "self-prompting-pipeline",
+    "url": "https://github.com/alvis9315/self-prompting-pipeline",
+    "description": "Planner→Executor→Critic→Refiner 管線的研發室(core 定稿 + apps 歸檔)",
+    "category": "skill",
+    "visibility": "private"
+  },
+  {
+    "name": "work-shift-skill",
+    "url": "https://github.com/alvis9315/work-shift-skill",
+    "description": "排班工作流 skill:備班三關 → 自走執行 → 交班報告",
+    "category": "skill",
+    "visibility": "private"
+  },
+  {
+    "name": "agent-communication-pipeline-design",
+    "url": "https://github.com/alvis9315/agent-communication-pipeline-design",
+    "description": "多 agent 協作架構設計(實驗中,未部署為 skill)",
+    "category": "skill",
+    "visibility": "private"
+  },
+  {
+    "name": "job-search-secret",
+    "url": "https://github.com/alvis9315/job-search-secret",
+    "description": "104 職缺收集工具:FastAPI + Vue dashboard,履歷一條龍的站 1",
+    "category": "product",
+    "visibility": "private"
+  },
+  {
+    "name": "knowledge-inbox",
+    "url": "https://github.com/alvis9315/knowledge-inbox",
+    "description": "個人知識收件匣:Vue 3 + Supabase + Claude Haiku 自動分類",
+    "category": "product",
+    "visibility": "public"
+  },
+  {
+    "name": "figureshot-lab",
+    "url": "https://github.com/alvis9315/figureshot-lab",
+    "description": "AI 輔助角色攝影靈感平台:Nuxt 3 + Spring Boot + Claude Adapter",
+    "category": "product",
+    "visibility": "public"
+  },
+  {
+    "name": "portfolio",
+    "url": "https://github.com/alvis9315/portfolio",
+    "description": "個人作品集:scroll 驅動 3D 鏡頭飛行(Vue 3 + Three.js)",
+    "category": "product",
+    "visibility": "public"
+  },
+  {
+    "name": "job-market-insight-lab",
+    "url": "https://github.com/alvis9315/job-market-insight-lab",
+    "description": "工作市場數據分析工具(job-search-secret 的公開版前身)",
+    "category": "product",
+    "visibility": "public"
+  },
+  {
+    "name": "revenue-management-system",
+    "url": "https://github.com/alvis9315/revenue-management-system",
+    "description": "營收管理系統(Vue)",
+    "category": "product",
+    "visibility": "public"
+  },
+  {
+    "name": "retrieval-comparison-thesis",
+    "url": "https://github.com/alvis9315/retrieval-comparison-thesis",
+    "description": "碩論:檢索方法比較研究,依 master_plan 分 gate 推進",
+    "category": "research",
+    "visibility": "private"
+  },
+  {
+    "name": "frontend-development-guide",
+    "url": "https://github.com/alvis9315/frontend-development-guide",
+    "description": "前端開發指南筆記",
+    "category": "practice",
+    "visibility": "public"
+  },
+  {
+    "name": "Front-End-Npm-Intro",
+    "url": "https://github.com/alvis9315/Front-End-Npm-Intro",
+    "description": "NPM 套件介紹分享",
+    "category": "practice",
+    "visibility": "public"
+  },
+  {
+    "name": "side-project-vue",
+    "url": "https://github.com/alvis9315/side-project-vue",
+    "description": "Vue 3 待辦事項練習",
+    "category": "practice",
+    "visibility": "public"
+  },
+  {
+    "name": "MAOUNI0809",
+    "url": "https://github.com/alvis9315/MAOUNI0809",
+    "description": "MaoUni 專案(Java)",
+    "category": "practice",
+    "visibility": "public"
+  },
+  {
+    "name": "MaoUniSecond",
+    "url": "https://github.com/alvis9315/MaoUniSecond",
+    "description": "MaoUni 二代(Java)",
+    "category": "practice",
+    "visibility": "public"
+  },
+  {
+    "name": "maouni",
+    "url": "https://github.com/alvis9315/maouni",
+    "description": "MaoUni 早期版(Java)",
+    "category": "practice",
+    "visibility": "public"
+  },
+  {
+    "name": "GitBranchSample",
+    "url": "https://github.com/alvis9315/GitBranchSample",
+    "description": "Git 分支練習",
+    "category": "practice",
+    "visibility": "public"
+  },
+  {
+    "name": "Git-sample",
+    "url": "https://github.com/alvis9315/Git-sample",
+    "description": "Git 練習",
+    "category": "practice",
+    "visibility": "public"
+  },
+  {
+    "name": "practice-git",
+    "url": "https://github.com/alvis9315/practice-git",
+    "description": "Git 練習",
+    "category": "practice",
+    "visibility": "public"
+  },
+  {
+    "name": "ccc",
+    "url": "https://github.com/alvis9315/ccc",
+    "description": "練習用",
+    "category": "practice",
+    "visibility": "public"
+  },
+  {
+    "name": "gittest",
+    "url": "https://github.com/alvis9315/gittest",
+    "description": "Git 練習",
+    "category": "practice",
+    "visibility": "public"
+  },
+  {
+    "name": "security-audit-skill",
+    "url": "https://github.com/alvis9315/security-audit-skill",
+    "description": "多階段安全審計 agent skill(fork 參考)",
+    "category": "reference",
+    "visibility": "public",
+    "fork": true
+  },
+  {
+    "name": "open-slide",
+    "url": "https://github.com/alvis9315/open-slide",
+    "description": "agent 專用簡報框架(fork 參考)",
+    "category": "reference",
+    "visibility": "public",
+    "fork": true
+  },
+  {
+    "name": "xkbase-app",
+    "url": "https://github.com/alvis9315/xkbase-app",
+    "description": "fork 參考",
+    "category": "reference",
+    "visibility": "public",
+    "fork": true
+  },
+  {
+    "name": "Universal-LPC-Spritesheet-Character-Generator",
+    "url": "https://github.com/alvis9315/Universal-LPC-Spritesheet-Character-Generator",
+    "description": "LPC 產生器 fork:🎲 隨機生成+嚴格動作過濾(防裸體)+中文化;本機 ~/Projects/lpc-generator-fork",
+    "category": "reference",
+    "visibility": "public",
+    "fork": true
+  }
 ]

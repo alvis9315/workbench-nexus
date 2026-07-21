@@ -32,13 +32,18 @@ src/assets/themes/<id>/<角色>/meta.json    ← 角色中繼資料
      "license": "授權狀態;非自由授權必須寫明「僅限本機自用,不得公開部署」"
    }
    ```
-3. **主題模組** `src/themes/<id>/index.ts`:實作 `SpriteTheme` 全部成員(契約正本 `src/themes/types.ts`;
-   參考 `guild`=有 oversize/裸素體特例的複雜版;`pokemon`=最簡版)。特別注意:
-   - `defaultPoseOf` 必須回「安全」姿勢(不裸素體、不缺件)
-   - `clothedPosesOf` 給小幫手隨機輪播用,把不宜輪播的姿勢濾掉
-   - `poseScale` 素材畫布比標準大時回倍率(會做破格溢出效果),否則回 1
+3. **manifest + 主題模組**(2026-07-21 起 manifest 化,theme-mainline-v2 §3.1):
+   - 在 `scripts/gen-theme-manifest.mjs` 的 `THEME_CONFIG` 加主題段(theme_name / shareable /
+     base_cell / groups / 語意槽位候選 / meta.json 欄位對映),跑
+     `node scripts/gen-theme-manifest.mjs <id>` 產 `src/assets/themes/<id>/characters.json`
+   - `src/themes/<id>/index.ts` 只做三件事:glob 素材 URL + import characters.json +
+     `createManifestTheme(manifest, SPRITES, { oversizeAnchor })`(參考 guild/pokemon,都不到 30 行)
+   - **characters.json 不手改**(重生會覆蓋);要改角色資料改 meta.json 後重跑腳本
    - `oversizeAnchor` 依「畫布為什麼變大」宣告:體型差(內容貼底,如寶可夢大隻)= `'bottom'`;
      動作格(角色居中、武器/特效四向溢出,如公會武器大格)= `'center'`——排版特例屬於主題,不寫進元件
+   - 安全姿勢(裸素體防呆)由 meta.json `default_pose` + manifest `idle_unsafe` 資料驅動
+   - **選角(seed→角色)不寫在主題模組**:出廠配對登記 `src/data/casting.json`(跨主題一層,
+     theme-mainline-v2 §3.2);沒登記的 seed 由 factory 用 hash 決定性分配
    - `groups`/`charGroupOf` 給選角彈窗的分類頁籤(公會=職業、寶可夢=世代)
 4. **註冊**:`src/themes/index.ts` 的 `THEME_META`(id+顯示名+代表角色小圖 `icon`,
    單張靜態 import)與 `loaders`(dynamic import)各加一行——主題本體**必須懶載入**,
@@ -52,13 +57,17 @@ src/assets/themes/<id>/<角色>/meta.json    ← 角色中繼資料
 
 ## 各主題新增角色
 
-- **guild(冒險者公會)**:角色產線在 `~/ui-asset-library`(LPC generator 設定檔+透明去背
-  pipeline,注意 [PIL 透明 GIF 陷阱]),產好後把 `<角色>/` 資料夾(GIF+meta.json)放進
-  `src/assets/themes/guild/`,並在 `src/themes/guild/index.ts` 補 `DEFAULT_POSE`(全裝安全姿勢)、
-  `CHAR_GROUP`(職業分類);要固定配對某 skill 就加 `SKILL_CHAR`
+- **guild(冒險者公會)**:角色產線=`~/Projects/lpc-generator-fork`(官方產生器 fork:
+  🎲 隨機生成+嚴格動作過濾防裸體+中文化,`npm run dev` 啟動)選裝下載 spritesheet →
+  ui-asset-library `scripts/lpc2gif.py` 轉 GIF(注意 PIL 透明 GIF 陷阱)→ 把 `<角色>/`
+  資料夾(GIF+meta.json,meta 必含 `display_name`/`group`/`default_pose`,oversize 另加
+  `oversize_weapon_cell`)放進 `src/assets/themes/guild/` → 重跑
+  `node scripts/gen-theme-manifest.mjs guild`;要固定配對某 skill 就在
+  `src/data/casting.json` 登記——**主題模組零改動**
 - **pokemon(寶可夢圖鑑)**:不手動加。重跑
-  `node scripts/import-pokemon.mjs <vscode-pokemon路徑> [gen…]`,編號/顯示名/世代/尺寸
-  全自動從來源 repo 解析;來源新增世代時只要在主題 `groups` 補一個世代頁籤
+  `node scripts/import-pokemon.mjs <vscode-pokemon路徑> [gen…]` 後接
+  `node scripts/gen-theme-manifest.mjs pokemon`;來源新增世代時在
+  `gen-theme-manifest.mjs` 的 THEME_CONFIG 補世代頁籤
 5. **驗證門**:`pnpm lint && pnpm typecheck && pnpm build`,再手動/Playwright 檢查:
    切主題後技能牆、Hotbar、小幫手、選角彈窗(分類頁籤+搜尋)、姿勢選單、全域搜尋右側動畫全部正常
 

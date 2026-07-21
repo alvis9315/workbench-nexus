@@ -1,7 +1,12 @@
 {
   "character_id": "F_archer_orange",
   "display_name": "橙髮弓手",
-  "tags": ["LPC", "sprite", "弓手", "橙髮"],
+  "tags": [
+    "LPC",
+    "sprite",
+    "弓手",
+    "橙髮"
+  ],
   "hash_status": "missing",
   "hash": null,
   "hash_partial_notes": null,
@@ -11,5 +16,9 @@
   "oversize_weapon_cell": null,
   "license": "CC-BY / OGA-BY",
   "credits_status": "missing",
-  "used_in": ["workbench-nexus(規劃中,尚未接上)"]
+  "used_in": [
+    "workbench-nexus(規劃中,尚未接上)"
+  ],
+  "group": "archer",
+  "default_pose": "idle_down"
 }

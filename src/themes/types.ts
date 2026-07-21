@@ -1,3 +1,39 @@
+/** 語意槽位(theme-mainline-v2 §3.1):跨主題一致的角色動畫用途。
+ *  idle=靜置、hover=滑過/興奮、grab=被抓起(夾娃娃機)、action=施展動作 */
+export type SpriteSlot = 'idle' | 'hover' | 'grab' | 'action'
+
+/** 主題 manifest(characters.json,由 scripts/gen-theme-manifest.mjs 產生——
+ *  改角色資料改 meta.json 後重跑腳本,不手改 manifest) */
+export interface ThemeManifest {
+  theme_id: string
+  theme_name: string
+  shareable: boolean
+  credits: string
+  /** 標準顯示格(px);pose_cells 記錄「不同於基準」的姿勢格尺寸 */
+  base_cell: number
+  groups: { id: string; label: string }[]
+  fallback_group: string
+  characters: ManifestCharacter[]
+}
+
+export interface ManifestCharacter {
+  id: string
+  label: string
+  group: string
+  /** 官方序(如圖鑑編號);null = 按 id 字典序排 */
+  order: number | null
+  frame_w: number
+  frame_h: number
+  default_pose: string
+  /** true = idle 系姿勢是裸素體(服裝圖層不支援 idle),輪播與 idle 槽避開 */
+  idle_unsafe: boolean
+  /** 姿勢格尺寸覆寫(px),只記與 base_cell 不同者 → poseScale 依此計算 */
+  pose_cells: Record<string, number>
+  poses: string[]
+  /** 語意槽位 → 姿勢名(素材檔存在保證由產生腳本負責) */
+  slots: Record<SpriteSlot, string>
+}
+
 /**
  * 主題(角色素材來源)的統一契約。所有元件只透過這個介面拿素材,
  * 不直接碰檔案——引入新來源=實作這個介面,流程見 docs/theme-source-spec.md。
@@ -34,4 +70,8 @@ export interface SpriteTheme {
    *  'bottom'=體型差(角色本體就是大隻,內容貼底,底部對齊才與小隻齊平,如寶可夢 64px 大隻)
    *  'center'=動作格(角色仍在畫布中央,武器/特效四向溢出,置中才不會人物上飄,如公會武器大格) */
   oversizeAnchor: 'bottom' | 'center'
+  /** 語意槽位 → 姿勢名(roster hover/夾娃娃機 grab/點擊 action 等跨主題互動用) */
+  slotPose(char: string, slot: SpriteSlot): string
+  /** 角色顯示框原生尺寸(px;非正方形直式角色 frame_h > frame_w) */
+  charFrame(char: string): { w: number; h: number }
 }

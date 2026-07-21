@@ -1,7 +1,13 @@
 {
   "character_id": "E_sage_white",
   "display_name": "白髮法師",
-  "tags": ["LPC", "sprite", "法師", "白髮", "法杖"],
+  "tags": [
+    "LPC",
+    "sprite",
+    "法師",
+    "白髮",
+    "法杖"
+  ],
   "hash_status": "missing",
   "hash": null,
   "hash_partial_notes": null,
@@ -11,5 +17,9 @@
   "oversize_weapon_cell": 192,
   "license": "CC-BY / OGA-BY",
   "credits_status": "missing",
-  "used_in": ["workbench-nexus(規劃中,尚未接上)"]
+  "used_in": [
+    "workbench-nexus(規劃中,尚未接上)"
+  ],
+  "group": "mage",
+  "default_pose": "idle_down"
 }

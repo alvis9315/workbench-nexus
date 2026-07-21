@@ -1,0 +1,10 @@
+{
+  "__doc": "選角表(theme-mainline-v2 §3.2):seed(skill id / 'mascot')→ 各主題的出廠角色。跨主題一層,獨立於主題 manifest;沒列到的 seed 用 hash 決定性分配。使用者在 CharPicker 的手動選角(localStorage)優先於本表。",
+  "mascot": { "guild": "D_paladin_blonde", "pokemon": "pikachu" },
+  "work-shift": { "guild": "A_sword_red" },
+  "resume-tailoring": { "guild": "C_kimono_pink" },
+  "self-prompting": { "guild": "E_sage_white" },
+  "new-project-quickstart": { "guild": "D_paladin_blonde" },
+  "design-system-codify": { "guild": "B_catgirl_blue" },
+  "api-sa-merge": { "guild": "F_archer_orange" }
+}

@@ -86,5 +86,22 @@
       "chrome-extension",
       "設計工具"
     ]
+  },
+  {
+    "name": "lpc-generator-fork",
+    "slug": "lpc-generator-fork",
+    "category": "design-tool",
+    "kind": "custom",
+    "tech": "common",
+    "description": "LPC 產生器 fork:隨機生成面板+嚴格動作過濾(防裸體)+中文化;冒險者公會角色產線入口",
+    "url": "https://github.com/alvis9315/Universal-LPC-Spritesheet-Character-Generator",
+    "license": "GPL/CC-BY-SA(上游),素材授權逐項看 credits",
+    "tags": [
+      "LPC",
+      "像素角色",
+      "隨機生成",
+      "設計工具",
+      "產線"
+    ]
   }
 ]
