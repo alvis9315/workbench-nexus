@@ -1,0 +1,11 @@
+{
+  "character_id": "iron-spider",
+  "display_name": "Spider-Man（Iron Spidey）",
+  "group": "spider",
+  "order": 3,
+  "default_pose": "idle",
+  "source_variant": "Spider-Man/09 [Gold - Iron Spidey]",
+  "source": "https://www.spriters-resource.com/pc_computer/marvelcosmicinvasion/asset/500411/",
+  "license": "Marvel third-party IP; private local non-commercial use only; no public deployment",
+  "used_in": ["workbench-nexus:marvel-cosmic-invasion"]
+}

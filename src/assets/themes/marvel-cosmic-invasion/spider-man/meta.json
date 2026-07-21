@@ -1,0 +1,11 @@
+{
+  "character_id": "spider-man",
+  "display_name": "Spider-Man",
+  "group": "spider",
+  "order": 1,
+  "default_pose": "idle",
+  "source_variant": "Spider-Man/01 [Default]",
+  "source": "https://www.spriters-resource.com/pc_computer/marvelcosmicinvasion/asset/500411/",
+  "license": "Marvel third-party IP; private local non-commercial use only; no public deployment",
+  "used_in": ["workbench-nexus:marvel-cosmic-invasion"]
+}

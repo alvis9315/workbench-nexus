@@ -1,0 +1,11 @@
+{
+  "character_id": "venom",
+  "display_name": "Venom",
+  "group": "symbiote",
+  "order": 4,
+  "default_pose": "idle",
+  "source_variant": "Venom/01 [Default]",
+  "source": "https://www.spriters-resource.com/pc_computer/marvelcosmicinvasion/asset/500417/",
+  "license": "Marvel third-party IP; private local non-commercial use only; no public deployment",
+  "used_in": ["workbench-nexus:marvel-cosmic-invasion"]
+}

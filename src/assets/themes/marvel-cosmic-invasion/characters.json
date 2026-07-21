@@ -1,0 +1,231 @@
+{
+  "theme_id": "marvel-cosmic-invasion",
+  "theme_name": "Marvel: Cosmic Invasion",
+  "shareable": false,
+  "credits": "Marvel 第三方 IP + The Spriters Resource 遊戲素材；僅限私人未發布非商業使用，禁止公開展示",
+  "asset_kind": "strip",
+  "base_cell": 256,
+  "groups": [
+    {
+      "id": "spider",
+      "label": "Spider-Verse"
+    },
+    {
+      "id": "symbiote",
+      "label": "Symbiote"
+    }
+  ],
+  "fallback_group": "spider",
+  "characters": [
+    {
+      "id": "spider-man",
+      "label": "Spider-Man",
+      "group": "spider",
+      "order": 1,
+      "frame_w": 256,
+      "frame_h": 256,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {},
+      "pose_frames": {
+        "action": 4,
+        "grab": 5,
+        "hover": 8,
+        "idle": 8
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    },
+    {
+      "id": "spider-man-black",
+      "label": "Spider-Man（黑戰衣）",
+      "group": "spider",
+      "order": 2,
+      "frame_w": 256,
+      "frame_h": 256,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {},
+      "pose_frames": {
+        "action": 4,
+        "grab": 5,
+        "hover": 8,
+        "idle": 8
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    },
+    {
+      "id": "iron-spider",
+      "label": "Spider-Man（Iron Spidey）",
+      "group": "spider",
+      "order": 3,
+      "frame_w": 256,
+      "frame_h": 256,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {},
+      "pose_frames": {
+        "action": 4,
+        "grab": 2,
+        "hover": 8,
+        "idle": 8
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    },
+    {
+      "id": "venom",
+      "label": "Venom",
+      "group": "symbiote",
+      "order": 4,
+      "frame_w": 256,
+      "frame_h": 256,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {},
+      "pose_frames": {
+        "action": 6,
+        "grab": 4,
+        "hover": 8,
+        "idle": 10
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    },
+    {
+      "id": "carnage-palette",
+      "label": "Venom（Carnage 色）",
+      "group": "symbiote",
+      "order": 5,
+      "frame_w": 256,
+      "frame_h": 256,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {},
+      "pose_frames": {
+        "action": 6,
+        "grab": 4,
+        "hover": 8,
+        "idle": 10
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    },
+    {
+      "id": "anti-venom-palette",
+      "label": "Venom（Anti-Venom 色）",
+      "group": "symbiote",
+      "order": 6,
+      "frame_w": 256,
+      "frame_h": 256,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {},
+      "pose_frames": {
+        "action": 6,
+        "grab": 4,
+        "hover": 8,
+        "idle": 10
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    }
+  ]
+}

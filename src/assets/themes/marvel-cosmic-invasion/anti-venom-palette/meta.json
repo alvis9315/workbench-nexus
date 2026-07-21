@@ -1,0 +1,11 @@
+{
+  "character_id": "anti-venom-palette",
+  "display_name": "Venom（Anti-Venom 色）",
+  "group": "symbiote",
+  "order": 6,
+  "default_pose": "idle",
+  "source_variant": "Venom/08 [White - Antivenom]",
+  "source": "https://www.spriters-resource.com/pc_computer/marvelcosmicinvasion/asset/500417/",
+  "license": "Marvel third-party IP; private local non-commercial use only; no public deployment",
+  "used_in": ["workbench-nexus:marvel-cosmic-invasion"]
+}

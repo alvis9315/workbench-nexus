@@ -1,0 +1,11 @@
+{
+  "character_id": "spider-man-black",
+  "display_name": "Spider-Man（黑戰衣）",
+  "group": "spider",
+  "order": 2,
+  "default_pose": "idle",
+  "source_variant": "Spider-Man/06 [Black - Black Suit]",
+  "source": "https://www.spriters-resource.com/pc_computer/marvelcosmicinvasion/asset/500411/",
+  "license": "Marvel third-party IP; private local non-commercial use only; no public deployment",
+  "used_in": ["workbench-nexus:marvel-cosmic-invasion"]
+}

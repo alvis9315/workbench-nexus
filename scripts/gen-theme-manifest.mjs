@@ -3,7 +3,7 @@
 // 掃 src/assets/themes/<id>/<char>/*.gif + meta.json → 產 characters.json。
 // UI 只讀 manifest 渲染;素材或 meta 有變動時重跑本腳本(不手改 characters.json 的
 // characters 區塊——會被重生覆蓋;要改角色資料改 meta.json)。
-// 用法:node scripts/gen-theme-manifest.mjs [guild|pokemon|全部省略=兩者]
+// 用法:node scripts/gen-theme-manifest.mjs [guild|pokemon|marvel-cosmic-invasion|全部省略]
 import { readdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -96,6 +96,32 @@ const THEME_CONFIG = {
         Object.entries(meta.sizes ?? {}).filter(([p]) => poses.includes(p)),
       ),
       order: meta.dex ?? null,
+    }),
+  },
+  'marvel-cosmic-invasion': {
+    theme_name: 'Marvel: Cosmic Invasion',
+    shareable: false,
+    credits: 'Marvel 第三方 IP + The Spriters Resource 遊戲素材；僅限私人未發布非商業使用，禁止公開展示',
+    asset_kind: 'strip',
+    base_cell: 256,
+    groups: [
+      { id: 'spider', label: 'Spider-Verse' },
+      { id: 'symbiote', label: 'Symbiote' },
+    ],
+    fallback_group: 'spider',
+    slots: {
+      idle: ['idle'],
+      hover: ['hover', 'idle'],
+      grab: ['grab', 'idle'],
+      action: ['action', 'idle'],
+    },
+    charFromMeta: (meta, poses) => ({
+      label: meta.display_name,
+      group: meta.group,
+      default_pose: poses.includes(meta.default_pose) ? meta.default_pose : poses[0],
+      idle_unsafe: false,
+      pose_cells: {},
+      order: meta.order ?? null,
     }),
   },
 }

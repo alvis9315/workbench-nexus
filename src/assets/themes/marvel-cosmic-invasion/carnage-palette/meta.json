@@ -1,0 +1,11 @@
+{
+  "character_id": "carnage-palette",
+  "display_name": "Venom（Carnage 色）",
+  "group": "symbiote",
+  "order": 5,
+  "default_pose": "idle",
+  "source_variant": "Venom/06 [Red - Carnage]",
+  "source": "https://www.spriters-resource.com/pc_computer/marvelcosmicinvasion/asset/500417/",
+  "license": "Marvel third-party IP; private local non-commercial use only; no public deployment",
+  "used_in": ["workbench-nexus:marvel-cosmic-invasion"]
+}
