@@ -1,0 +1,30 @@
+[
+  {
+    "slug": "tw-zh-v1",
+    "name": "台灣本土中文版",
+    "route": "台灣本土路線",
+    "description": "104 / Cake 簡潔版型:條列為主體、不做花式表格;自傳依職缺要求才附",
+    "basis": "104 / Cake 簡潔版型",
+    "specs": [
+      "A4 單欄為主;微軟正黑或思源黑體,正文 10.5–11pt,行距 1.15",
+      "姓名 16pt 粗體 + 應徵職稱;大頭照位右上(依產業慣例可留可拿)",
+      "段落:個人簡介 / 專業技能 / 工作經驗 / 學歷 / 語言 / 證照 / 自傳(職缺要求才有)",
+      "黑 + 單一深色強調,不超過兩色;1–2 頁,自傳 400–800 字"
+    ],
+    "url": "https://github.com/alvis9315/workbench-nexus/blob/main/resume-templates/tw-zh-v1/TEMPLATE.md"
+  },
+  {
+    "slug": "ats-en-v1",
+    "name": "外商 / ATS 英文版",
+    "route": "外商 ATS 路線",
+    "description": "Jake's Resume / Harvard 單欄極簡:禁表格/文字框/雙欄/圖形,ATS 解析優先",
+    "basis": "Jake's Resume / Harvard 格式",
+    "specs": [
+      "A4 / Letter 單欄;Calibri 正文 10.5pt,行距 1.0–1.15;邊界 0.5–0.75 in",
+      "姓名 16–18pt 粗體置中(正文第一行,不放頁首頁尾);聯絡列純文字一行",
+      "段落:SUMMARY / WORK EXPERIENCE / EDUCATION / SKILLS / CERTIFICATIONS",
+      "全黑無底色無 icon 無照片;1 頁為原則(10 年資歷以上可 2)"
+    ],
+    "url": "https://github.com/alvis9315/workbench-nexus/blob/main/resume-templates/ats-en-v1/TEMPLATE.md"
+  }
+]

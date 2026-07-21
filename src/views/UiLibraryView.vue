@@ -2,7 +2,8 @@
 import { computed, ref } from 'vue'
 import { createAvatar } from '@dicebear/core'
 import { shapes } from '@dicebear/collection'
-import { Blocks, Box, ExternalLink, Search, Sparkles, SwatchBook, Wrench, X } from 'lucide-vue-next'
+import { Blocks, Box, Check, Copy, ExternalLink, Search, ShoppingCart, Sparkles, SwatchBook, Trash2, Wrench, X } from 'lucide-vue-next'
+import { toast } from 'vue-sonner'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
@@ -57,7 +58,7 @@ const isFiltering = computed(() => query.value.trim() !== '' || activeTags.value
 const filtered = computed(() => {
   const q = query.value.trim().toLowerCase()
   return items.filter((item) => {
-    const matchesQuery = !q || item.name.toLowerCase().includes(q) || item.description.toLowerCase().includes(q) || item.tags.some((t) => t.toLowerCase().includes(q))
+    const matchesQuery = !q || item.name.toLowerCase().includes(q) || item.slug.includes(q) || item.description.toLowerCase().includes(q) || item.tags.some((t) => t.toLowerCase().includes(q))
     const matchesTags = activeTags.value.size === 0 || item.tags.some((t) => activeTags.value.has(t))
     const matchesKind = activeKind.value === 'all' || item.kind === activeKind.value
     return matchesQuery && matchesTags && matchesKind
@@ -80,6 +81,29 @@ const GROUPS = computed(() =>
 
 const placeholder = (name: string) =>
   createAvatar(shapes, { seed: name, size: 96, backgroundColor: ['0c1a33'] }).toDataUri()
+
+// slug 複製 + 購物車:slug 是對話/Prompt 引用素材的短碼,單筆複製鈕直接拿,
+// 多筆先加入購物車再一鍵複製(", " 相接,貼進 prompt 就是清單)。
+// 卡片本體是 <a>(點了開上游連結),按鈕一律 .stop.prevent 免得順手開了分頁。
+const cart = ref<Set<string>>(new Set())
+const inCart = (slug: string) => cart.value.has(slug)
+const toggleCart = (slug: string) => {
+  const next = new Set(cart.value)
+  if (next.has(slug)) next.delete(slug)
+  else next.add(slug)
+  cart.value = next
+}
+const copyText = async (text: string, okMsg: string) => {
+  try {
+    await navigator.clipboard.writeText(text)
+    toast.success(okMsg)
+  } catch {
+    toast.error('複製失敗,請手動選取複製')
+  }
+}
+const copySlug = (slug: string) => copyText(slug, `ITEM GET!已複製 ${slug}`)
+const copyCart = () => copyText([...cart.value].join(', '), `CART COPY!已複製 ${cart.value.size} 個 slug`)
+const clearCart = () => (cart.value = new Set())
 </script>
 
 <template>
@@ -178,6 +202,26 @@ const placeholder = (name: string) =>
                 {{ item.kind }}
               </Badge>
             </div>
+            <div class="flex items-center gap-1">
+              <code class="min-w-0 truncate rounded bg-muted px-1.5 py-0.5 font-mono text-[11px] font-bold text-primary">{{ item.slug }}</code>
+              <button
+                type="button"
+                class="shrink-0 cursor-pointer rounded border border-border p-1 text-muted-foreground hover:border-primary hover:text-primary"
+                :aria-label="`複製 ${item.slug}`"
+                @click.stop.prevent="copySlug(item.slug)"
+              >
+                <Copy class="size-3" />
+              </button>
+              <button
+                type="button"
+                class="shrink-0 cursor-pointer rounded border p-1"
+                :class="inCart(item.slug) ? 'border-primary bg-primary/15 text-primary' : 'border-border text-muted-foreground hover:border-primary hover:text-primary'"
+                :aria-label="`${inCart(item.slug) ? '移出' : '加入'}購物車 ${item.slug}`"
+                @click.stop.prevent="toggleCart(item.slug)"
+              >
+                <component :is="inCart(item.slug) ? Check : ShoppingCart" class="size-3" />
+              </button>
+            </div>
             <p class="line-clamp-2 text-xs leading-relaxed text-muted-foreground">{{ item.description }}</p>
             <div class="mt-1 flex flex-wrap gap-1">
               <span v-for="t in item.tags" :key="t" class="rounded bg-muted px-1.5 py-0.5 text-[9px] text-muted-foreground">
@@ -241,6 +285,26 @@ const placeholder = (name: string) =>
                 </Badge>
                 <Badge v-if="item.tech" variant="outline" class="px-1 py-0 text-[9px]">{{ item.tech }}</Badge>
               </div>
+              <div class="flex items-center gap-1">
+                <code class="min-w-0 truncate rounded bg-muted px-1.5 py-0.5 font-mono text-[11px] font-bold text-primary">{{ item.slug }}</code>
+                <button
+                  type="button"
+                  class="shrink-0 cursor-pointer rounded border border-border p-1 text-muted-foreground hover:border-primary hover:text-primary"
+                  :aria-label="`複製 ${item.slug}`"
+                  @click.stop.prevent="copySlug(item.slug)"
+                >
+                  <Copy class="size-3" />
+                </button>
+                <button
+                  type="button"
+                  class="shrink-0 cursor-pointer rounded border p-1"
+                  :class="inCart(item.slug) ? 'border-primary bg-primary/15 text-primary' : 'border-border text-muted-foreground hover:border-primary hover:text-primary'"
+                  :aria-label="`${inCart(item.slug) ? '移出' : '加入'}購物車 ${item.slug}`"
+                  @click.stop.prevent="toggleCart(item.slug)"
+                >
+                  <component :is="inCart(item.slug) ? Check : ShoppingCart" class="size-3" />
+                </button>
+              </div>
               <p class="line-clamp-2 text-xs leading-relaxed text-muted-foreground">{{ item.description }}</p>
               <p v-if="item.license" class="mt-auto truncate pt-1 text-[10px] text-muted-foreground/70">
                 授權:{{ item.license }}
@@ -253,5 +317,39 @@ const placeholder = (name: string) =>
         </p>
       </section>
     </template>
+
+    <!-- 購物車列:有東西才浮出;chip 點了移出,一鍵複製後不清空(可能還要貼第二處) -->
+    <div
+      v-if="cart.size"
+      class="pixel-frame fixed bottom-4 left-1/2 z-40 flex max-w-[min(90vw,48rem)] -translate-x-1/2 flex-wrap items-center gap-1.5 rounded-lg bg-card px-3 py-2 shadow-lg"
+    >
+      <ShoppingCart class="size-3.5 shrink-0 text-primary" />
+      <button
+        v-for="slug in cart"
+        :key="slug"
+        type="button"
+        class="cursor-pointer rounded bg-muted px-1.5 py-0.5 font-mono text-[11px] text-foreground hover:bg-destructive/20 hover:line-through"
+        :aria-label="`移出購物車 ${slug}`"
+        title="點擊移出"
+        @click="toggleCart(slug)"
+      >
+        {{ slug }}
+      </button>
+      <button
+        type="button"
+        class="ml-1 flex cursor-pointer items-center gap-1 rounded-md bg-primary px-2.5 py-1 font-pixel text-[9px] text-primary-foreground hover:opacity-90"
+        @click="copyCart"
+      >
+        <Copy class="size-3" /> 複製 ×{{ cart.size }}
+      </button>
+      <button
+        type="button"
+        class="flex cursor-pointer items-center gap-1 rounded-md border border-border px-2 py-1 text-[10px] text-muted-foreground hover:border-destructive hover:text-destructive"
+        aria-label="清空購物車"
+        @click="clearCart"
+      >
+        <Trash2 class="size-3" />
+      </button>
+    </div>
   </main>
 </template>

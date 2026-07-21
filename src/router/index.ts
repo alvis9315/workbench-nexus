@@ -22,6 +22,16 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/UiLibraryView.vue'),
   },
   {
+    path: '/pipelines',
+    name: 'pipelines',
+    component: () => import('@/views/PipelinesView.vue'),
+  },
+  {
+    path: '/resume-templates',
+    name: 'resume-templates',
+    component: () => import('@/views/ResumeTemplatesView.vue'),
+  },
+  {
     path: '/:pathMatch(.*)*',
     redirect: '/',
   },

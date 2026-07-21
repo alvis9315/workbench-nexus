@@ -1,0 +1,34 @@
+[
+  {
+    "slug": "resume-pipeline",
+    "name": "求職履歷一條龍",
+    "description": "一次人工輸入(貼職缺連結)、一次人工確認(docx 預覽),其餘自動;個資只進 resume-tailoring private repo",
+    "contractUrl": "https://github.com/alvis9315/workbench-nexus/blob/main/specs/resume-pipeline.md",
+    "statusNote": "規劃定稿(v0.1),站 2/3 掛接待實作(2026-07-20)",
+    "stations": [
+      {
+        "name": "職缺收集",
+        "tool": "job-search-secret",
+        "role": "Dashboard UI 搜 104 職缺(人操作瀏覽器)",
+        "handoff": "104 職缺連結(使用者複製貼回)",
+        "status": "ready"
+      },
+      {
+        "name": "履歷客製",
+        "tool": "resume-tailoring",
+        "role": "品質迴圈(Planner→Executor→Critic→Refiner)產雙版履歷",
+        "handoff": "雙版履歷 md(內容正本)",
+        "status": "wip",
+        "invocation": "/resume-tailoring 用這個職缺跑履歷:<貼上 104 連結或 JD 全文>"
+      },
+      {
+        "name": "渲染歸檔",
+        "tool": "pandoc render",
+        "role": "md + 視覺模板 → 可編輯 docx,預覽過目後歸檔",
+        "handoff": "resumes/final/<slug>/ 內 md + docx",
+        "status": "planned",
+        "invocation": "pandoc <resume>.md -o <out>.docx --reference-doc=<template>.docx"
+      }
+    ]
+  }
+]

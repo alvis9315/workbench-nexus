@@ -1,57 +1,90 @@
 [
   {
     "name": "react-bits",
+    "slug": "react-bits",
     "category": "components",
     "kind": "vendor",
     "description": "React 動效元件集;曾移植 Galaxy、Threads → knowledge-inbox",
     "url": "https://reactbits.dev",
     "license": "MIT",
-    "tags": ["動效", "react", "背景特效"]
+    "tags": [
+      "動效",
+      "react",
+      "背景特效"
+    ]
   },
   {
     "name": "MenuSweep",
+    "slug": "menu-sweep",
     "category": "components",
     "kind": "custom",
     "tech": "vue",
     "description": "自製可重用元件正本(custom/vue/MenuSweep)",
     "url": "https://github.com/alvis9315/ui-asset-library/tree/main/custom/vue/MenuSweep",
     "license": "自有",
-    "tags": ["動效", "vue", "選單"]
+    "tags": [
+      "動效",
+      "vue",
+      "選單"
+    ]
   },
   {
     "name": "propwash",
+    "slug": "propwash",
     "category": "3d",
     "kind": "vendor",
     "description": "Web FPV 無人機模擬器;參考 camera rig / lerp / slerp,不搬整套物理",
     "url": "https://github.com/mqnc/propwash",
     "license": "MIT(素材另有 CC,逐項確認)",
-    "tags": ["無人機", "camera-rig", "threejs", "模擬器"]
+    "tags": [
+      "無人機",
+      "camera-rig",
+      "threejs",
+      "模擬器"
+    ]
   },
   {
     "name": "3D-Drone-Threejs",
+    "slug": "3d-drone-threejs",
     "category": "3d",
     "kind": "vendor",
     "description": "DJI FPV 模型 + Three.js 載入打光參考;模型 CC BY 4.0 須署名",
     "url": "https://github.com/hrshbrdhnn/3D-Drone-Threejs",
     "license": "無根 LICENSE,原始碼僅供閱讀",
-    "tags": ["無人機", "打光", "threejs", "模型"]
+    "tags": [
+      "無人機",
+      "打光",
+      "threejs",
+      "模型"
+    ]
   },
   {
     "name": "Threejs-Awesome-Graphics-Agent-Skills",
+    "slug": "threejs-graphics-skills",
     "category": "agent-skill",
     "kind": "vendor",
     "description": "Three.js 場景與遊戲圖形生成的 agent skills 合集",
     "url": "https://github.com/scottstts/Threejs-Awesome-Graphics-Agent-Skills",
     "license": "見 repo",
-    "tags": ["threejs", "場景生成", "agent-skill"]
+    "tags": [
+      "threejs",
+      "場景生成",
+      "agent-skill"
+    ]
   },
   {
     "name": "design-md-chrome",
+    "slug": "design-md-chrome",
     "category": "design-tool",
     "kind": "vendor",
     "description": "Chrome 擴充,擷取網站樣式產生 DESIGN.md;與 design-system-codify 同一種產物格式",
     "url": "https://github.com/bergside/design-md-chrome",
     "license": "MIT",
-    "tags": ["design-tool", "DESIGN.md", "chrome-extension", "設計工具"]
+    "tags": [
+      "design-tool",
+      "DESIGN.md",
+      "chrome-extension",
+      "設計工具"
+    ]
   }
 ]
