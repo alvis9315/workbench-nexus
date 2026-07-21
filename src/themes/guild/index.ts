@@ -75,6 +75,8 @@ const posesOf = (char: string): string[] =>
 
 const guild: SpriteTheme = {
   id: 'guild',
+  // LPC 素材 CC-BY/OGA-BY,署名後可公開(逐層署名補齊行動項見 ui-asset-library CREDITS.md)
+  shareable: true,
   label: '冒險者公會',
   chars: CHARS,
   charLabel: (char) => CHAR_LABEL[char] ?? char,
@@ -107,6 +109,8 @@ const guild: SpriteTheme = {
    *  顯示尺寸乘上倍率,人物比例才與其他姿勢一致,武器自然超出格外。 */
   poseScale: (char, pose) =>
     pose.startsWith('weapon_oversize') ? (OVERSIZE_CELL[char] ?? 192) / 64 : 1,
+  // 武器大格:角色仍在畫布中央,只有武器四向溢出——置中錨定,人物才不會上飄
+  oversizeAnchor: 'center',
 }
 
 export default guild

@@ -7,9 +7,10 @@ import pokemonIcon from '@/assets/themes/pokemon/pikachu/idle.gif'
 
 // 主題註冊表:懶載入——只有啟用中的主題會被 import(主包零成長鐵則;
 // pokemon 主題 565 隻角色,eager 全載會把首包撐爆)。新主題在這兩處掛上即可。
+// shareable 同步主題模組宣告(false=含第三方 IP,錄影/demo 前不得啟用;theme-mainline-v2 §3.4)
 export const THEME_META = [
-  { id: 'guild', label: '冒險者公會', icon: guildIcon },
-  { id: 'pokemon', label: '寶可夢圖鑑', icon: pokemonIcon },
+  { id: 'guild', label: '冒險者公會', icon: guildIcon, shareable: true },
+  { id: 'pokemon', label: '寶可夢圖鑑', icon: pokemonIcon, shareable: false },
 ] as const
 
 const loaders: Record<string, () => Promise<{ default: SpriteTheme }>> = {

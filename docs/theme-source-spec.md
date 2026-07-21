@@ -32,11 +32,13 @@ src/assets/themes/<id>/<角色>/meta.json    ← 角色中繼資料
      "license": "授權狀態;非自由授權必須寫明「僅限本機自用,不得公開部署」"
    }
    ```
-3. **主題模組** `src/themes/<id>/index.ts`:實作 `SpriteTheme` 十二個成員
-   (參考 `guild`=有 oversize/裸素體特例的複雜版;`pokemon`=最簡版)。特別注意:
+3. **主題模組** `src/themes/<id>/index.ts`:實作 `SpriteTheme` 全部成員(契約正本 `src/themes/types.ts`;
+   參考 `guild`=有 oversize/裸素體特例的複雜版;`pokemon`=最簡版)。特別注意:
    - `defaultPoseOf` 必須回「安全」姿勢(不裸素體、不缺件)
    - `clothedPosesOf` 給小幫手隨機輪播用,把不宜輪播的姿勢濾掉
    - `poseScale` 素材畫布比標準大時回倍率(會做破格溢出效果),否則回 1
+   - `oversizeAnchor` 依「畫布為什麼變大」宣告:體型差(內容貼底,如寶可夢大隻)= `'bottom'`;
+     動作格(角色居中、武器/特效四向溢出,如公會武器大格)= `'center'`——排版特例屬於主題,不寫進元件
    - `groups`/`charGroupOf` 給選角彈窗的分類頁籤(公會=職業、寶可夢=世代)
 4. **註冊**:`src/themes/index.ts` 的 `THEME_META`(id+顯示名+代表角色小圖 `icon`,
    單張靜態 import)與 `loaders`(dynamic import)各加一行——主題本體**必須懶載入**,

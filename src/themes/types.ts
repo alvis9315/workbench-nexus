@@ -5,6 +5,9 @@
 export interface SpriteTheme {
   /** kebab-case 唯一 id,也是 assets/themes/<id>/ 與 localStorage 分 key 的依據 */
   id: string
+  /** 可公開性(theme-mainline-v2 §3.4):false = 含第三方 IP / 僅限私人使用——
+   *  錄影、demo、放 portfolio 前不得切到此主題;UI 對 false 主題顯示「私用」標記 */
+  shareable: boolean
   /** 顯示名(選主題選單用) */
   label: string
   /** 全部角色 id */
@@ -27,4 +30,8 @@ export interface SpriteTheme {
   spriteUrl(char: string, pose: string): string | undefined
   /** 相對標準顯示框的倍率(>1 = 素材畫布較大,會做破格溢出效果) */
   poseScale(char: string, pose: string): number
+  /** oversize(poseScale>1)素材的錨定方式,取決於素材畫布為什麼變大:
+   *  'bottom'=體型差(角色本體就是大隻,內容貼底,底部對齊才與小隻齊平,如寶可夢 64px 大隻)
+   *  'center'=動作格(角色仍在畫布中央,武器/特效四向溢出,置中才不會人物上飄,如公會武器大格) */
+  oversizeAnchor: 'bottom' | 'center'
 }

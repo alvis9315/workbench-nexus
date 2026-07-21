@@ -53,6 +53,8 @@ const defaultPoseOf = (char: string): string => {
 
 const pokemon: SpriteTheme = {
   id: 'pokemon',
+  // 任天堂/Game Freak IP:僅限本機自用,錄影/demo/portfolio 一律不得用此主題
+  shareable: false,
   label: '寶可夢圖鑑',
   chars: CHARS,
   charLabel: (char) => CHAR_LABEL[char] ?? char,
@@ -76,6 +78,8 @@ const pokemon: SpriteTheme = {
   clothedPosesOf: (char) => Object.keys(SPRITES[char] ?? {}).sort(),
   spriteUrl: (char, pose) => SPRITES[char]?.[pose] ?? SPRITES[char]?.[defaultPoseOf(char)],
   poseScale: (char, pose) => (CHAR_SIZES[char]?.[pose] ?? BASE_CELL) / BASE_CELL,
+  // 體型差:大隻的本體就是大,內容貼底——底部對齊,下緣才與小隻齊平不壓名條
+  oversizeAnchor: 'bottom',
 }
 
 export default pokemon

@@ -33,10 +33,16 @@ const pick = (id: string) => {
       <Button
         variant="outline"
         size="icon"
-        class="text-muted-foreground data-[state=open]:border-primary data-[state=open]:text-primary"
-        :title="`主題:${activeTheme.label}`"
+        class="relative text-muted-foreground data-[state=open]:border-primary data-[state=open]:text-primary"
+        :title="`主題:${activeTheme.label}${activeTheme.shareable ? '' : '(私用主題,錄影/demo 前請切換)'}`"
       >
         <Palette class="size-4" />
+        <!-- 私用主題啟用中:低調圓點提醒(theme-mainline-v2 §3.4),避免錄影/展示誤用 IP 素材 -->
+        <span
+          v-if="!activeTheme.shareable"
+          class="absolute -right-0.5 -top-0.5 size-1.5 rounded-full bg-warning"
+          aria-hidden="true"
+        />
       </Button>
     </PopoverTrigger>
     <PopoverContent
@@ -66,6 +72,13 @@ const pick = (id: string) => {
             class="pointer-events-none size-5 shrink-0 object-contain object-bottom [image-rendering:pixelated]"
           />
           <span class="truncate">{{ t.label }}</span>
+          <span
+            v-if="!t.shareable"
+            class="shrink-0 rounded bg-warning/15 px-1 py-0.5 text-[9px] text-warning"
+            title="含第三方 IP,僅限本機自用;錄影 / demo / portfolio 不得使用"
+          >
+            私用
+          </span>
           <Check v-if="t.id === themeId" class="ml-auto size-3.5 shrink-0 text-primary" />
         </button>
       </div>
