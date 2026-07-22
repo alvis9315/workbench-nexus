@@ -12,9 +12,20 @@
 - ✓ 2026-07-21 **C2 casting 分層**(§3.2):`src/data/casting.json`(seed→各主題出廠角色,跨主題一層),guild SKILL_CHAR 遷出;未登記 seed 由 factory hash 決定性分配;使用者 CharPicker 手選(localStorage)優先於本表
 - ✓ 2026-07-22 **C3 PixelSprite 接入**(§3.3):A–F 源 PNG 救援(反推+重配)→ guild 素材全面換 strip PNG(GIF 退役);PixelSprite.vue(width/height 分離,strip=CSS steps 播放/gif=<img> 雙模式);manifest 增 asset_kind/pose_frames/pose_ms(產生腳本讀 PNG 檔頭自動解析);SkillAvatar/Mascot/GlobalSearchDialog/CharPicker 四渲染點統一走 PixelSprite;主題 icon 用單幀 icon.png
 - [ ] **C4. FallingSprites 夾娃娃機元件**(正本 `docs/falling-sprites-spec.md`):Matter.js 剛體 + grab 槽位;**先決已全就位**(manifest grab 槽位 + strip 素材 + PixelSprite)。
-- [ ] **C5. 本命主題採樣**(§4):兩段式 AI 管線(立繪→像素化);先做一隻吉祥物驗證,通過才量產。世界觀三選一待擁有者定案。
-- [ ] **C6. 舊主題補件**:guild 逐層 CREDITS(ui-asset-library CREDITS.md 行動項)。
+- [ ] **C5. NEON PROTOCOL 本命主題打樣**(§4):首角 **Vesper**,機能軍事／霓虹特勤世界觀,Low Top-Down。五組概念、八方向稿、六組 PixelLab 候選與三段動態立繪已歸檔至 `ui-asset-library/custom/sprites/vesper/`;目前缺可對應 idle／hover／grab／action 的透明連續幀,補齊後才建立可用主題。支線依序為動態立繪 → image-to-3D 偵察 → VRoid/VRM 正規 3D。
+- ✓ 2026-07-22 **C6. 舊主題補件**:guild 六位的官方產生器 `source/credits.txt` 已齊,ui-asset-library 總表與兩 repo metadata 已同步;Workbench 增 theme `CREDITS.md`。五位 hash complete,E 角仍缺一鍵重建 hash,但逐層署名完整。
+- ✓ 2026-07-22 **C7. Marvel 第一主題**:`Marvel: Cosmic Invasion` 六外觀(Spider-Man／黑戰衣／Iron Spidey／Venom／Carnage 色／Anti-Venom 色),每位四語意 strip;明確 `shareable:false`,限私人未發布非商業使用。原始 Marvel 素材另分 MVC2、Avengers Alliance、跨平台 Spider-Verse 三個候選族,待各自切圖與一致性整理。
 - ✓ 2026-07-21 **shareable 欄位**(§3.4):SpriteTheme 契約 + 兩主題宣告(guild true / pokemon false)+ ThemePicker 私用標記(列表 badge + 啟用中圓點提醒)
+
+## D. 盤點補登（尚未排入本次實作）
+
+- [ ] **D1. EXT-003 skill sync 狀態提示**:顯示本地 skill repo 與工作站資料是否同步,定義狀態來源與更新時機。
+- [ ] **D2. EXT-007 吉祥物任務三態**:ready／running／done 使用語意槽或專屬動畫,並定義由何種 app 狀態驅動。
+- [ ] **D3. EXT-008 表單發射器**:把穩定高價值欄位組成答案卷再呼叫 skill;先選一個 skill 試做,不把工作站變成 AI 執行引擎。
+- [ ] **D4. EXT-009 skills.json 自動生成**:從本地 skill repo 的 SKILL.md frontmatter 產 manifest,需先定義手寫欄位與自動欄位的合併規則。
+- [ ] **D5. 履歷管線站 2 掛接**:`resume-tailoring` intake 接 `specs/resume-pipeline.md` 的職缺交接格式,完成一次真實 dry-run。
+- [ ] **D6. 履歷管線站 3 掛接**:pandoc + reference-doc 產可編輯 docx,補依賴檢查、失敗 fallback 與歸檔流程。
+- [ ] **D7. Skill Map 時效盤點**:README 目前仍是 2026-07-15 快照;逐 repo 核對「未建／實驗／觀察」與最後使用紀錄後再更新,避免猜測狀態。
 
 ## 已完成
 

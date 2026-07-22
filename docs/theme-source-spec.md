@@ -9,7 +9,7 @@
 src/themes/types.ts        ← SpriteTheme 介面(契約正本)
 src/themes/index.ts        ← 註冊表 THEMES + activeTheme(localStorage wn-theme)
 src/themes/<id>/index.ts   ← 每個主題一個模組,實作 SpriteTheme
-src/assets/themes/<id>/<角色>/<姿勢>.gif   ← 素材
+src/assets/themes/<id>/<角色>/<姿勢>.gif|png ← 素材(gif 或 strip)
 src/assets/themes/<id>/<角色>/meta.json    ← 角色中繼資料
 ```
 
@@ -19,7 +19,7 @@ src/assets/themes/<id>/<角色>/meta.json    ← 角色中繼資料
 
 ## 引入新來源的步驟
 
-1. **素材落地**:`src/assets/themes/<id>/<角色>/<姿勢>.gif`
+1. **素材落地**:`src/assets/themes/<id>/<角色>/<姿勢>.gif|png`
    - 一角色一資料夾;姿勢檔名即姿勢 id(`idle.gif`、`walk_down.gif`…)
    - 有方向的姿勢用 `_down/_left/_right/_up` 字尾(PosePicker 會自動分組);無方向就不加
    - 建議寫匯入腳本放 `scripts/import-<id>.mjs`(參考 `scripts/import-pokemon.mjs`),不要手搬
@@ -77,12 +77,14 @@ src/assets/themes/<id>/<角色>/meta.json    ← 角色中繼資料
 
 - 非自由授權素材(如寶可夢=任天堂 IP):**repo 不得轉 public、不得公開部署**,
   meta.json 的 `license` 欄必須寫明;規則正本在 AGENTS.md 鐵則
-- 自由授權素材(如 LPC=CC-BY/OGA-BY)要補 credits(guild 主題的 credits 缺口
-  記錄在 ~/ui-asset-library)
+- 自由授權素材(如 LPC)要保留逐圖層 credits;guild 六位已於 2026-07-22 補齊,
+  正本在 `~/ui-asset-library/custom/sprites/<角色>/source/credits.txt`
 
 ## 現有主題
 
 | id | 名稱 | 來源 | 角色數 | 授權 |
 |---|---|---|---|---|
-| `guild` | 冒險者公會 | LPC generator(正本 ~/ui-asset-library) | 6 | CC-BY / OGA-BY(credits 待補) |
+| `guild` | 冒險者公會 | LPC generator(正本 ~/ui-asset-library) | 6 | 逐圖層授權,credits complete |
 | `pokemon` | 寶可夢圖鑑 | jakobhoeg/vscode-pokemon | 565(gen1-4) | Nintendo IP — 僅限本機自用 |
+| `marvel-cosmic-invasion` | Marvel: Cosmic Invasion | The Spriters Resource(正本 ~/ui-asset-library) | 6 | Marvel／遊戲第三方 IP — 私人未發布非商業使用 |
+| `neon-protocol` | NEON PROTOCOL | Vesper 原創生成素材 | 0(候選已歸檔) | 待四語意動畫幀完成後建立 |

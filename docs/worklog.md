@@ -1,6 +1,10 @@
 # Worklog
 
 ## 2026-07-22
+- **新來源收件**:Vesper 149 檔分成 concept-art／pixel-concepts／pixel-rotations／motion-studies／raw;定案主題 `NEON PROTOCOL`、首角 `Vesper`、機能軍事／霓虹特勤、Low Top-Down。因缺四語意連續幀,只歸檔不建立假主題
+- **Marvel 私用主題**:`Marvel: Cosmic Invasion` 六外觀 × 四語意 strip 上線;其餘原始素材分 MVC2／Avengers Alliance／跨平台 Spider-Verse 候選族;全部 `shareable:false`
+- **C6 完成**:guild 六份逐圖層 credits 已核對;ui-asset-library 總表與 Workbench metadata 同步;E 角 generator hash 缺口保留
+- **backlog 漏項補登**:EXT-003／007／008／009、履歷管線站 2/3、README Skill Map 時效盤點
 - **C3 完成**:guild 素材 GIF→strip PNG(v2 重配版,透明底);PixelSprite.vue 統一渲染(strip steps 播放/gif 原樣);manifest 增 asset_kind/pose_frames/pose_ms(PNG 檔頭自動解析,oversize cell 不再靠 meta 手填);四個渲染元件改造;icon.png 單幀主題圖示
 - 前置:A–F 源檔救援(lpc_identify 反推 + fork 產生器重配,A/E 擁有者手動、B/C/D/F 自動),ui-asset-library 每角 source/+gif/+strip/ 齊備、hash 5/6 回填
 - 驗證:lint/typecheck/build 綠 + Playwright(公會牆 strip 動畫/選角彈窗/寶可夢迴歸)

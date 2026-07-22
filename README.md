@@ -18,6 +18,8 @@ pnpm dev
 ## Docs
 
 - 需求正本:`docs/sa-lite.md`(MVP 主線 + EXT backlog)
+- 執行待辦:`docs/backlog.md`
+- 角色主線:`docs/theme-mainline-v2.md`;新素材接入:`docs/theme-source-spec.md`
 - 視覺公式:`docs/ux/visual-reference-guide.md`
 - 工作紀錄:`docs/worklog.md`
 
