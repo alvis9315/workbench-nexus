@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, useTemplateRef } from 'vue'
 import { useLocalStorage } from '@vueuse/core'
-import { Search, History, Grid3x3, Grid2x2, Columns2, PackageOpen } from 'lucide-vue-next'
+import { Search, History, Grid3x3, Grid2x2, Columns2, PackageOpen, Minus, Plus, RotateCcw } from 'lucide-vue-next'
 import { Button } from '@/components/ui/button'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { Kbd } from '@/components/ui/kbd'
@@ -27,7 +27,12 @@ const skills = skillsData as Skill[]
 const { pinned, isPinned, togglePin } = usePins(skills)
 const logOpen = ref(false)
 const toyboxOpen = useLocalStorage('wn-toybox-open', false)
+const toyboxScale = useLocalStorage<number>('wn-toybox-scale', 1)
 const activeCategory = ref<SkillCategory | 'all'>('all')
+
+const adjustToyboxScale = (delta: number) => {
+  toyboxScale.value = Math.min(1.6, Math.max(0.6, Math.round((toyboxScale.value + delta) * 10) / 10))
+}
 
 // 物理層吃統一的四語意槽；不直接知道 guild／pokemon／Marvel 的檔案或姿勢名。
 // 每個主題的原生尺寸差異很大，先等比例正規化到 72px 再交給 FallingSprites。
@@ -118,12 +123,53 @@ const goNext = () => {
           <h2 class="font-pixel text-[10px] text-foreground">SPRITE DROP</h2>
           <p class="mt-1 text-[11px] text-muted-foreground">抓住角色拖曳、甩動，再放回娃娃堆。</p>
         </div>
-        <span class="font-pixel text-[9px] text-muted-foreground">{{ activeTheme.label }}</span>
+        <div class="flex items-center gap-1">
+          <span class="mr-2 hidden font-pixel text-[9px] text-muted-foreground sm:inline">{{ activeTheme.label }}</span>
+          <Button
+            variant="ghost"
+            size="icon"
+            class="size-7"
+            title="縮小角色"
+            :disabled="toyboxScale <= 0.6"
+            @click="adjustToyboxScale(-0.1)"
+          >
+            <Minus class="size-3.5" />
+          </Button>
+          <button
+            type="button"
+            class="min-w-12 rounded px-1 py-1 font-pixel text-[9px] text-muted-foreground hover:bg-muted"
+            title="重設為 100%"
+            @click="toyboxScale = 1"
+          >
+            {{ Math.round(toyboxScale * 100) }}%
+          </button>
+          <Button
+            variant="ghost"
+            size="icon"
+            class="size-7"
+            title="放大角色"
+            :disabled="toyboxScale >= 1.6"
+            @click="adjustToyboxScale(0.1)"
+          >
+            <Plus class="size-3.5" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            class="size-7"
+            title="重設角色大小"
+            :disabled="toyboxScale === 1"
+            @click="toyboxScale = 1"
+          >
+            <RotateCcw class="size-3" />
+          </Button>
+        </div>
       </div>
       <div class="h-80 bg-[radial-gradient(circle_at_top,hsl(var(--primary)/0.12),transparent_55%)]">
         <FallingSprites
           :key="activeTheme.id"
           :sprites="toyboxSprites"
+          :scale="toyboxScale"
           trigger="auto"
           :gravity="0.9"
           :restitution="0.72"

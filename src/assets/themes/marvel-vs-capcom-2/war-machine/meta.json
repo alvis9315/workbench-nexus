@@ -1,0 +1,28 @@
+{
+  "character_id": "war-machine",
+  "display_name": "War Machine",
+  "group": "heroes",
+  "order": 26,
+  "default_pose": "idle",
+  "source_sheet": "Dreamcast - Marvel vs. Capcom 2_ New Age of Heroes - Fighters (Marvel) - War Machine.png",
+  "source": "https://www.spriters-resource.com/dreamcast/marvelvscapcom2newageofheroes/",
+  "license": "Marvel/Capcom third-party game IP; private local non-commercial use only; no public deployment",
+  "extraction": {
+    "method": "automatic clean-row semantic sampling",
+    "rows": {
+      "idle": 42,
+      "hover": 37,
+      "grab": 90,
+      "action": 47
+    },
+    "cells": {
+      "idle": 192,
+      "hover": 192,
+      "grab": 192,
+      "action": 256
+    }
+  },
+  "used_in": [
+    "workbench-nexus:theme/marvel-vs-capcom-2"
+  ]
+}

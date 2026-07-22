@@ -1,0 +1,28 @@
+{
+  "character_id": "storm",
+  "display_name": "Storm",
+  "group": "x-men",
+  "order": 23,
+  "default_pose": "idle",
+  "source_sheet": "Dreamcast - Marvel vs. Capcom 2_ New Age of Heroes - Fighters (Marvel) - Storm.png",
+  "source": "https://www.spriters-resource.com/dreamcast/marvelvscapcom2newageofheroes/",
+  "license": "Marvel/Capcom third-party game IP; private local non-commercial use only; no public deployment",
+  "extraction": {
+    "method": "automatic clean-row semantic sampling",
+    "rows": {
+      "idle": 12,
+      "hover": 28,
+      "grab": 75,
+      "action": 70
+    },
+    "cells": {
+      "idle": 160,
+      "hover": 160,
+      "grab": 160,
+      "action": 160
+    }
+  },
+  "used_in": [
+    "workbench-nexus:theme/marvel-vs-capcom-2"
+  ]
+}

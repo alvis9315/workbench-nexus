@@ -3,7 +3,7 @@
 // 掃 src/assets/themes/<id>/<char>/*.gif + meta.json → 產 characters.json。
 // UI 只讀 manifest 渲染;素材或 meta 有變動時重跑本腳本(不手改 characters.json 的
 // characters 區塊——會被重生覆蓋;要改角色資料改 meta.json)。
-// 用法:node scripts/gen-theme-manifest.mjs [guild|pokemon|marvel-cosmic-invasion|全部省略]
+// 用法:node scripts/gen-theme-manifest.mjs [guild|pokemon|marvel-cosmic-invasion|marvel-vs-capcom-2|全部省略]
 import { readdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -51,7 +51,7 @@ const THEME_CONFIG = {
     slots: {
       idle: ['idle_down', 'walk_down'],
       hover: ['run_down', 'walk_down'],
-      grab: ['jump_down', 'walk_down'],
+      grab: ['hurt_down', 'jump_down', 'walk_down'],
       action: ['slash_down', 'thrust_down', 'shoot_down', 'walk_down'],
     },
     // meta.json 欄位對映(strip 主題:cell/frames 由 genTheme 從 PNG 檔頭解析,不吃 meta)
@@ -109,6 +109,33 @@ const THEME_CONFIG = {
       { id: 'symbiote', label: 'Symbiote' },
     ],
     fallback_group: 'spider',
+    slots: {
+      idle: ['idle'],
+      hover: ['hover', 'idle'],
+      grab: ['grab', 'idle'],
+      action: ['action', 'idle'],
+    },
+    charFromMeta: (meta, poses) => ({
+      label: meta.display_name,
+      group: meta.group,
+      default_pose: poses.includes(meta.default_pose) ? meta.default_pose : poses[0],
+      idle_unsafe: false,
+      pose_cells: {},
+      order: meta.order ?? null,
+    }),
+  },
+  'marvel-vs-capcom-2': {
+    theme_name: 'Marvel vs. Capcom 2',
+    shareable: false,
+    credits: 'Marvel／Capcom 第三方 IP + The Spriters Resource 遊戲素材；僅限私人未發布非商業使用，禁止公開展示',
+    asset_kind: 'strip',
+    base_cell: 160,
+    groups: [
+      { id: 'x-men', label: 'X-Men' },
+      { id: 'heroes', label: 'Marvel Heroes' },
+      { id: 'rivals', label: 'Rivals & Villains' },
+    ],
+    fallback_group: 'rivals',
     slots: {
       idle: ['idle'],
       hover: ['hover', 'idle'],

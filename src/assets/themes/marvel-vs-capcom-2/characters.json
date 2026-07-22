@@ -1,0 +1,1117 @@
+{
+  "theme_id": "marvel-vs-capcom-2",
+  "theme_name": "Marvel vs. Capcom 2",
+  "shareable": false,
+  "credits": "Marvel／Capcom 第三方 IP + The Spriters Resource 遊戲素材；僅限私人未發布非商業使用，禁止公開展示",
+  "asset_kind": "strip",
+  "base_cell": 160,
+  "groups": [
+    {
+      "id": "x-men",
+      "label": "X-Men"
+    },
+    {
+      "id": "heroes",
+      "label": "Marvel Heroes"
+    },
+    {
+      "id": "rivals",
+      "label": "Rivals & Villains"
+    }
+  ],
+  "fallback_group": "rivals",
+  "characters": [
+    {
+      "id": "blackheart",
+      "label": "Blackheart",
+      "group": "rivals",
+      "order": 1,
+      "frame_w": 160,
+      "frame_h": 160,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {
+        "action": 352,
+        "grab": 256,
+        "hover": 192,
+        "idle": 192
+      },
+      "pose_frames": {
+        "action": 5,
+        "grab": 5,
+        "hover": 8,
+        "idle": 8
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    },
+    {
+      "id": "cable",
+      "label": "Cable",
+      "group": "x-men",
+      "order": 2,
+      "frame_w": 160,
+      "frame_h": 160,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {
+        "action": 224,
+        "grab": 192
+      },
+      "pose_frames": {
+        "action": 7,
+        "grab": 8,
+        "hover": 9,
+        "idle": 9
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    },
+    {
+      "id": "captain-america",
+      "label": "Captain America",
+      "group": "heroes",
+      "order": 3,
+      "frame_w": 160,
+      "frame_h": 160,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {
+        "action": 256,
+        "grab": 224
+      },
+      "pose_frames": {
+        "action": 8,
+        "grab": 7,
+        "hover": 11,
+        "idle": 10
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    },
+    {
+      "id": "colossus",
+      "label": "Colossus",
+      "group": "x-men",
+      "order": 4,
+      "frame_w": 160,
+      "frame_h": 160,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {
+        "action": 256,
+        "grab": 320
+      },
+      "pose_frames": {
+        "action": 7,
+        "grab": 4,
+        "hover": 9,
+        "idle": 10
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    },
+    {
+      "id": "cyclops",
+      "label": "Cyclops",
+      "group": "x-men",
+      "order": 5,
+      "frame_w": 160,
+      "frame_h": 160,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {
+        "hover": 128
+      },
+      "pose_frames": {
+        "action": 13,
+        "grab": 9,
+        "hover": 12,
+        "idle": 12
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    },
+    {
+      "id": "doctor-doom",
+      "label": "Dr. Doom",
+      "group": "rivals",
+      "order": 6,
+      "frame_w": 160,
+      "frame_h": 160,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {
+        "action": 512,
+        "grab": 256,
+        "hover": 192,
+        "idle": 224
+      },
+      "pose_frames": {
+        "action": 3,
+        "grab": 5,
+        "hover": 8,
+        "idle": 8
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    },
+    {
+      "id": "gambit",
+      "label": "Gambit",
+      "group": "x-men",
+      "order": 7,
+      "frame_w": 160,
+      "frame_h": 160,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {
+        "action": 224,
+        "grab": 224,
+        "idle": 192
+      },
+      "pose_frames": {
+        "action": 7,
+        "grab": 7,
+        "hover": 9,
+        "idle": 8
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    },
+    {
+      "id": "hulk",
+      "label": "Hulk",
+      "group": "heroes",
+      "order": 8,
+      "frame_w": 160,
+      "frame_h": 160,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {
+        "action": 224,
+        "grab": 256,
+        "hover": 192,
+        "idle": 192
+      },
+      "pose_frames": {
+        "action": 7,
+        "grab": 6,
+        "hover": 8,
+        "idle": 9
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    },
+    {
+      "id": "iceman",
+      "label": "Iceman",
+      "group": "x-men",
+      "order": 9,
+      "frame_w": 160,
+      "frame_h": 160,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {
+        "action": 224
+      },
+      "pose_frames": {
+        "action": 9,
+        "grab": 12,
+        "hover": 10,
+        "idle": 12
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    },
+    {
+      "id": "iron-man",
+      "label": "Iron Man",
+      "group": "heroes",
+      "order": 10,
+      "frame_w": 160,
+      "frame_h": 160,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {
+        "action": 192,
+        "grab": 192,
+        "idle": 192
+      },
+      "pose_frames": {
+        "action": 8,
+        "grab": 6,
+        "hover": 9,
+        "idle": 10
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    },
+    {
+      "id": "juggernaut",
+      "label": "Juggernaut",
+      "group": "rivals",
+      "order": 11,
+      "frame_w": 160,
+      "frame_h": 160,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {
+        "action": 320,
+        "grab": 256,
+        "hover": 192,
+        "idle": 224
+      },
+      "pose_frames": {
+        "action": 6,
+        "grab": 6,
+        "hover": 8,
+        "idle": 7
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    },
+    {
+      "id": "magneto",
+      "label": "Magneto",
+      "group": "x-men",
+      "order": 12,
+      "frame_w": 160,
+      "frame_h": 160,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {
+        "action": 256,
+        "grab": 256,
+        "hover": 192
+      },
+      "pose_frames": {
+        "action": 7,
+        "grab": 5,
+        "hover": 8,
+        "idle": 8
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    },
+    {
+      "id": "marrow",
+      "label": "Marrow",
+      "group": "x-men",
+      "order": 13,
+      "frame_w": 160,
+      "frame_h": 160,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {
+        "action": 384,
+        "grab": 352,
+        "hover": 128
+      },
+      "pose_frames": {
+        "action": 3,
+        "grab": 4,
+        "hover": 12,
+        "idle": 10
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    },
+    {
+      "id": "omega-red",
+      "label": "Omega Red",
+      "group": "x-men",
+      "order": 14,
+      "frame_w": 160,
+      "frame_h": 160,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {
+        "action": 320,
+        "grab": 288,
+        "idle": 192
+      },
+      "pose_frames": {
+        "action": 4,
+        "grab": 5,
+        "hover": 9,
+        "idle": 10
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    },
+    {
+      "id": "psylocke",
+      "label": "Psylocke",
+      "group": "x-men",
+      "order": 15,
+      "frame_w": 160,
+      "frame_h": 160,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {
+        "action": 320,
+        "grab": 288,
+        "hover": 288,
+        "idle": 288
+      },
+      "pose_frames": {
+        "action": 4,
+        "grab": 6,
+        "hover": 4,
+        "idle": 5
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    },
+    {
+      "id": "rogue",
+      "label": "Rogue",
+      "group": "x-men",
+      "order": 16,
+      "frame_w": 160,
+      "frame_h": 160,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {
+        "action": 288,
+        "grab": 224,
+        "idle": 128
+      },
+      "pose_frames": {
+        "action": 5,
+        "grab": 6,
+        "hover": 9,
+        "idle": 12
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    },
+    {
+      "id": "sabretooth",
+      "label": "Sabretooth",
+      "group": "x-men",
+      "order": 17,
+      "frame_w": 160,
+      "frame_h": 160,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {
+        "action": 352,
+        "grab": 352,
+        "hover": 192,
+        "idle": 192
+      },
+      "pose_frames": {
+        "action": 3,
+        "grab": 3,
+        "hover": 7,
+        "idle": 8
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    },
+    {
+      "id": "sentinel",
+      "label": "Sentinel",
+      "group": "x-men",
+      "order": 18,
+      "frame_w": 160,
+      "frame_h": 160,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {
+        "action": 288,
+        "grab": 288,
+        "hover": 224,
+        "idle": 192
+      },
+      "pose_frames": {
+        "action": 8,
+        "grab": 5,
+        "hover": 6,
+        "idle": 7
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    },
+    {
+      "id": "shuma-gorath",
+      "label": "Shuma-Gorath",
+      "group": "rivals",
+      "order": 19,
+      "frame_w": 160,
+      "frame_h": 160,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {
+        "action": 288,
+        "grab": 288,
+        "hover": 192,
+        "idle": 192
+      },
+      "pose_frames": {
+        "action": 4,
+        "grab": 5,
+        "hover": 8,
+        "idle": 8
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    },
+    {
+      "id": "silver-samurai",
+      "label": "Silver Samurai",
+      "group": "rivals",
+      "order": 20,
+      "frame_w": 160,
+      "frame_h": 160,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {
+        "action": 288,
+        "grab": 224,
+        "hover": 128,
+        "idle": 192
+      },
+      "pose_frames": {
+        "action": 6,
+        "grab": 6,
+        "hover": 10,
+        "idle": 8
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    },
+    {
+      "id": "spider-man",
+      "label": "Spider-Man",
+      "group": "heroes",
+      "order": 21,
+      "frame_w": 160,
+      "frame_h": 160,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {
+        "grab": 256,
+        "hover": 192
+      },
+      "pose_frames": {
+        "action": 11,
+        "grab": 6,
+        "hover": 8,
+        "idle": 9
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    },
+    {
+      "id": "spiral",
+      "label": "Spiral",
+      "group": "rivals",
+      "order": 22,
+      "frame_w": 160,
+      "frame_h": 160,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {
+        "action": 384,
+        "grab": 224
+      },
+      "pose_frames": {
+        "action": 6,
+        "grab": 6,
+        "hover": 10,
+        "idle": 13
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    },
+    {
+      "id": "storm",
+      "label": "Storm",
+      "group": "x-men",
+      "order": 23,
+      "frame_w": 160,
+      "frame_h": 160,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {},
+      "pose_frames": {
+        "action": 10,
+        "grab": 9,
+        "hover": 10,
+        "idle": 10
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    },
+    {
+      "id": "thanos",
+      "label": "Thanos",
+      "group": "rivals",
+      "order": 24,
+      "frame_w": 160,
+      "frame_h": 160,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {
+        "action": 256,
+        "grab": 224,
+        "hover": 192,
+        "idle": 192
+      },
+      "pose_frames": {
+        "action": 6,
+        "grab": 7,
+        "hover": 8,
+        "idle": 9
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    },
+    {
+      "id": "venom",
+      "label": "Venom",
+      "group": "rivals",
+      "order": 25,
+      "frame_w": 160,
+      "frame_h": 160,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {
+        "action": 288,
+        "grab": 288,
+        "hover": 192,
+        "idle": 224
+      },
+      "pose_frames": {
+        "action": 7,
+        "grab": 5,
+        "hover": 7,
+        "idle": 8
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    },
+    {
+      "id": "war-machine",
+      "label": "War Machine",
+      "group": "heroes",
+      "order": 26,
+      "frame_w": 160,
+      "frame_h": 160,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {
+        "action": 256,
+        "grab": 192,
+        "hover": 192,
+        "idle": 192
+      },
+      "pose_frames": {
+        "action": 7,
+        "grab": 6,
+        "hover": 9,
+        "idle": 10
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    },
+    {
+      "id": "wolverine-adamantium",
+      "label": "Wolverine (Adamantium)",
+      "group": "x-men",
+      "order": 27,
+      "frame_w": 160,
+      "frame_h": 160,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {
+        "action": 192,
+        "grab": 224,
+        "idle": 128
+      },
+      "pose_frames": {
+        "action": 8,
+        "grab": 5,
+        "hover": 11,
+        "idle": 12
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    },
+    {
+      "id": "wolverine-bone",
+      "label": "Wolverine (Bone)",
+      "group": "x-men",
+      "order": 28,
+      "frame_w": 160,
+      "frame_h": 160,
+      "default_pose": "idle",
+      "idle_unsafe": false,
+      "pose_cells": {
+        "action": 224,
+        "grab": 224,
+        "hover": 128,
+        "idle": 192
+      },
+      "pose_frames": {
+        "action": 8,
+        "grab": 6,
+        "hover": 11,
+        "idle": 10
+      },
+      "pose_ms": {
+        "action": 120,
+        "grab": 120,
+        "hover": 120,
+        "idle": 450
+      },
+      "poses": [
+        "action",
+        "grab",
+        "hover",
+        "idle"
+      ],
+      "slots": {
+        "idle": "idle",
+        "hover": "hover",
+        "grab": "grab",
+        "action": "action"
+      }
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "character_id": "gambit",
+  "display_name": "Gambit",
+  "group": "x-men",
+  "order": 7,
+  "default_pose": "idle",
+  "source_sheet": "Dreamcast - Marvel vs. Capcom 2_ New Age of Heroes - Fighters (Marvel) - Gambit.png",
+  "source": "https://www.spriters-resource.com/dreamcast/marvelvscapcom2newageofheroes/",
+  "license": "Marvel/Capcom third-party game IP; private local non-commercial use only; no public deployment",
+  "extraction": {
+    "method": "automatic clean-row semantic sampling",
+    "rows": {
+      "idle": 31,
+      "hover": 8,
+      "grab": 56,
+      "action": 32
+    },
+    "cells": {
+      "idle": 192,
+      "hover": 160,
+      "grab": 224,
+      "action": 224
+    }
+  },
+  "used_in": [
+    "workbench-nexus:theme/marvel-vs-capcom-2"
+  ]
+}

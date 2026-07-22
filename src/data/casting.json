@@ -1,10 +1,10 @@
 {
   "__doc": "選角表(theme-mainline-v2 §3.2):seed(skill id / 'mascot')→ 各主題的出廠角色。跨主題一層,獨立於主題 manifest;沒列到的 seed 用 hash 決定性分配。使用者在 CharPicker 的手動選角(localStorage)優先於本表。",
-  "mascot": { "guild": "D_paladin_blonde", "pokemon": "pikachu", "marvel-cosmic-invasion": "spider-man" },
-  "work-shift": { "guild": "A_sword_red", "marvel-cosmic-invasion": "spider-man-black" },
-  "resume-tailoring": { "guild": "C_kimono_pink", "marvel-cosmic-invasion": "anti-venom-palette" },
-  "self-prompting": { "guild": "E_sage_white", "marvel-cosmic-invasion": "venom" },
-  "new-project-quickstart": { "guild": "D_paladin_blonde", "marvel-cosmic-invasion": "iron-spider" },
-  "design-system-codify": { "guild": "B_catgirl_blue", "marvel-cosmic-invasion": "spider-man" },
-  "api-sa-merge": { "guild": "F_archer_orange", "marvel-cosmic-invasion": "carnage-palette" }
+  "mascot": { "guild": "D_paladin_blonde", "pokemon": "pikachu", "marvel-cosmic-invasion": "spider-man", "marvel-vs-capcom-2": "spider-man" },
+  "work-shift": { "guild": "A_sword_red", "marvel-cosmic-invasion": "spider-man-black", "marvel-vs-capcom-2": "captain-america" },
+  "resume-tailoring": { "guild": "C_kimono_pink", "marvel-cosmic-invasion": "anti-venom-palette", "marvel-vs-capcom-2": "psylocke" },
+  "self-prompting": { "guild": "E_sage_white", "marvel-cosmic-invasion": "venom", "marvel-vs-capcom-2": "doctor-doom" },
+  "new-project-quickstart": { "guild": "D_paladin_blonde", "marvel-cosmic-invasion": "iron-spider", "marvel-vs-capcom-2": "iron-man" },
+  "design-system-codify": { "guild": "B_catgirl_blue", "marvel-cosmic-invasion": "spider-man", "marvel-vs-capcom-2": "magneto" },
+  "api-sa-merge": { "guild": "F_archer_orange", "marvel-cosmic-invasion": "carnage-palette", "marvel-vs-capcom-2": "hulk" }
 }

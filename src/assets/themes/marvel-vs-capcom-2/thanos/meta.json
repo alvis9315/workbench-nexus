@@ -1,0 +1,28 @@
+{
+  "character_id": "thanos",
+  "display_name": "Thanos",
+  "group": "rivals",
+  "order": 24,
+  "default_pose": "idle",
+  "source_sheet": "Dreamcast - Marvel vs. Capcom 2_ New Age of Heroes - Fighters (Marvel) - Thanos.png",
+  "source": "https://www.spriters-resource.com/dreamcast/marvelvscapcom2newageofheroes/",
+  "license": "Marvel/Capcom third-party game IP; private local non-commercial use only; no public deployment",
+  "extraction": {
+    "method": "automatic clean-row semantic sampling",
+    "rows": {
+      "idle": 13,
+      "hover": 22,
+      "grab": 43,
+      "action": 42
+    },
+    "cells": {
+      "idle": 192,
+      "hover": 192,
+      "grab": 224,
+      "action": 256
+    }
+  },
+  "used_in": [
+    "workbench-nexus:theme/marvel-vs-capcom-2"
+  ]
+}

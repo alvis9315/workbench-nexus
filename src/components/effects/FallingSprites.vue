@@ -12,8 +12,6 @@ import {
 } from 'matter-js'
 import PixelSprite from '@/components/PixelSprite.vue'
 import type { PoseAsset } from '@/themes/types'
-import hookCursor from '@/assets/cursors/crane-hook.svg?url'
-import hookGrabCursor from '@/assets/cursors/crane-hook-grab.svg?url'
 
 export interface FallingSpriteItem {
   id: string
@@ -49,11 +47,17 @@ const container = ref<HTMLElement | null>(null)
 const started = ref(false)
 const ready = ref(false)
 const grabbedId = ref<string | null>(null)
+const pointerInside = ref(false)
+const clawPoint = ref({ x: 0, y: 0 })
 const spriteElements = new Map<string, HTMLElement>()
-const cursorStyle = computed(() => ({
-  cursor: grabbedId.value
-    ? `url("${hookGrabCursor}") 8 27, grabbing`
-    : `url("${hookCursor}") 6 27, grab`,
+const clawVisible = computed(() => pointerInside.value || grabbedId.value !== null)
+const cableStyle = computed(() => ({
+  left: `${clawPoint.value.x}px`,
+  height: `${Math.max(clawPoint.value.y - 46, 0)}px`,
+}))
+const clawStyle = computed(() => ({
+  left: `${clawPoint.value.x}px`,
+  top: `${clawPoint.value.y}px`,
 }))
 
 let engine: Engine | null = null
@@ -237,6 +241,22 @@ const onClick = () => {
 const onHover = () => {
   if (props.trigger === 'hover') void start()
 }
+const updateClawPoint = (event: PointerEvent) => {
+  if (!container.value) return
+  const rect = container.value.getBoundingClientRect()
+  clawPoint.value = {
+    x: Math.min(Math.max(event.clientX - rect.left, 0), rect.width),
+    y: Math.min(Math.max(event.clientY - rect.top, 48), rect.height),
+  }
+}
+const onPointerEnter = (event: PointerEvent) => {
+  pointerInside.value = true
+  updateClawPoint(event)
+  onHover()
+}
+const onPointerLeave = () => {
+  pointerInside.value = false
+}
 
 onMounted(() => {
   if (props.trigger === 'auto') void start()
@@ -244,7 +264,7 @@ onMounted(() => {
 onBeforeUnmount(stop)
 
 watch(
-  () => [props.gravity, props.restitution, props.grabStiffness] as const,
+  () => [props.scale, props.gravity, props.restitution, props.grabStiffness] as const,
   () => {
     if (!started.value) return
     stop()
@@ -260,10 +280,52 @@ watch(
     class="falling-sprites relative size-full min-h-64 overflow-hidden select-none"
     role="application"
     aria-label="可拖曳的像素角色夾娃娃機"
-    :style="cursorStyle"
     @click="onClick"
-    @pointerenter="onHover"
+    @pointerenter="onPointerEnter"
+    @pointermove="updateClawPoint"
+    @pointerleave="onPointerLeave"
   >
+    <div class="claw-top-rail pointer-events-none absolute inset-x-0 top-0 z-30 h-2" />
+    <div
+      v-show="clawVisible"
+      class="claw-cable pointer-events-none absolute top-0 z-30 w-0.5 -translate-x-1/2"
+      :style="cableStyle"
+    />
+    <svg
+      v-show="clawVisible"
+      class="claw-machine pointer-events-none absolute z-40 h-[58px] w-[64px] -translate-x-1/2 -translate-y-full overflow-visible drop-shadow-[0_2px_3px_rgb(0_0_0/0.5)]"
+      :class="{ 'is-closed': grabbedId }"
+      :style="clawStyle"
+      viewBox="0 0 64 58"
+      aria-hidden="true"
+    >
+      <defs>
+        <linearGradient id="claw-metal" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#f8fafc" />
+          <stop offset="0.42" stop-color="#94a3b8" />
+          <stop offset="0.72" stop-color="#e2e8f0" />
+          <stop offset="1" stop-color="#64748b" />
+        </linearGradient>
+      </defs>
+      <path d="M28 2h8v10h-8z" fill="url(#claw-metal)" stroke="#334155" stroke-width="1.5" />
+      <rect x="23" y="10" width="18" height="13" rx="5" fill="url(#claw-metal)" stroke="#334155" stroke-width="2" />
+      <circle cx="32" cy="17" r="3" fill="hsl(var(--primary))" />
+      <g class="claw-arm claw-arm-left">
+        <path d="M27 20C22 25 15 28 12 38C10 45 13 51 20 53" fill="none" stroke="#334155" stroke-width="7" stroke-linecap="round" />
+        <path d="M27 20C22 25 15 28 12 38C10 45 13 51 20 53" fill="none" stroke="url(#claw-metal)" stroke-width="4" stroke-linecap="round" />
+        <path d="M20 53l-5-1 4-5" fill="url(#claw-metal)" stroke="#334155" stroke-width="1.5" stroke-linejoin="round" />
+      </g>
+      <g class="claw-arm claw-arm-right">
+        <path d="M37 20C42 25 49 28 52 38C54 45 51 51 44 53" fill="none" stroke="#334155" stroke-width="7" stroke-linecap="round" />
+        <path d="M37 20C42 25 49 28 52 38C54 45 51 51 44 53" fill="none" stroke="url(#claw-metal)" stroke-width="4" stroke-linecap="round" />
+        <path d="M44 53l5-1-4-5" fill="url(#claw-metal)" stroke="#334155" stroke-width="1.5" stroke-linejoin="round" />
+      </g>
+      <g class="claw-arm claw-arm-center">
+        <path d="M32 22v22c0 5-3 8-7 10" fill="none" stroke="#334155" stroke-width="6" stroke-linecap="round" />
+        <path d="M32 22v22c0 5-3 8-7 10" fill="none" stroke="url(#claw-metal)" stroke-width="3" stroke-linecap="round" />
+      </g>
+    </svg>
+
     <div
       v-for="item in sprites"
       :key="item.id"
@@ -293,5 +355,38 @@ watch(
 <style scoped>
 .falling-sprites {
   touch-action: none;
+  cursor: none;
+}
+.claw-top-rail {
+  background:
+    linear-gradient(90deg, transparent, hsl(var(--primary) / 0.8), transparent),
+    linear-gradient(180deg, #64748b, #e2e8f0 45%, #334155 55%, #0f172a);
+  box-shadow: 0 2px 5px rgb(0 0 0 / 0.35);
+}
+.claw-cable {
+  background: linear-gradient(90deg, #334155, #f8fafc 45%, #64748b);
+  box-shadow: 0 0 4px hsl(var(--primary) / 0.45);
+}
+.claw-arm {
+  transition: transform 120ms ease-out;
+}
+.claw-arm-left {
+  transform-origin: 27px 20px;
+}
+.claw-arm-right {
+  transform-origin: 37px 20px;
+}
+.claw-arm-center {
+  transform-origin: 32px 22px;
+  opacity: 0.72;
+}
+.claw-machine.is-closed .claw-arm-left {
+  transform: rotate(-17deg);
+}
+.claw-machine.is-closed .claw-arm-right {
+  transform: rotate(17deg);
+}
+.claw-machine.is-closed .claw-arm-center {
+  transform: translateY(-3px) scaleY(0.88);
 }
 </style>

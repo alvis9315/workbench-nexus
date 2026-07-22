@@ -1,0 +1,28 @@
+{
+  "character_id": "iceman",
+  "display_name": "Iceman",
+  "group": "x-men",
+  "order": 9,
+  "default_pose": "idle",
+  "source_sheet": "Dreamcast - Marvel vs. Capcom 2_ New Age of Heroes - Fighters (Marvel) - Iceman.png",
+  "source": "https://www.spriters-resource.com/dreamcast/marvelvscapcom2newageofheroes/",
+  "license": "Marvel/Capcom third-party game IP; private local non-commercial use only; no public deployment",
+  "extraction": {
+    "method": "automatic clean-row semantic sampling",
+    "rows": {
+      "idle": 52,
+      "hover": 58,
+      "grab": 60,
+      "action": 36
+    },
+    "cells": {
+      "idle": 160,
+      "hover": 160,
+      "grab": 160,
+      "action": 224
+    }
+  },
+  "used_in": [
+    "workbench-nexus:theme/marvel-vs-capcom-2"
+  ]
+}

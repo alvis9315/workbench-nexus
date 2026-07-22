@@ -1,6 +1,9 @@
 # Worklog
 
 ## 2026-07-22
+- **MVC2 私用主題**:`Marvel vs. Capcom 2` 28 位 Marvel fighter × idle／hover／grab／action strip 上線；atlas 抽取排除尾端純 projectile/effect 列，來源列與 cell 寫回每角 meta；`shareable:false`
+- **夾娃娃機升級**:箱頂導軌＋垂直纜線＋三爪夾具取代單純 cursor；角色 60–160% 可調並記憶；Guild 被抓優先使用六角皆具備的 `hurt_down`
+- **Marvel 其餘 PNG 歸納**:Avengers Alliance 拆 Browser 5 角／Mobile HD 單角；Spider-Verse 再拆 GBA Spider-Man 3 雙角、SNES Maximum Carnage 雙角與跨遊戲單角池，待 bbox／atlas 正規化，不硬混畫風
 - **游標主題化**:全站加入金黃像素箭頭／可點擊手套；FallingSprites 區改用吊鉤，抓住角色時切成藍色收緊鉤，文字輸入仍保留 I-beam
 - **C4 完成**:`FallingSprites.vue` + Matter.js 接入主頁 `SPRITE DROP`;activeTheme 取 6–12 角,支援碰撞／拖曳擺盪／grab 換姿勢／resize／越界與卸載清理;Chrome headless 實測拖放語意切換及三主題載入
 - **新來源收件**:Vesper 149 檔分成 concept-art／pixel-concepts／pixel-rotations／motion-studies／raw;定案主題 `NEON PROTOCOL`、首角 `Vesper`、機能軍事／霓虹特勤、Low Top-Down。因缺四語意連續幀,只歸檔不建立假主題

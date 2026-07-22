@@ -6,6 +6,7 @@ import type { SpriteTheme } from '@/themes/types'
 import guildIcon from '@/assets/themes/guild/icon.png'
 import pokemonIcon from '@/assets/themes/pokemon/pikachu/idle.gif'
 import marvelCosmicInvasionIcon from '@/assets/themes/marvel-cosmic-invasion/icon.png'
+import marvelVsCapcom2Icon from '@/assets/themes/marvel-vs-capcom-2/icon.png'
 
 // 主題註冊表:懶載入——只有啟用中的主題會被 import(主包零成長鐵則;
 // pokemon 主題 565 隻角色,eager 全載會把首包撐爆)。新主題在這兩處掛上即可。
@@ -19,12 +20,19 @@ export const THEME_META = [
     icon: marvelCosmicInvasionIcon,
     shareable: false,
   },
+  {
+    id: 'marvel-vs-capcom-2',
+    label: 'Marvel vs. Capcom 2',
+    icon: marvelVsCapcom2Icon,
+    shareable: false,
+  },
 ] as const
 
 const loaders: Record<string, () => Promise<{ default: SpriteTheme }>> = {
   guild: () => import('@/themes/guild'),
   pokemon: () => import('@/themes/pokemon'),
   'marvel-cosmic-invasion': () => import('@/themes/marvel-cosmic-invasion'),
+  'marvel-vs-capcom-2': () => import('@/themes/marvel-vs-capcom-2'),
 }
 
 // 一次性遷移:主題化前的偏好 key(無主題字尾)搬到 guild 名下,不丟使用者既有設定

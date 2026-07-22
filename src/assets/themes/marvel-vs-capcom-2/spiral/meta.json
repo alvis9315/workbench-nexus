@@ -1,0 +1,28 @@
+{
+  "character_id": "spiral",
+  "display_name": "Spiral",
+  "group": "rivals",
+  "order": 22,
+  "default_pose": "idle",
+  "source_sheet": "Dreamcast - Marvel vs. Capcom 2_ New Age of Heroes - Fighters (Marvel) - Spiral.png",
+  "source": "https://www.spriters-resource.com/dreamcast/marvelvscapcom2newageofheroes/",
+  "license": "Marvel/Capcom third-party game IP; private local non-commercial use only; no public deployment",
+  "extraction": {
+    "method": "automatic clean-row semantic sampling",
+    "rows": {
+      "idle": 1,
+      "hover": 35,
+      "grab": 20,
+      "action": 41
+    },
+    "cells": {
+      "idle": 160,
+      "hover": 160,
+      "grab": 224,
+      "action": 384
+    }
+  },
+  "used_in": [
+    "workbench-nexus:theme/marvel-vs-capcom-2"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "character_id": "cyclops",
+  "display_name": "Cyclops",
+  "group": "x-men",
+  "order": 5,
+  "default_pose": "idle",
+  "source_sheet": "Dreamcast - Marvel vs. Capcom 2_ New Age of Heroes - Fighters (Marvel) - Cyclops.png",
+  "source": "https://www.spriters-resource.com/dreamcast/marvelvscapcom2newageofheroes/",
+  "license": "Marvel/Capcom third-party game IP; private local non-commercial use only; no public deployment",
+  "extraction": {
+    "method": "automatic clean-row semantic sampling",
+    "rows": {
+      "idle": 29,
+      "hover": 33,
+      "grab": 37,
+      "action": 13
+    },
+    "cells": {
+      "idle": 160,
+      "hover": 128,
+      "grab": 160,
+      "action": 160
+    }
+  },
+  "used_in": [
+    "workbench-nexus:theme/marvel-vs-capcom-2"
+  ]
+}

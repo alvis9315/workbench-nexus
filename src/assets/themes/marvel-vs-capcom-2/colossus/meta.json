@@ -1,0 +1,28 @@
+{
+  "character_id": "colossus",
+  "display_name": "Colossus",
+  "group": "x-men",
+  "order": 4,
+  "default_pose": "idle",
+  "source_sheet": "Dreamcast - Marvel vs. Capcom 2_ New Age of Heroes - Fighters (Marvel) - Colossus.png",
+  "source": "https://www.spriters-resource.com/dreamcast/marvelvscapcom2newageofheroes/",
+  "license": "Marvel/Capcom third-party game IP; private local non-commercial use only; no public deployment",
+  "extraction": {
+    "method": "automatic clean-row semantic sampling",
+    "rows": {
+      "idle": 11,
+      "hover": 39,
+      "grab": 0,
+      "action": 27
+    },
+    "cells": {
+      "idle": 160,
+      "hover": 160,
+      "grab": 320,
+      "action": 256
+    }
+  },
+  "used_in": [
+    "workbench-nexus:theme/marvel-vs-capcom-2"
+  ]
+}

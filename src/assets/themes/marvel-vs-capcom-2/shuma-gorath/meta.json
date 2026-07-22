@@ -1,0 +1,28 @@
+{
+  "character_id": "shuma-gorath",
+  "display_name": "Shuma-Gorath",
+  "group": "rivals",
+  "order": 19,
+  "default_pose": "idle",
+  "source_sheet": "Dreamcast - Marvel vs. Capcom 2_ New Age of Heroes - Fighters (Marvel) - Shuma-Gorath.png",
+  "source": "https://www.spriters-resource.com/dreamcast/marvelvscapcom2newageofheroes/",
+  "license": "Marvel/Capcom third-party game IP; private local non-commercial use only; no public deployment",
+  "extraction": {
+    "method": "automatic clean-row semantic sampling",
+    "rows": {
+      "idle": 26,
+      "hover": 3,
+      "grab": 32,
+      "action": 31
+    },
+    "cells": {
+      "idle": 192,
+      "hover": 192,
+      "grab": 288,
+      "action": 288
+    }
+  },
+  "used_in": [
+    "workbench-nexus:theme/marvel-vs-capcom-2"
+  ]
+}

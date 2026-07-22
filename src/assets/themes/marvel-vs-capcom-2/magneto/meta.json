@@ -1,0 +1,28 @@
+{
+  "character_id": "magneto",
+  "display_name": "Magneto",
+  "group": "x-men",
+  "order": 12,
+  "default_pose": "idle",
+  "source_sheet": "Dreamcast - Marvel vs. Capcom 2_ New Age of Heroes - Fighters (Marvel) - Magneto.png",
+  "source": "https://www.spriters-resource.com/dreamcast/marvelvscapcom2newageofheroes/",
+  "license": "Marvel/Capcom third-party game IP; private local non-commercial use only; no public deployment",
+  "extraction": {
+    "method": "automatic clean-row semantic sampling",
+    "rows": {
+      "idle": 83,
+      "hover": 18,
+      "grab": 67,
+      "action": 61
+    },
+    "cells": {
+      "idle": 160,
+      "hover": 192,
+      "grab": 256,
+      "action": 256
+    }
+  },
+  "used_in": [
+    "workbench-nexus:theme/marvel-vs-capcom-2"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "character_id": "psylocke",
+  "display_name": "Psylocke",
+  "group": "x-men",
+  "order": 15,
+  "default_pose": "idle",
+  "source_sheet": "Dreamcast - Marvel vs. Capcom 2_ New Age of Heroes - Fighters (Marvel) - Psylocke.png",
+  "source": "https://www.spriters-resource.com/dreamcast/marvelvscapcom2newageofheroes/",
+  "license": "Marvel/Capcom third-party game IP; private local non-commercial use only; no public deployment",
+  "extraction": {
+    "method": "automatic clean-row semantic sampling",
+    "rows": {
+      "idle": 58,
+      "hover": 61,
+      "grab": 39,
+      "action": 50
+    },
+    "cells": {
+      "idle": 288,
+      "hover": 288,
+      "grab": 288,
+      "action": 320
+    }
+  },
+  "used_in": [
+    "workbench-nexus:theme/marvel-vs-capcom-2"
+  ]
+}

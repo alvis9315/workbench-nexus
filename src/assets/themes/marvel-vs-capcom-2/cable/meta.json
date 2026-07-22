@@ -1,0 +1,28 @@
+{
+  "character_id": "cable",
+  "display_name": "Cable",
+  "group": "x-men",
+  "order": 2,
+  "default_pose": "idle",
+  "source_sheet": "Dreamcast - Marvel vs. Capcom 2_ New Age of Heroes - Fighters (Marvel) - Cable.png",
+  "source": "https://www.spriters-resource.com/dreamcast/marvelvscapcom2newageofheroes/",
+  "license": "Marvel/Capcom third-party game IP; private local non-commercial use only; no public deployment",
+  "extraction": {
+    "method": "automatic clean-row semantic sampling",
+    "rows": {
+      "idle": 19,
+      "hover": 46,
+      "grab": 29,
+      "action": 26
+    },
+    "cells": {
+      "idle": 160,
+      "hover": 160,
+      "grab": 192,
+      "action": 224
+    }
+  },
+  "used_in": [
+    "workbench-nexus:theme/marvel-vs-capcom-2"
+  ]
+}

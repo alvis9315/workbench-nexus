@@ -87,4 +87,5 @@ src/assets/themes/<id>/<角色>/meta.json    ← 角色中繼資料
 | `guild` | 冒險者公會 | LPC generator(正本 ~/ui-asset-library) | 6 | 逐圖層授權,credits complete |
 | `pokemon` | 寶可夢圖鑑 | jakobhoeg/vscode-pokemon | 565(gen1-4) | Nintendo IP — 僅限本機自用 |
 | `marvel-cosmic-invasion` | Marvel: Cosmic Invasion | The Spriters Resource(正本 ~/ui-asset-library) | 6 | Marvel／遊戲第三方 IP — 私人未發布非商業使用 |
+| `marvel-vs-capcom-2` | Marvel vs. Capcom 2 | The Spriters Resource(正本 ~/ui-asset-library) | 28 | Marvel／Capcom 遊戲第三方 IP — 私人未發布非商業使用 |
 | `neon-protocol` | NEON PROTOCOL | Vesper 原創生成素材 | 0(候選已歸檔) | 待四語意動畫幀完成後建立 |
