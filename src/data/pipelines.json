@@ -2,30 +2,30 @@
   {
     "slug": "resume-pipeline",
     "name": "求職履歷一條龍",
-    "description": "一次人工輸入(貼職缺連結)、一次人工確認(docx 預覽),其餘自動;個資只進 resume-tailoring private repo",
+    "description": "把一則想投的職缺，依序變成針對該職缺的履歷內容，再套成可投遞的中文版或 ATS 英文版。",
     "contractUrl": "https://github.com/alvis9315/workbench-nexus/blob/main/specs/resume-pipeline.md",
-    "statusNote": "規劃定稿(v0.1),站 2/3 掛接待實作(2026-07-20)",
+    "statusNote": "目前可以完成職缺蒐集與履歷內容客製；DOCX 自動輸出仍在建置中。個資只進 private resume-tailoring repo。",
     "stations": [
       {
         "name": "職缺收集",
         "tool": "job-search-secret",
-        "role": "Dashboard UI 搜 104 職缺(人操作瀏覽器)",
-        "handoff": "104 職缺連結(使用者複製貼回)",
+        "role": "到 104、Cake 或公司官網找到想投的職缺，複製職缺網址；若網站不能讀，就複製完整職缺文字。",
+        "handoff": "一個職缺網址，或一份完整 JD 文字。",
         "status": "ready"
       },
       {
         "name": "履歷客製",
         "tool": "resume-tailoring",
-        "role": "品質迴圈(Planner→Executor→Critic→Refiner)產雙版履歷",
-        "handoff": "雙版履歷 md(內容正本)",
+        "role": "把職缺與你的真實經歷交給 resume-tailoring，產生保守版與積極版兩份履歷內容；不會捏造經歷。",
+        "handoff": "兩份可校對、可修改的 Markdown 履歷內容。",
         "status": "wip",
         "invocation": "/resume-tailoring 用這個職缺跑履歷:<貼上 104 連結或 JD 全文>"
       },
       {
         "name": "渲染歸檔",
         "tool": "pandoc render",
-        "role": "md + 視覺模板 → 可編輯 docx,預覽過目後歸檔",
-        "handoff": "resumes/final/<slug>/ 內 md + docx",
+        "role": "選一個下方版型，把確認過的履歷內容轉成可編輯 DOCX；你預覽確認後才算完成。",
+        "handoff": "同一資料夾內的內容正本 .md 與投遞用 .docx。",
         "status": "planned",
         "invocation": "pandoc <resume>.md -o <out>.docx --reference-doc=<template>.docx"
       }

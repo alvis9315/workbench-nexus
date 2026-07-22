@@ -125,9 +125,9 @@ const THEME_CONFIG = {
     }),
   },
   'marvel-vs-capcom-2': {
-    theme_name: 'Marvel vs. Capcom 2',
+    theme_name: 'Marvel vs. Capcom 2 · Restoration WIP',
     shareable: false,
-    credits: 'Marvel／Capcom 第三方 IP + The Spriters Resource 遊戲素材；僅限私人未發布非商業使用，禁止公開展示',
+    credits: 'Marvel／Capcom 第三方 IP + The Spriters Resource 遊戲素材；四槽為可操作原型，完整招式還原中；僅限私人未發布非商業使用，禁止公開展示',
     asset_kind: 'strip',
     base_cell: 160,
     groups: [

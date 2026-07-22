@@ -8,8 +8,7 @@ const TABS = [
   { name: 'projects', to: '/projects', label: 'PROJECTS', hint: '關卡選擇' },
   { name: 'repos', to: '/repos', label: 'REPOS', hint: '武器選單' },
   { name: 'uilibrary', to: '/uilibrary', label: 'UI LIB', hint: '素材庫' },
-  { name: 'pipelines', to: '/pipelines', label: 'PIPELINES', hint: '一條龍' },
-  { name: 'resume-templates', to: '/resume-templates', label: 'RESUME', hint: '模板牆' },
+  { name: 'career', to: '/career', label: 'CAREER', hint: '履歷工坊' },
 ]
 
 const route = useRoute()

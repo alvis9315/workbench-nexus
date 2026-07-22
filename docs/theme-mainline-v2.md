@@ -17,7 +17,7 @@
   - 主題一:**冒險者公會**(LPC 六隻)
   - 主題二:**寶可夢**(像素角色)
   - 主題三:**Marvel: Cosmic Invasion**(私用遊戲素材)
-  - 主題四:**Marvel vs. Capcom 2**(28 位 Marvel fighter,私用遊戲素材)
+  - 主題四:**Marvel vs. Capcom 2 · Restoration WIP**(28 位 Marvel fighter,四槽原型／完整招式還原中,私用遊戲素材)
   - 下一個原創主題:**NEON PROTOCOL**(Vesper 打樣中)
   - 任何像素素材整理後即可作為新主題擴充
 - spritesheet→GIF/strip 轉換管線已驗證量產(規格見 pipeline summary §2)
@@ -34,7 +34,7 @@
 | 冒險者公會 | LPC generator(白名單隨機 → 下載 → 管線轉換) | 已上線 |
 | 寶可夢 | 現成像素素材 | 已上線 |
 | Marvel: Cosmic Invasion | The Spriters Resource 遊戲素材 | 已上線,私人不可分享 |
-| Marvel vs. Capcom 2 | The Spriters Resource 遊戲素材 | 已上線 28 角,私人不可分享 |
+| Marvel vs. Capcom 2 | The Spriters Resource 遊戲素材 | 28 角四槽原型已上線；完整招式與特效時序還原中，私人不可分享 |
 | **NEON PROTOCOL** | 兩段式 AI 生成(§4),Vesper 原創角色 | 素材採樣完成,動畫幀待補 |
 
 「本命主題」是當初定案的角色形象方向(原創女性角色、御姐/少女、人形高頭身、

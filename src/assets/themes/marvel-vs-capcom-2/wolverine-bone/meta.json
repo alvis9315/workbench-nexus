@@ -8,7 +8,7 @@
   "source": "https://www.spriters-resource.com/dreamcast/marvelvscapcom2newageofheroes/",
   "license": "Marvel/Capcom third-party game IP; private local non-commercial use only; no public deployment",
   "extraction": {
-    "method": "automatic clean-row semantic sampling",
+    "method": "automatic packed-band prototype sampling; semantic mapping unverified",
     "rows": {
       "idle": 22,
       "hover": 23,
@@ -24,5 +24,6 @@
   },
   "used_in": [
     "workbench-nexus:theme/marvel-vs-capcom-2"
-  ]
+  ],
+  "restoration_status": "prototype semantic sample; not a complete move restoration"
 }

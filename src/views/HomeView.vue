@@ -2,6 +2,7 @@
 import { computed, ref, useTemplateRef } from 'vue'
 import { useLocalStorage } from '@vueuse/core'
 import { Search, History, Grid3x3, Grid2x2, Columns2, PackageOpen, Minus, Plus, RotateCcw } from 'lucide-vue-next'
+import { toast } from 'vue-sonner'
 import { Button } from '@/components/ui/button'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { Kbd } from '@/components/ui/kbd'
@@ -14,7 +15,9 @@ import SkillDetailDialog from '@/components/SkillDetailDialog.vue'
 import Hotbar from '@/components/Hotbar.vue'
 import LaunchLogDialog from '@/components/LaunchLogDialog.vue'
 import FallingSprites, { type FallingSpriteItem } from '@/components/effects/FallingSprites.vue'
+import ToyboxRosterDialog from '@/components/ToyboxRosterDialog.vue'
 import { usePins } from '@/composables/usePins'
+import { TOYBOX_LIMIT, useToyboxRoster } from '@/composables/useToyboxRoster'
 import { activeTheme } from '@/themes'
 import skillsData from '@/data/skills.json'
 import type { Skill, SkillCategory } from '@/types'
@@ -29,6 +32,9 @@ const logOpen = ref(false)
 const toyboxOpen = useLocalStorage('wn-toybox-open', false)
 const toyboxScale = useLocalStorage<number>('wn-toybox-scale', 1)
 const activeCategory = ref<SkillCategory | 'all'>('all')
+const toyboxDragActive = ref(false)
+const toyboxDropTarget = ref(false)
+const { chars: toyboxChars, add: addToyboxChar, remove: removeToyboxChar, clear: clearToybox } = useToyboxRoster()
 
 const adjustToyboxScale = (delta: number) => {
   toyboxScale.value = Math.min(1.6, Math.max(0.6, Math.round((toyboxScale.value + delta) * 10) / 10))
@@ -37,7 +43,7 @@ const adjustToyboxScale = (delta: number) => {
 // 物理層吃統一的四語意槽；不直接知道 guild／pokemon／Marvel 的檔案或姿勢名。
 // 每個主題的原生尺寸差異很大，先等比例正規化到 72px 再交給 FallingSprites。
 const toyboxSprites = computed<FallingSpriteItem[]>(() =>
-  activeTheme.value.chars.slice(0, 12).flatMap((char) => {
+  toyboxChars.value.flatMap((char) => {
     const frame = activeTheme.value.charFrame(char)
     const ratio = 72 / Math.max(frame.w, frame.h)
     const idle = activeTheme.value.poseAsset(char, activeTheme.value.slotPose(char, 'idle'))
@@ -53,6 +59,20 @@ const toyboxSprites = computed<FallingSpriteItem[]>(() =>
     }]
   }),
 )
+const toyboxKey = computed(() => `${activeTheme.value.id}:${toyboxChars.value.join('|')}`)
+
+const addToToybox = (char: string) => {
+  const result = addToyboxChar(char)
+  if (result === 'added') toast.success(`${activeTheme.value.charLabel(char)} 已放進娃娃機`)
+  else if (result === 'duplicate') toast.info(`${activeTheme.value.charLabel(char)} 已經在娃娃機裡`)
+  else if (result === 'full') toast.warning(`娃娃機上限是 ${TOYBOX_LIMIT} 隻，請先移除角色`)
+}
+const onToyboxDrop = (event: DragEvent) => {
+  toyboxDropTarget.value = false
+  toyboxDragActive.value = false
+  const char = event.dataTransfer?.getData('application/x-workbench-character')
+  if (char) addToToybox(char)
+}
 
 // 選角格密度:每排 6 / 4 / 2 張,記在 localStorage。
 // class 寫全名(不能模板字串拼接)——Tailwind JIT 掃原始碼字面值
@@ -117,13 +137,28 @@ const goNext = () => {
 
     <Hotbar :pinned="pinned" :skills="skills" />
 
-    <section v-if="toyboxOpen" class="pixel-frame mb-6 overflow-hidden bg-card/70">
-      <div class="flex items-center justify-between border-b border-border/70 px-4 py-2">
+    <section
+      v-if="toyboxOpen"
+      class="toybox-machine pixel-frame relative mb-6 overflow-hidden rounded-lg bg-card/70"
+      :class="toyboxDropTarget ? 'is-drop-target' : ''"
+      @dragenter.prevent="toyboxDropTarget = true"
+      @dragover.prevent="toyboxDropTarget = true"
+      @dragleave.self="toyboxDropTarget = false"
+      @drop.prevent="onToyboxDrop"
+    >
+      <div class="toybox-marquee flex flex-wrap items-center justify-between gap-2 border-b border-border/70 px-4 py-2.5">
         <div>
-          <h2 class="font-pixel text-[10px] text-foreground">SPRITE DROP</h2>
-          <p class="mt-1 text-[11px] text-muted-foreground">抓住角色拖曳、甩動，再放回娃娃堆。</p>
+          <h2 class="font-pixel text-[11px] text-primary">NEXUS CLAW // SPRITE DROP</h2>
+          <p class="mt-1 text-[11px] text-muted-foreground">抓角色、甩動、放回；也可以把下方技能卡直接拖進玻璃箱。</p>
         </div>
-        <div class="flex items-center gap-1">
+        <div class="flex flex-wrap items-center justify-end gap-1">
+          <ToyboxRosterDialog
+            :chars="toyboxChars"
+            :limit="TOYBOX_LIMIT"
+            @add="addToToybox"
+            @remove="removeToyboxChar"
+            @clear="clearToybox"
+          />
           <span class="mr-2 hidden font-pixel text-[9px] text-muted-foreground sm:inline">{{ activeTheme.label }}</span>
           <Button
             variant="ghost"
@@ -165,9 +200,23 @@ const goNext = () => {
           </Button>
         </div>
       </div>
-      <div class="h-80 bg-[radial-gradient(circle_at_top,hsl(var(--primary)/0.12),transparent_55%)]">
+      <div class="toybox-glass relative h-[26rem] overflow-hidden">
+        <div class="toybox-glare pointer-events-none absolute inset-0 z-20" />
+        <div class="toybox-prize-chute pointer-events-none absolute bottom-3 left-1/2 z-0 -translate-x-1/2">
+          <span>PRIZE OUT</span>
+        </div>
+        <div
+          v-if="!toyboxSprites.length && !toyboxDragActive"
+          class="pointer-events-none absolute inset-0 z-10 grid place-items-center"
+        >
+          <div class="rounded-lg border border-dashed border-border bg-background/75 px-6 py-5 text-center shadow-lg">
+            <PackageOpen class="mx-auto mb-3 size-7 text-muted-foreground" />
+            <p class="font-pixel text-[10px] text-foreground">CLAW MACHINE EMPTY</p>
+            <p class="mt-2 text-xs text-muted-foreground">按「{{ activeTheme.id === 'pokemon' ? '加入寶可夢' : '加入角色' }}」，或把下方技能卡拖進來。</p>
+          </div>
+        </div>
         <FallingSprites
-          :key="activeTheme.id"
+          :key="toyboxKey"
           :sprites="toyboxSprites"
           :scale="toyboxScale"
           trigger="auto"
@@ -175,6 +224,21 @@ const goNext = () => {
           :restitution="0.72"
           :grab-stiffness="0.16"
         />
+        <div
+          v-if="toyboxDragActive"
+          class="pointer-events-none absolute inset-4 z-50 grid place-items-center rounded-lg border-2 border-dashed border-primary bg-background/70"
+          :class="toyboxDropTarget ? 'text-primary' : 'text-muted-foreground'"
+        >
+          <div class="text-center">
+            <PackageOpen class="mx-auto mb-3 size-8" />
+            <p class="font-pixel text-xs">DROP CHARACTER HERE</p>
+            <p class="mt-2 text-xs">放開就加入娃娃機 · {{ toyboxChars.length }}/{{ TOYBOX_LIMIT }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="toybox-control-deck flex flex-wrap items-center justify-between gap-2 border-t border-border px-4 py-2">
+        <span class="font-pixel text-[8px] text-muted-foreground">CAPACITY {{ toyboxChars.length }}/{{ TOYBOX_LIMIT }}</span>
+        <span class="text-[10px] text-muted-foreground">建議 12–18 隻最清楚；24 隻為效能與可玩性的硬上限。</span>
       </div>
     </section>
 
@@ -209,10 +273,13 @@ const goNext = () => {
         :name-cls="gridMeta.nameCls"
         :cat-cls="gridMeta.catCls"
         :pinned="isPinned(s)"
+        :toybox-open="toyboxOpen"
         class="reveal-up"
         :style="{ animationDelay: `${Math.min(i * 45, 400)}ms` }"
         @open="openSkill"
         @toggle-pin="togglePin(s)"
+        @toybox-drag-start="toyboxDragActive = true"
+        @toybox-drag-end="toyboxDragActive = false; toyboxDropTarget = false"
       />
     </div>
     <Empty v-else class="py-16">
@@ -236,3 +303,63 @@ const goNext = () => {
     <LaunchLogDialog v-model:open="logOpen" :skills="skills" />
   </main>
 </template>
+
+<style scoped>
+.toybox-machine {
+  border-color: hsl(var(--primary) / 0.7);
+  box-shadow:
+    inset 0 0 0 4px hsl(var(--background) / 0.7),
+    0 0 28px hsl(var(--primary) / 0.08);
+}
+.toybox-machine::before,
+.toybox-machine::after {
+  position: absolute;
+  z-index: 35;
+  top: 4.25rem;
+  bottom: 2.5rem;
+  width: 8px;
+  content: '';
+  pointer-events: none;
+  background: linear-gradient(90deg, #0f172a, #94a3b8 45%, #334155 55%, #020617);
+  box-shadow: 0 0 8px rgb(0 0 0 / 0.45);
+}
+.toybox-machine::before { left: 0; }
+.toybox-machine::after { right: 0; transform: scaleX(-1); }
+.toybox-marquee {
+  background:
+    linear-gradient(90deg, hsl(var(--primary) / 0.08), transparent 25% 75%, hsl(var(--primary) / 0.08)),
+    hsl(var(--card) / 0.96);
+  box-shadow: inset 0 -3px 0 hsl(var(--primary) / 0.14);
+}
+.toybox-glass {
+  background:
+    linear-gradient(180deg, hsl(var(--primary) / 0.06), transparent 28%),
+    repeating-linear-gradient(90deg, transparent 0 63px, hsl(var(--border) / 0.08) 64px),
+    linear-gradient(180deg, hsl(var(--card) / 0.72), hsl(var(--background) / 0.96));
+}
+.toybox-glare {
+  background: linear-gradient(112deg, transparent 0 18%, rgb(255 255 255 / 0.025) 19% 26%, transparent 27% 100%);
+}
+.toybox-prize-chute {
+  display: grid;
+  width: 128px;
+  height: 42px;
+  place-items: end center;
+  border: 4px solid #334155;
+  border-bottom-width: 7px;
+  border-radius: 8px 8px 2px 2px;
+  color: #64748b;
+  background: linear-gradient(180deg, #020617, #0f172a);
+  box-shadow: inset 0 5px 12px rgb(0 0 0 / 0.8);
+  font-family: var(--font-pixel, monospace);
+  font-size: 7px;
+}
+.toybox-prize-chute span { padding-bottom: 2px; }
+.toybox-control-deck {
+  background: linear-gradient(180deg, #334155, #0f172a 32%, hsl(var(--card)) 34%);
+}
+.toybox-machine.is-drop-target {
+  border-color: hsl(var(--primary));
+  box-shadow: 0 0 32px hsl(var(--primary) / 0.28);
+}
+</style>

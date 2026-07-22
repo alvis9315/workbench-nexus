@@ -1,8 +1,9 @@
 # Worklog
 
 ## 2026-07-22
-- **MVC2 私用主題**:`Marvel vs. Capcom 2` 28 位 Marvel fighter × idle／hover／grab／action strip 上線；atlas 抽取排除尾端純 projectile/effect 列，來源列與 cell 寫回每角 meta；`shareable:false`
-- **夾娃娃機升級**:箱頂導軌＋垂直纜線＋三爪夾具取代單純 cursor；角色 60–160% 可調並記憶；Guild 被抓優先使用六角皆具備的 `hurt_down`
+- **MVC2 還原稽核**:確認原 sheet 是會跨透明橫帶換行的 packed sprite stream，不是一列一招；既有四槽降級標示為 WIP prototype。28 角共 2,433 band 建立零遺漏 inventory，後續逐角對照 command list 與 60fps 實機畫面，補完整動作與 actor／projectile timing。
+- **夾娃娃機升級**:箱頂導軌＋垂直纜線＋三爪夾具；角色 60–160% 可調並記憶；每主題可新增、單隻刪除、全部清空，技能卡只在機台開啟時可拖入；建議 12–18、硬上限 24。Guild 被抓優先使用六角皆具備的 `hurt_down`。
+- **Career 分頁整併**:頂層 Pipelines＋Resume 合併為 Career Workshop；三步驟白話引導、等高 station 卡、模板選擇與現況說明集中在同一頁，舊網址保留 redirect。
 - **Marvel 其餘 PNG 歸納**:Avengers Alliance 拆 Browser 5 角／Mobile HD 單角；Spider-Verse 再拆 GBA Spider-Man 3 雙角、SNES Maximum Carnage 雙角與跨遊戲單角池，待 bbox／atlas 正規化，不硬混畫風
 - **游標主題化**:全站加入金黃像素箭頭／可點擊手套；FallingSprites 區改用吊鉤，抓住角色時切成藍色收緊鉤，文字輸入仍保留 I-beam
 - **C4 完成**:`FallingSprites.vue` + Matter.js 接入主頁 `SPRITE DROP`;activeTheme 取 6–12 角,支援碰撞／拖曳擺盪／grab 換姿勢／resize／越界與卸載清理;Chrome headless 實測拖放語意切換及三主題載入

@@ -11,10 +11,10 @@
 - ✓ 2026-07-21 **C1 主題 manifest 化**(§3.1):`scripts/gen-theme-manifest.mjs` 從素材+meta.json 產 `characters.json`(frame_w/h 分離、idle/hover/grab/action 語意槽位、pose_cells 尺寸、idle_unsafe 裸素體防呆);`src/themes/manifest.ts` factory,兩主題模組縮成 <30 行 glob+manifest;SpriteTheme 契約加 slotPose/charFrame。素材仍 GIF,strip 換裝時只動 manifest 資料(C3 先決)
 - ✓ 2026-07-21 **C2 casting 分層**(§3.2):`src/data/casting.json`(seed→各主題出廠角色,跨主題一層),guild SKILL_CHAR 遷出;未登記 seed 由 factory hash 決定性分配;使用者 CharPicker 手選(localStorage)優先於本表
 - ✓ 2026-07-22 **C3 PixelSprite 接入**(§3.3):A–F 源 PNG 救援(反推+重配)→ guild 素材全面換 strip PNG(GIF 退役);PixelSprite.vue(width/height 分離,strip=CSS steps 播放/gif=<img> 雙模式);manifest 增 asset_kind/pose_frames/pose_ms(產生腳本讀 PNG 檔頭自動解析);SkillAvatar/Mascot/GlobalSearchDialog/CharPicker 四渲染點統一走 PixelSprite;主題 icon 用單幀 icon.png
-- ✓ 2026-07-22 **C4. FallingSprites 夾娃娃機元件**(正本 `docs/falling-sprites-spec.md`):Matter.js 剛體 + activeTheme 四語意槽;主頁可開關,每主題取 6–12 角,支援掉落碰撞、偏心拖曳、grab 換姿勢、放手還原、越界重置、ResizeObserver 與完整卸載清理。操作游標已升級為箱頂纜線連接的三爪夾具；角色大小可由 60–160% 即時調整並記憶；Guild grab 優先 `hurt_down`。
+- ✓ 2026-07-22 **C4. FallingSprites 夾娃娃機元件**(正本 `docs/falling-sprites-spec.md`):Matter.js 剛體 + activeTheme 四語意槽;主頁可開關，箱頂纜線連接三爪夾具；角色大小可由 60–160% 即時調整並記憶；Guild grab 優先 `hurt_down`。每主題娃娃清單可新增、單隻移除、全部清空；技能卡只在機台開啟時可拖入。建議 12–18 隻，硬上限 24 隻。
 - [ ] **C5. NEON PROTOCOL 本命主題打樣**(§4):首角 **Vesper**,機能軍事／霓虹特勤世界觀,Low Top-Down。五組概念、八方向稿、六組 PixelLab 候選與三段動態立繪已歸檔至 `ui-asset-library/custom/sprites/vesper/`;目前缺可對應 idle／hover／grab／action 的透明連續幀,補齊後才建立可用主題。支線依序為動態立繪 → image-to-3D 偵察 → VRoid/VRM 正規 3D。
 - ✓ 2026-07-22 **C6. 舊主題補件**:guild 六位的官方產生器 `source/credits.txt` 已齊,ui-asset-library 總表與兩 repo metadata 已同步;Workbench 增 theme `CREDITS.md`。五位 hash complete,E 角仍缺一鍵重建 hash,但逐層署名完整。
-- ✓ 2026-07-22 **C7. Marvel 主題**:`Marvel: Cosmic Invasion` 六外觀 + `Marvel vs. Capcom 2` 28 位 Marvel fighter 均已上線，每位四語意 strip；兩者明確 `shareable:false`，限私人未發布非商業使用。其餘素材已拆成 Avengers Alliance Browser（5 角、待逐張 bbox）、Mobile HD 單角、GBA Spider-Man 3 雙角、SNES Maximum Carnage 雙角與跨遊戲 singles，不混排不同畫風。
+- [ ] **C7. Marvel 主題完整化**:`Marvel: Cosmic Invasion` 六外觀已上線；`Marvel vs. Capcom 2` 28 位 fighter 的四語意 strip 目前只是可操作原型。28 張來源共 2,433 個 packed band 已完成零遺漏 inventory；後續依 command list＋60fps 實機參考，逐角標註 neutral／movement／normals／throws／defense／specials／hypers／team／effects，並建立 actor＋projectile compound timing。兩者皆 `shareable:false`。其餘素材維持依遊戲與畫風分池，不混排。
 - ✓ 2026-07-21 **shareable 欄位**(§3.4):SpriteTheme 契約 + 兩主題宣告(guild true / pokemon false)+ ThemePicker 私用標記(列表 badge + 啟用中圓點提醒)
 
 ## D. 盤點補登（尚未排入本次實作）

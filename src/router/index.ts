@@ -22,14 +22,17 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/UiLibraryView.vue'),
   },
   {
-    path: '/pipelines',
-    name: 'pipelines',
+    path: '/career',
+    name: 'career',
     component: () => import('@/views/PipelinesView.vue'),
   },
   {
+    path: '/pipelines',
+    redirect: '/career',
+  },
+  {
     path: '/resume-templates',
-    name: 'resume-templates',
-    component: () => import('@/views/ResumeTemplatesView.vue'),
+    redirect: '/career#templates',
   },
   {
     path: '/:pathMatch(.*)*',
