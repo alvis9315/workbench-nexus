@@ -38,7 +38,7 @@ const props = withDefaults(
     /** 落到下半部後在 2D 地面上以不同深度自由漫遊。 */
     wander?: boolean
     trigger?: 'auto' | 'click' | 'hover'
-    controlMode?: 'free' | 'arcade'
+    controlMode?: 'free' | 'direct' | 'arcade'
     command?: { sequence: number; action: 'left' | 'right' | 'up' | 'down' | 'confirm' }
   }>(),
   {
@@ -63,6 +63,7 @@ const battlingIds = ref<Set<string>>(new Set())
 const pointerInside = ref(false)
 const clawPoint = ref({ x: 0, y: 0 })
 const clawAnchorX = ref(0)
+const clawSupportY = ref(8)
 const clawAngle = ref(0)
 const clawClosed = ref(false)
 const arcadeStatus = ref<'aim' | 'descending' | 'lifting' | 'holding'>('aim')
@@ -70,13 +71,19 @@ const spriteElements = new Map<string, HTMLElement>()
 const clawVisible = computed(() => started.value && (props.controlMode === 'arcade' || pointerInside.value || Math.abs(clawAngle.value) > 0.012 || grabbedId.value !== null))
 const cableStyle = computed(() => ({
   left: `${clawAnchorX.value}px`,
-  height: `${Math.max(Math.hypot(clawPoint.value.x - clawAnchorX.value, clawPoint.value.y - 8), 0)}px`,
-  transform: `translateX(-50%) rotate(${-Math.atan2(clawPoint.value.x - clawAnchorX.value, Math.max(clawPoint.value.y - 8, 1))}rad)`,
+  top: `${clawSupportY.value}px`,
+  height: `${Math.max(Math.hypot(clawPoint.value.x - clawAnchorX.value, clawPoint.value.y - clawSupportY.value), 0)}px`,
+  transform: `translateX(-50%) rotate(${-Math.atan2(clawPoint.value.x - clawAnchorX.value, Math.max(clawPoint.value.y - clawSupportY.value, 1))}rad)`,
 }))
 const clawStyle = computed(() => ({
   left: `${clawPoint.value.x}px`,
   top: `${clawPoint.value.y}px`,
-  transform: `translateX(-50%) rotate(${-clawAngle.value}rad)`,
+  transform: `translateX(-50%) rotate(${-clawAngle.value}rad) scale(${props.controlMode === 'arcade' ? 0.88 + clawDepth.value * 0.12 : 1})`,
+}))
+const depthGantryStyle = computed(() => ({
+  left: `${clawAnchorX.value}px`,
+  top: '8px',
+  height: `${Math.max(clawSupportY.value - 8, 0)}px`,
 }))
 
 let engine: Engine | null = null
@@ -93,6 +100,8 @@ let clawRopeLength = 120
 let clawRopeTarget = 120
 let clawAngularVelocity = 0
 let lastAnchorVelocity = 0
+const clawDepth = ref(0.5)
+let clawDepthTarget = 0.5
 let manualGrabbedId: string | null = null
 let arcadeAutoGrabAt = 0
 interface SpriteRecord {
@@ -194,23 +203,42 @@ const updateClawPhysics = (deltaSeconds: number, width: number, height: number) 
   }
   clawAnchorTarget = Math.min(Math.max(clawAnchorTarget, 48), width - 48)
   clawRopeTarget = Math.min(Math.max(clawRopeTarget, 46), height - 72)
+  clawDepthTarget = Math.min(Math.max(clawDepthTarget, 0), 1)
+  clawDepth.value += (clawDepthTarget - clawDepth.value) * Math.min(deltaSeconds * 3.2, 1)
+  clawSupportY.value = props.controlMode === 'arcade' ? 8 + clawDepth.value * 38 : 8
 
-  const anchorAcceleration = (clawAnchorTarget - clawAnchorX.value) * 38 - clawAnchorVelocity * 9
-  clawAnchorVelocity += anchorAcceleration * deltaSeconds
-  clawAnchorX.value += clawAnchorVelocity * deltaSeconds
-  clawRopeLength += (clawRopeTarget - clawRopeLength) * Math.min(deltaSeconds * 7, 1)
+  if (props.controlMode === 'direct') {
+    clawAnchorX.value = clawAnchorTarget
+    clawAnchorVelocity = 0
+    clawAngularVelocity = 0
+    clawAngle.value = 0
+  } else {
+    // 較低的彈簧係數與較高阻尼，讓滑車和金屬爪呈現有重量的遲滯。
+    const anchorAcceleration = (clawAnchorTarget - clawAnchorX.value) * 16 - clawAnchorVelocity * 7
+    clawAnchorVelocity += anchorAcceleration * deltaSeconds
+    clawAnchorX.value += clawAnchorVelocity * deltaSeconds
+  }
 
-  // 支點加速會把爪子甩向反方向；放開滑鼠後仍靠慣性自然衰減。
-  const supportAcceleration = (clawAnchorVelocity - lastAnchorVelocity) / Math.max(deltaSeconds, 0.001)
-  const angularAcceleration = -14 * Math.sin(clawAngle.value) - supportAcceleration / Math.max(clawRopeLength, 60) - clawAngularVelocity * 0.48
-  clawAngularVelocity += angularAcceleration * deltaSeconds
-  clawAngle.value += clawAngularVelocity * deltaSeconds
-  clawAngle.value = Math.min(Math.max(clawAngle.value, -0.72), 0.72)
+  const ropeRate = arcadeStatus.value === 'descending'
+    ? 1.05
+    : arcadeStatus.value === 'lifting'
+      ? 2.6
+      : props.controlMode === 'direct' ? 7 : 4
+  clawRopeLength += (clawRopeTarget - clawRopeLength) * Math.min(deltaSeconds * ropeRate, 1)
+
+  if (props.controlMode !== 'direct') {
+    // 支點加速會把爪子甩向反方向；較慢的回復力保留厚重金屬爪的擺幅。
+    const supportAcceleration = (clawAnchorVelocity - lastAnchorVelocity) / Math.max(deltaSeconds, 0.001)
+    const angularAcceleration = -7.5 * Math.sin(clawAngle.value) - supportAcceleration / Math.max(clawRopeLength, 60) - clawAngularVelocity * 0.62
+    clawAngularVelocity += angularAcceleration * deltaSeconds
+    clawAngle.value += clawAngularVelocity * deltaSeconds
+    clawAngle.value = Math.min(Math.max(clawAngle.value, -0.62), 0.62)
+  }
   lastAnchorVelocity = clawAnchorVelocity
 
   clawPoint.value = {
     x: clawAnchorX.value + Math.sin(clawAngle.value) * clawRopeLength,
-    y: 8 + Math.cos(clawAngle.value) * clawRopeLength,
+    y: clawSupportY.value + Math.cos(clawAngle.value) * clawRopeLength,
   }
 }
 
@@ -262,11 +290,14 @@ const releaseManualGrab = () => {
 const runArcadeCommand = (action: 'left' | 'right' | 'up' | 'down' | 'confirm') => {
   if (props.controlMode !== 'arcade' || !container.value) return
   if (action === 'left' || action === 'right') {
+    if (arcadeStatus.value === 'descending' || arcadeStatus.value === 'lifting') return
     clawAnchorTarget += action === 'left' ? -54 : 54
     return
   }
   if (action === 'up' || action === 'down') {
-    clawRopeTarget += action === 'up' ? -34 : 34
+    if (arcadeStatus.value === 'descending' || arcadeStatus.value === 'lifting') return
+    // 上／下代表 2.5D 場景的後／前，不再直接收放繩子。
+    clawDepthTarget += action === 'up' ? -0.14 : 0.14
     return
   }
   if (arcadeStatus.value === 'descending') {
@@ -276,8 +307,9 @@ const runArcadeCommand = (action: 'left' | 'right' | 'up' | 'down' | 'confirm') 
   } else if (arcadeStatus.value === 'aim') {
     clawClosed.value = false
     arcadeStatus.value = 'descending'
-    clawRopeTarget = Math.max(container.value.clientHeight - 94, 80)
-    arcadeAutoGrabAt = performance.now() + 1500
+    const floorY = container.value.clientHeight * 0.53 + clawDepth.value * (container.value.clientHeight * 0.47 - 24)
+    clawRopeTarget = Math.max(floorY - clawSupportY.value - 52, 80)
+    arcadeAutoGrabAt = performance.now() + 5200
   }
 }
 
@@ -321,7 +353,7 @@ const resetBody = (body: Body, item: FallingSpriteItem, index: number) => {
 }
 
 const onStartDrag = (event: IEvent<MouseConstraint>) => {
-  if (props.controlMode !== 'free') return
+  if (props.controlMode === 'arcade') return
   // Matter 在 startdrag/enddrag runtime event 上附 body，但 @types 未列這個欄位。
   const body = (event as IEvent<MouseConstraint> & { body?: Body }).body
   if (!body) return
@@ -374,7 +406,10 @@ const sync = (now: number) => {
   const width = container.value.clientWidth
   const height = container.value.clientHeight
   updateClawPhysics(delta / 1000, width, height)
-  if (arcadeStatus.value === 'descending' && now >= arcadeAutoGrabAt) closeArcadeClaw()
+  if (
+    arcadeStatus.value === 'descending' &&
+    (Math.abs(clawRopeTarget - clawRopeLength) < 5 || now >= arcadeAutoGrabAt)
+  ) closeArcadeClaw()
   if (arcadeStatus.value === 'lifting' && clawRopeLength <= 82) arcadeStatus.value = 'holding'
   records.forEach((record, index) => {
     const { item, body } = record
@@ -486,6 +521,7 @@ const sync = (now: number) => {
       element.style.top = `${body.position.y + stepBob}px`
       element.style.transform = `translate(-50%, -50%) rotate(${body.angle}rad) scale(${perspectiveScale}) scaleX(${record.facing})`
       element.style.zIndex = String(30 + Math.round(body.position.y))
+      element.classList.toggle('is-roaming', record.roaming)
     }
   })
 
@@ -598,7 +634,7 @@ const start = async () => {
     mouse,
     constraint: { stiffness: props.grabStiffness, damping: 0.12, render: { visible: false } },
   })
-  mouseConstraint.collisionFilter.mask = props.controlMode === 'free' ? 0xffffffff : 0
+  mouseConstraint.collisionFilter.mask = props.controlMode === 'arcade' ? 0 : 0xffffffff
   Composite.add(engine.world, mouseConstraint)
   Events.on(mouseConstraint, 'startdrag', onStartDrag)
   Events.on(mouseConstraint, 'enddrag', onEndDrag)
@@ -616,7 +652,7 @@ const onHover = () => {
   if (props.trigger === 'hover') void start()
 }
 const updateClawPoint = (event: PointerEvent) => {
-  if (!container.value || props.controlMode !== 'free') return
+  if (!container.value || props.controlMode === 'arcade') return
   const rect = container.value.getBoundingClientRect()
   clawAnchorTarget = Math.min(Math.max(event.clientX - rect.left, 48), rect.width - 48)
   // 滑鼠對準的是爪尖；繩長終點固定在爪子頂部關節，兩者相差約 52px。
@@ -687,13 +723,16 @@ watch(() => props.command?.sequence, (sequence, previous) => {
   if (sequence && sequence !== previous && props.command) runArcadeCommand(props.command.action)
 })
 watch(() => props.controlMode, (mode) => {
-  if (mouseConstraint) mouseConstraint.collisionFilter.mask = mode === 'free' ? 0xffffffff : 0
+  if (mouseConstraint) mouseConstraint.collisionFilter.mask = mode === 'arcade' ? 0 : 0xffffffff
+  if (mode !== 'arcade' && manualGrabbedId) releaseManualGrab()
   if (mode === 'arcade' && container.value) {
     clawAnchorTarget = clawAnchorX.value || container.value.clientWidth / 2
     clawRopeTarget = 100
+    clawDepthTarget = clawDepth.value
     container.value.focus()
-  } else if (manualGrabbedId) {
-    releaseManualGrab()
+  } else if (mode === 'direct') {
+    clawAngle.value = 0
+    clawAngularVelocity = 0
   }
 })
 </script>
@@ -719,8 +758,13 @@ watch(() => props.controlMode, (mode) => {
     </div>
     <div
       v-show="clawVisible"
-      class="claw-cable pointer-events-none absolute top-2 z-[820] w-0.5"
+      class="claw-cable pointer-events-none absolute z-[820] w-0.5"
       :style="cableStyle"
+    />
+    <div
+      v-if="controlMode === 'arcade'"
+      class="claw-depth-gantry pointer-events-none absolute z-[815] w-1 -translate-x-1/2"
+      :style="depthGantryStyle"
     />
     <svg
       v-show="clawVisible"
@@ -765,6 +809,7 @@ watch(() => props.controlMode, (mode) => {
       :class="ready ? 'opacity-100' : 'opacity-0'"
       :title="item.label"
     >
+      <div class="sprite-ground-shadow" />
       <PixelSprite
         :asset="grabbedId === item.id
           ? (item.grab ?? item.idle)
@@ -773,6 +818,7 @@ watch(() => props.controlMode, (mode) => {
             : (walkingIds.has(item.id) ? (item.move ?? item.idle) : item.idle))"
         :width="item.width * scale"
         :height="item.height * scale"
+        class="relative z-10"
       />
     </div>
 
@@ -803,29 +849,53 @@ watch(() => props.controlMode, (mode) => {
   box-shadow: 0 0 4px hsl(var(--primary) / 0.45);
   transform-origin: 50% 0;
 }
+.claw-depth-gantry {
+  background: linear-gradient(90deg, #1e293b, #cbd5e1 42%, #475569 64%, #0f172a);
+  box-shadow: 0 0 3px rgb(0 0 0 / 0.55);
+}
 .claw-machine {
   transform-origin: 50% 0;
 }
 .claw-arm {
-  transition: transform 120ms ease-out;
+  transition: transform 220ms cubic-bezier(0.22, 0.8, 0.25, 1);
 }
 .claw-arm-left {
   transform-origin: 27px 20px;
+  transform: rotate(26deg);
 }
 .claw-arm-right {
   transform-origin: 37px 20px;
+  transform: rotate(-26deg);
 }
 .claw-arm-center {
   transform-origin: 32px 22px;
   opacity: 0.72;
+  transform: translateY(4px) scaleY(1.12);
 }
 .claw-machine.is-closed .claw-arm-left {
-  transform: rotate(-17deg);
+  transform: rotate(-7deg);
 }
 .claw-machine.is-closed .claw-arm-right {
-  transform: rotate(17deg);
+  transform: rotate(7deg);
 }
 .claw-machine.is-closed .claw-arm-center {
-  transform: translateY(-3px) scaleY(0.88);
+  transform: translateY(-4px) scaleY(0.82);
+}
+.sprite-ground-shadow {
+  position: absolute;
+  z-index: 0;
+  right: 13%;
+  bottom: -4px;
+  left: 13%;
+  height: 10px;
+  border-radius: 50%;
+  opacity: 0;
+  background: rgb(2 6 23 / 0.5);
+  filter: blur(2px);
+  transform: scaleX(1.15);
+  transition: opacity 180ms ease;
+}
+.is-roaming .sprite-ground-shadow {
+  opacity: 0.48;
 }
 </style>

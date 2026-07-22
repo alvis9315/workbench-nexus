@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, useTemplateRef } from 'vue'
 import { useLocalStorage } from '@vueuse/core'
-import { Search, History, Grid3x3, Grid2x2, Columns2, PackageOpen, Minus, Plus, RotateCcw, MousePointer2, Gamepad2 } from 'lucide-vue-next'
+import { Search, History, Grid3x3, Grid2x2, Columns2, PackageOpen, Minus, Plus, RotateCcw, MousePointer2, Gamepad2, MoveVertical } from 'lucide-vue-next'
 import { toast } from 'vue-sonner'
 import { Button } from '@/components/ui/button'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
@@ -31,7 +31,7 @@ const { pinned, isPinned, togglePin } = usePins(skills)
 const logOpen = ref(false)
 const toyboxOpen = useLocalStorage('wn-toybox-open', false)
 const toyboxScale = useLocalStorage<number>('wn-toybox-scale', 1)
-const clawControlMode = useLocalStorage<'free' | 'arcade'>('wn-claw-control-mode', 'free')
+const clawControlMode = useLocalStorage<'free' | 'direct' | 'arcade'>('wn-claw-control-mode', 'free')
 const clawCommand = ref<{ sequence: number; action: 'left' | 'right' | 'up' | 'down' | 'confirm' }>({ sequence: 0, action: 'confirm' })
 const toyboxLimit = computed(() => toyboxLimitForScale(toyboxScale.value))
 const activeCategory = ref<SkillCategory | 'all'>('all')
@@ -57,12 +57,26 @@ const toyboxSprites = computed<FallingSpriteItem[]>(() =>
       ? storedPose
       : activeTheme.value.slotPose(char, 'idle')
     const idle = activeTheme.value.poseAsset(char, idlePose)
-    const movePose = storedPose?.startsWith('shiny_') && activeTheme.value.posesOf(char).includes(`shiny_${activeTheme.value.slotPose(char, 'move').replace(/^shiny_/, '')}`)
-      ? `shiny_${activeTheme.value.slotPose(char, 'move').replace(/^shiny_/, '')}`
-      : activeTheme.value.slotPose(char, 'move')
+    // Pokémon 的 shiny 是外觀分類，不是可以在動作間任意切換的 pose。
+    // 一旦選定 shiny，所有動作只能使用 shiny 資產；普通色亦不得誤用 shiny slot。
+    const isShinyVariant = storedPose?.startsWith('shiny_') ?? false
+    const appearancePoseFor = (slot: 'move' | 'grab' | 'action') => {
+      const semanticPose = activeTheme.value.slotPose(char, slot)
+      const normalPose = semanticPose.replace(/^shiny_/, '')
+      if (isShinyVariant) {
+        const shinyPose = `shiny_${normalPose}`
+        return activeTheme.value.posesOf(char).includes(shinyPose) ? shinyPose : idlePose
+      }
+      if (!semanticPose.startsWith('shiny_')) return semanticPose
+      if (activeTheme.value.posesOf(char).includes(normalPose)) return normalPose
+      return activeTheme.value.slotPose(char, 'idle').replace(/^shiny_/, '')
+    }
+    const movePose = appearancePoseFor('move')
     const move = activeTheme.value.poseAsset(char, movePose)
-    const grab = activeTheme.value.poseAsset(char, activeTheme.value.slotPose(char, 'grab'))
-    const action = activeTheme.value.poseAsset(char, activeTheme.value.slotPose(char, 'action'))
+    const grabPose = appearancePoseFor('grab')
+    const actionPose = appearancePoseFor('action')
+    const grab = activeTheme.value.poseAsset(char, grabPose)
+    const action = activeTheme.value.poseAsset(char, actionPose)
     if (!idle) return []
     // 大體型寶可夢的 GIF cell 是 64px、一般角色是 32px。先前只看 charFrame 會把兩者
     // 都正規化成 72px，失去原生體型；把 poseScale 帶回來並設 2x 安全上限。
@@ -240,12 +254,7 @@ const goNext = () => {
       <div class="toybox-glass relative h-[26rem] overflow-hidden">
         <div class="toybox-glare pointer-events-none absolute inset-0 z-20" />
         <div class="toybox-floor pointer-events-none absolute inset-x-0 bottom-0 z-0 h-[48%]">
-          <svg class="toybox-floor-grid absolute inset-0 size-full" viewBox="0 0 1000 240" preserveAspectRatio="none" aria-hidden="true">
-            <g class="toybox-depth-lines">
-              <path v-for="x in [0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]" :key="`depth-${x}`" :d="`M ${360 + x * 0.28} 0 L ${x} 240`" />
-              <path v-for="y in [0, 24, 56, 98, 154, 240]" :key="`cross-${y}`" :d="`M 0 ${y} H 1000`" />
-            </g>
-          </svg>
+          <div class="toybox-floor-depth absolute inset-0" />
           <div class="toybox-floor-lip absolute inset-x-0 bottom-0 h-5" />
         </div>
         <div class="toybox-prize-chute pointer-events-none absolute bottom-5 left-6 z-[700]">
@@ -302,6 +311,14 @@ const goNext = () => {
           </Button>
           <Button
             size="sm"
+            :variant="clawControlMode === 'direct' ? 'secondary' : 'ghost'"
+            class="h-7 gap-1.5 px-2 text-[10px]"
+            @click="clawControlMode = 'direct'"
+          >
+            <MoveVertical class="size-3" />直上直下
+          </Button>
+          <Button
+            size="sm"
             :variant="clawControlMode === 'arcade' ? 'secondary' : 'ghost'"
             class="h-7 gap-1.5 px-2 text-[10px]"
             @click="clawControlMode = 'arcade'"
@@ -309,14 +326,14 @@ const goNext = () => {
             <Gamepad2 class="size-3" />實機按鍵
           </Button>
           <div v-if="clawControlMode === 'arcade'" class="ml-1 flex items-center gap-1" aria-label="夾爪方向控制">
-            <Button v-for="key in (['left', 'up', 'down', 'right'] as const)" :key="key" size="icon" variant="outline" class="size-7" @click="sendClawCommand(key)">
-              {{ { left: '←', right: '→', up: '↑', down: '↓' }[key] }}
+            <Button v-for="key in (['left', 'up', 'down', 'right'] as const)" :key="key" size="icon" variant="outline" class="size-7 text-[10px]" :title="({ left: '向左', right: '向右', up: '向後', down: '向前' } as const)[key]" @click="sendClawCommand(key)">
+              {{ { left: '←', right: '→', up: '後', down: '前' }[key] }}
             </Button>
             <Button size="sm" class="h-7 px-3 font-pixel text-[8px]" @click="sendClawCommand('confirm')">DROP / GRAB</Button>
           </div>
         </div>
         <span class="text-[10px]" :class="toyboxChars.length > toyboxLimit ? 'text-warning' : 'text-muted-foreground'">
-          {{ clawControlMode === 'arcade' ? '方向鍵移動；第一次下降、第二次抓取，抓起後再按一次放開。' : `${Math.round(toyboxScale * 100)}% 可新增至 ${toyboxLimit} 隻；既有角色不會因放大被自動刪除。` }}
+          {{ clawControlMode === 'arcade' ? '左右＋前後定位；DROP 後慢速下降，再按一次可提早抓取。' : `${Math.round(toyboxScale * 100)}% 可新增至 ${toyboxLimit} 隻；既有角色不會因放大被自動刪除。` }}
         </span>
       </div>
     </section>
@@ -415,7 +432,6 @@ const goNext = () => {
 .toybox-glass {
   background:
     linear-gradient(180deg, hsl(var(--primary) / 0.06), transparent 28%),
-    repeating-linear-gradient(90deg, transparent 0 63px, hsl(var(--border) / 0.08) 64px),
     linear-gradient(180deg, hsl(var(--card) / 0.72), hsl(var(--background) / 0.96));
 }
 .toybox-glare {
@@ -429,14 +445,11 @@ const goNext = () => {
     #3f444d;
   box-shadow: inset 0 20px 32px rgb(0 0 0 / 0.24);
 }
-.toybox-floor-grid {
-  opacity: 0.62;
-}
-.toybox-depth-lines {
-  fill: none;
-  stroke: rgb(226 232 240 / 0.2);
-  stroke-width: 1;
-  vector-effect: non-scaling-stroke;
+.toybox-floor-depth {
+  background:
+    radial-gradient(ellipse at 50% -15%, rgb(203 213 225 / 0.14), transparent 58%),
+    linear-gradient(180deg, rgb(15 23 42 / 0.18), transparent 36%, rgb(2 6 23 / 0.28));
+  box-shadow: inset 0 22px 30px rgb(0 0 0 / 0.18);
 }
 .toybox-floor-lip {
   border-top: 3px solid #64748b;
