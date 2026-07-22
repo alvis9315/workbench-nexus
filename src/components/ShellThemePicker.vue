@@ -12,8 +12,9 @@ const pick = (id: ShellThemeId) => {
 <template>
   <PopoverRoot>
     <PopoverTrigger as-child>
-      <Button variant="outline" size="icon" class="text-muted-foreground" title="切換工作站背景配色">
+      <Button variant="outline" size="sm" class="gap-1.5 text-muted-foreground" title="切換工作站背景配色">
         <Paintbrush class="size-4" />
+        <span class="hidden sm:inline">配色</span>
       </Button>
     </PopoverTrigger>
     <PopoverContent
