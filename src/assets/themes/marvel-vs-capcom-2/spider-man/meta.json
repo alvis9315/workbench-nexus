@@ -25,7 +25,8 @@
   "used_in": [
     "workbench-nexus:theme/marvel-vs-capcom-2"
   ],
-  "restoration_status": "prototype semantic sample; not a complete move restoration",
+  "restoration_status": "metadata complete; source GIF poses sync from collector catalog; full media download and move verification remain WIP",
+  "collector_catalog": "https://github.com/alvis9315/ui-asset-library/blob/main/custom/sprites/marvel/mvc2-data/parsed/spider-man-pose-catalog.json",
   "pose_offset_y": {
     "action": -42,
     "grab": -54,

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // 主題 manifest 產生器(theme-mainline-v2 §3.1):
-// 掃 src/assets/themes/<id>/<char>/*.gif + meta.json → 產 characters.json。
+// 掃 src/assets/themes/<id>/<char>/*.{gif,png} + meta.json → 產 characters.json。
 // UI 只讀 manifest 渲染;素材或 meta 有變動時重跑本腳本(不手改 characters.json 的
 // characters 區塊——會被重生覆蓋;要改角色資料改 meta.json)。
 // 用法:node scripts/gen-theme-manifest.mjs [guild|pokemon|marvel-cosmic-invasion|marvel-vs-capcom-2|全部省略]
@@ -184,18 +184,26 @@ const genTheme = (themeId) => {
     const metaPath = join(charDir, 'meta.json')
     if (!existsSync(metaPath)) continue
     const meta = JSON.parse(readFileSync(metaPath, 'utf8'))
-    const isStrip = cfg.asset_kind === 'strip'
-    const files = readdirSync(charDir).filter((f) => f.endsWith(isStrip ? '.png' : '.gif'))
-    const poses = files
-      .map((f) => f.replace(/\.(gif|png)$/, ''))
+    const files = readdirSync(charDir).filter((f) => /\.(?:png|gif)$/.test(f))
+    const fileByPose = new Map()
+    for (const file of files) {
+      const pose = file.replace(/\.(?:gif|png)$/, '')
+      if (fileByPose.has(pose)) throw new Error(`${themeId}/${charId}:重複姿勢檔 ${pose}`)
+      fileByPose.set(pose, file)
+    }
+    const poses = [...fileByPose.keys()]
       .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
     if (!poses.length) continue
     const c = cfg.charFromMeta(meta, poses)
     const poseFrames = {}
     const poseMsMap = {}
-    if (isStrip) {
-      // strip 檔頭即 metadata:cell=高、frames=寬/高;毫秒查 LPC 動作表
-      for (const pose of poses) {
+    const poseKinds = {}
+    for (const pose of poses) {
+      const file = fileByPose.get(pose)
+      const kind = file.endsWith('.gif') ? 'gif' : 'strip'
+      poseKinds[pose] = kind
+      if (kind === 'strip') {
+        // strip 檔頭即 metadata:cell=高、frames=寬/高;毫秒查 LPC 動作表
         const { w, h } = pngSize(join(charDir, `${pose}.png`))
         if (h !== cfg.base_cell) c.pose_cells[pose] = h
         poseFrames[pose] = Math.max(1, Math.round(w / h))
@@ -217,7 +225,10 @@ const genTheme = (themeId) => {
       idle_unsafe: c.idle_unsafe,
       pose_cells: c.pose_cells,
       ...(Object.keys(c.pose_offset_y ?? {}).length ? { pose_offset_y: c.pose_offset_y } : {}),
-      ...(isStrip ? { pose_frames: poseFrames, pose_ms: poseMsMap } : {}),
+      ...(Object.keys(poseFrames).length ? { pose_frames: poseFrames, pose_ms: poseMsMap } : {}),
+      ...(Object.values(poseKinds).some((kind) => kind !== cfg.asset_kind)
+        ? { pose_kinds: poseKinds }
+        : {}),
       poses,
       slots: resolveSlots(cfg.slots, poses, c.default_pose, c.idle_unsafe),
     })

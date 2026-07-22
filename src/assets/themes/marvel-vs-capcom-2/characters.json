@@ -974,9 +974,27 @@
         "hover": 120,
         "idle": 450
       },
+      "pose_kinds": {
+        "action": "strip",
+        "grab": "strip",
+        "group-00-anim-000": "gif",
+        "group-00-anim-001": "gif",
+        "group-00-anim-002": "gif",
+        "group-00-anim-003": "gif",
+        "group-00-anim-004": "gif",
+        "group-00-anim-005": "gif",
+        "hover": "strip",
+        "idle": "strip"
+      },
       "poses": [
         "action",
         "grab",
+        "group-00-anim-000",
+        "group-00-anim-001",
+        "group-00-anim-002",
+        "group-00-anim-003",
+        "group-00-anim-004",
+        "group-00-anim-005",
         "hover",
         "idle"
       ],

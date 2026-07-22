@@ -49,6 +49,8 @@ export interface ManifestCharacter {
   pose_frames?: Record<string, number>
   /** strip 主題才有:各姿勢每格毫秒 */
   pose_ms?: Record<string, number>
+  /** 混合素材主題可逐姿勢覆寫 asset_kind，例如 MVC2 的舊 PNG strip + 新 GIF。 */
+  pose_kinds?: Record<string, 'strip' | 'gif'>
   poses: string[]
   /** 語意槽位 → 姿勢名(素材檔存在保證由產生腳本負責) */
   slots: Record<SpriteSlot, string>

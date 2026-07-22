@@ -67,7 +67,7 @@ export const createManifestTheme = (
       if (!url) return undefined
       return {
         url,
-        kind: manifest.asset_kind,
+        kind: c?.pose_kinds?.[resolved] ?? manifest.asset_kind,
         frames: c?.pose_frames?.[resolved] ?? 1,
         frameMs: c?.pose_ms?.[resolved] ?? 120,
         cell: c?.pose_cells[resolved] ?? manifest.base_cell,

@@ -8,6 +8,7 @@
     "build": "vue-tsc -b && vite build",
     "preview": "vite preview",
     "lint": "eslint src",
+    "sync:mvc2-spider": "node scripts/sync-mvc2-spider-poses.mjs && node scripts/gen-theme-manifest.mjs marvel-vs-capcom-2",
     "typecheck": "vue-tsc --noEmit -p tsconfig.app.json"
   },
   "dependencies": {
