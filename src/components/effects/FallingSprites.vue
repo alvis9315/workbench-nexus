@@ -17,6 +17,7 @@ export interface FallingSpriteItem {
   id: string
   label: string
   idle: PoseAsset
+  move?: PoseAsset
   grab?: PoseAsset
   /** 未套用 scale 前的顯示尺寸；不等於素材原生 cell。 */
   width: number
@@ -31,6 +32,8 @@ const props = withDefaults(
     restitution?: number
     grabStiffness?: number
     uprightWhenFree?: boolean
+    /** 落到下半部後在 2D 地面上以不同深度自由漫遊。 */
+    wander?: boolean
     trigger?: 'auto' | 'click' | 'hover'
   }>(),
   {
@@ -39,14 +42,17 @@ const props = withDefaults(
     restitution: 0.8,
     grabStiffness: 0.16,
     uprightWhenFree: false,
+    wander: false,
     trigger: 'auto',
   },
 )
+const emit = defineEmits<{ prize: [id: string] }>()
 
 const container = ref<HTMLElement | null>(null)
 const started = ref(false)
 const ready = ref(false)
 const grabbedId = ref<string | null>(null)
+const roamingIds = ref<Set<string>>(new Set())
 const pointerInside = ref(false)
 const clawPoint = ref({ x: 0, y: 0 })
 const spriteElements = new Map<string, HTMLElement>()
@@ -66,8 +72,20 @@ let mouseConstraint: MouseConstraint | null = null
 let resizeObserver: ResizeObserver | null = null
 let animationFrame = 0
 let lastTick = 0
+let appliedScale = props.scale
 let walls: Body[] = []
-let records: { item: FallingSpriteItem; body: Body }[] = []
+interface SpriteRecord {
+  item: FallingSpriteItem
+  body: Body
+  roaming: boolean
+  target: { x: number; y: number }
+  speed: number
+  facing: 1 | -1
+  nextTurnAt: number
+  prizeEligibleUntil: number
+  collected: boolean
+}
+let records: SpriteRecord[] = []
 
 const setSpriteElement = (id: string, element: unknown) => {
   if (element instanceof HTMLElement) spriteElements.set(id, element)
@@ -78,6 +96,38 @@ const displaySize = (item: FallingSpriteItem) => ({
   width: item.width * props.scale,
   height: item.height * props.scale,
 })
+
+const setRoaming = (record: SpriteRecord, value: boolean) => {
+  if (record.roaming === value) return
+  record.roaming = value
+  const next = new Set(roamingIds.value)
+  if (value) next.add(record.item.id)
+  else next.delete(record.item.id)
+  roamingIds.value = next
+}
+
+const chooseWanderTarget = (record: SpriteRecord, width: number, height: number, now: number) => {
+  const size = displaySize(record.item)
+  const halfW = Math.max(size.width / 2, 18)
+  const halfH = Math.max(size.height / 2, 18)
+  const floorTop = height * 0.58
+  record.target = {
+    x: halfW + Math.random() * Math.max(width - halfW * 2, 1),
+    y: Math.min(
+      height - halfH - 18,
+      floorTop + halfH + Math.random() * Math.max(height - floorTop - halfH * 2 - 24, 1),
+    ),
+  }
+  record.speed = 0.45 + Math.random() * 0.55
+  record.nextTurnAt = now + 1800 + Math.random() * 3200
+}
+
+const isInsidePrizeMouth = (body: Body, height: number) => (
+  body.position.x >= 24 &&
+  body.position.x <= 166 &&
+  body.position.y >= height - 92 &&
+  body.position.y <= height - 10
+)
 
 const rebuildWalls = () => {
   if (!engine || !container.value) return
@@ -90,14 +140,15 @@ const rebuildWalls = () => {
     Bodies.rectangle(width / 2, height + thickness / 2, width + thickness * 2, thickness, wallOptions),
     Bodies.rectangle(-thickness / 2, height / 2, thickness, height + thickness * 3, wallOptions),
     Bodies.rectangle(width + thickness / 2, height / 2, thickness, height + thickness * 3, wallOptions),
-    Bodies.rectangle(width / 2, -thickness * 1.5, width + thickness * 2, thickness, wallOptions),
   ]
   Composite.add(engine.world, walls)
 
   for (const { body } of records) {
+    const halfWidth = Math.max((body.bounds.max.x - body.bounds.min.x) / 2, 12)
+    const halfHeight = Math.max((body.bounds.max.y - body.bounds.min.y) / 2, 12)
     Body.setPosition(body, {
-      x: Math.min(Math.max(body.position.x, 12), Math.max(width - 12, 12)),
-      y: Math.min(body.position.y, height - 12),
+      x: Math.min(Math.max(body.position.x, halfWidth), Math.max(width - halfWidth, halfWidth)),
+      y: Math.min(body.position.y, height - halfHeight),
     })
   }
 }
@@ -122,13 +173,19 @@ const onStartDrag = (event: IEvent<MouseConstraint>) => {
   if (!body) return
   const record = records.find((entry) => entry.body.id === body.id)
   if (!record) return
+  setRoaming(record, false)
+  record.prizeEligibleUntil = 0
   grabbedId.value = record.item.id
   body.frictionAir = 0.05
 }
 
 const onEndDrag = (event: IEvent<MouseConstraint>) => {
   const body = (event as IEvent<MouseConstraint> & { body?: Body }).body
-  if (body) body.frictionAir = 0.02
+  if (body) {
+    body.frictionAir = 0.02
+    const record = records.find((entry) => entry.body.id === body.id)
+    if (record) record.prizeEligibleUntil = performance.now() + 1800
+  }
   grabbedId.value = null
 }
 
@@ -141,14 +198,61 @@ const sync = (now: number) => {
 
   const width = container.value.clientWidth
   const height = container.value.clientHeight
-  records.forEach(({ item, body }, index) => {
+  records.forEach((record, index) => {
+    const { item, body } = record
+    if (record.collected) return
     if (
       body.position.x < -200 ||
       body.position.x > width + 200 ||
       body.position.y < -300 ||
       body.position.y > height + 220
     ) {
+      setRoaming(record, false)
+      record.prizeEligibleUntil = 0
       resetBody(body, item, index)
+    }
+
+    // PRIZE OUT 只接受「使用者抓起後 1.8 秒內放進出口」的角色，漫遊路過不會誤刪。
+    if (
+      record.prizeEligibleUntil >= now &&
+      grabbedId.value !== item.id &&
+      isInsidePrizeMouth(body, height)
+    ) {
+      record.collected = true
+      setRoaming(record, false)
+      Composite.remove(engine!.world, body)
+      const element = spriteElements.get(item.id)
+      if (element) element.style.opacity = '0'
+      emit('prize', item.id)
+      return
+    }
+
+    if (record.prizeEligibleUntil && record.prizeEligibleUntil < now) record.prizeEligibleUntil = 0
+
+    const canWander = props.wander && grabbedId.value !== item.id && record.prizeEligibleUntil === 0
+    if (canWander && !record.roaming && body.position.y >= height * 0.58) {
+      setRoaming(record, true)
+      chooseWanderTarget(record, width, height, now)
+      Body.setVelocity(body, { x: 0, y: 0 })
+      Body.setAngularVelocity(body, 0)
+    }
+    if (canWander && record.roaming) {
+      const dx = record.target.x - body.position.x
+      const dy = record.target.y - body.position.y
+      const distance = Math.hypot(dx, dy)
+      if (distance < 20 || now >= record.nextTurnAt) {
+        chooseWanderTarget(record, width, height, now)
+      } else {
+        const desiredX = (dx / distance) * record.speed
+        const desiredY = (dy / distance) * record.speed * 0.72
+        if (Math.abs(desiredX) > 0.05) record.facing = desiredX >= 0 ? 1 : -1
+        Body.setVelocity(body, {
+          x: body.velocity.x * 0.45 + desiredX * 0.55,
+          y: body.velocity.y * 0.25 + desiredY * 0.75,
+        })
+      }
+      Body.setAngularVelocity(body, 0)
+      Body.setAngle(body, body.angle * 0.55)
     }
 
     if (
@@ -165,7 +269,8 @@ const sync = (now: number) => {
     if (element) {
       element.style.left = `${body.position.x}px`
       element.style.top = `${body.position.y}px`
-      element.style.transform = `translate(-50%, -50%) rotate(${body.angle}rad)`
+      element.style.transform = `translate(-50%, -50%) rotate(${body.angle}rad) scaleX(${record.facing})`
+      element.style.zIndex = String(30 + Math.round(body.position.y))
     }
   })
 
@@ -194,8 +299,10 @@ const stop = () => {
   records = []
   walls = []
   grabbedId.value = null
+  roamingIds.value = new Set()
   ready.value = false
   lastTick = 0
+  appliedScale = props.scale
 }
 
 const start = async () => {
@@ -205,6 +312,7 @@ const start = async () => {
 
   engine = Engine.create()
   engine.gravity.y = props.gravity
+  appliedScale = props.scale
   rebuildWalls()
 
   records = props.sprites.map((item, index) => {
@@ -217,7 +325,17 @@ const start = async () => {
       label: item.id,
     })
     resetBody(body, item, index)
-    return { item, body }
+    return {
+      item,
+      body,
+      roaming: false,
+      target: { x: 0, y: 0 },
+      speed: 0.6,
+      facing: Math.random() > 0.5 ? 1 : -1,
+      nextTurnAt: 0,
+      prizeEligibleUntil: 0,
+      collected: false,
+    }
   })
   Composite.add(engine.world, records.map(({ body }) => body))
 
@@ -263,15 +381,29 @@ onMounted(() => {
 })
 onBeforeUnmount(stop)
 
-watch(
-  () => [props.scale, props.gravity, props.restitution, props.grabStiffness] as const,
-  () => {
-    if (!started.value) return
-    stop()
-    started.value = false
-    void start()
-  },
-)
+watch(() => props.scale, (nextScale) => {
+  if (!engine || !container.value || appliedScale <= 0) {
+    appliedScale = nextScale
+    return
+  }
+  // 只縮放既有剛體，不重啟 Engine；連續按 +/- 不會讓非同步重建互相踩掉而少角色。
+  const ratio = nextScale / appliedScale
+  for (const record of records) {
+    Body.scale(record.body, ratio, ratio)
+    if (record.roaming) chooseWanderTarget(record, container.value.clientWidth, container.value.clientHeight, performance.now())
+  }
+  appliedScale = nextScale
+  rebuildWalls()
+})
+watch(() => props.gravity, (gravity) => {
+  if (engine) engine.gravity.y = gravity
+})
+watch(() => props.restitution, (restitution) => {
+  for (const { body } of records) body.restitution = restitution
+})
+watch(() => props.grabStiffness, (stiffness) => {
+  if (mouseConstraint) mouseConstraint.constraint.stiffness = stiffness
+})
 </script>
 
 <template>
@@ -285,15 +417,15 @@ watch(
     @pointermove="updateClawPoint"
     @pointerleave="onPointerLeave"
   >
-    <div class="claw-top-rail pointer-events-none absolute inset-x-0 top-0 z-30 h-2" />
+    <div class="claw-top-rail pointer-events-none absolute inset-x-0 top-0 z-[900] h-2" />
     <div
       v-show="clawVisible"
-      class="claw-cable pointer-events-none absolute top-0 z-30 w-0.5 -translate-x-1/2"
+      class="claw-cable pointer-events-none absolute top-0 z-[900] w-0.5 -translate-x-1/2"
       :style="cableStyle"
     />
     <svg
       v-show="clawVisible"
-      class="claw-machine pointer-events-none absolute z-40 h-[58px] w-[64px] -translate-x-1/2 -translate-y-full overflow-visible drop-shadow-[0_2px_3px_rgb(0_0_0/0.5)]"
+      class="claw-machine pointer-events-none absolute z-[950] h-[58px] w-[64px] -translate-x-1/2 -translate-y-full overflow-visible drop-shadow-[0_2px_3px_rgb(0_0_0/0.5)]"
       :class="{ 'is-closed': grabbedId }"
       :style="clawStyle"
       viewBox="0 0 64 58"
@@ -335,7 +467,9 @@ watch(
       :title="item.label"
     >
       <PixelSprite
-        :asset="grabbedId === item.id ? (item.grab ?? item.idle) : item.idle"
+        :asset="grabbedId === item.id
+          ? (item.grab ?? item.idle)
+          : (roamingIds.has(item.id) ? (item.move ?? item.idle) : item.idle)"
         :width="item.width * scale"
         :height="item.height * scale"
       />

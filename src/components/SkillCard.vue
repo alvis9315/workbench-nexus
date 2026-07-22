@@ -55,13 +55,6 @@ const onDragStart = (event: DragEvent) => {
       @dragstart="onDragStart"
       @dragend="emit('toyboxDragEnd')"
     >
-      <span
-        class="absolute right-1.5 top-1.5 z-30 rounded px-1 py-0.5 font-pixel text-[8px]"
-        :class="status().cls"
-      >
-        {{ status().label }}
-      </span>
-
       <div class="flex min-h-0 flex-1 items-center justify-center rounded-t-lg bg-accent/40 p-3">
         <slot name="avatar">
           <SkillAvatar :seed="skill.seed" :size="avatarSize" class="transition-transform group-hover:scale-110" />
@@ -75,7 +68,12 @@ const onDragStart = (event: DragEvent) => {
         >
           {{ skill.name }}
         </p>
-        <p class="truncate text-center text-muted-foreground" :class="catCls">{{ categoryLabel(skill.category) }}</p>
+        <div class="mt-0.5 flex min-w-0 items-center justify-center gap-1.5">
+          <p class="min-w-0 truncate text-center text-muted-foreground" :class="catCls">{{ categoryLabel(skill.category) }}</p>
+          <span class="shrink-0 rounded px-1 py-0.5 font-pixel text-[7px]" :class="status().cls">
+            {{ status().label }}
+          </span>
+        </div>
       </div>
     </button>
 

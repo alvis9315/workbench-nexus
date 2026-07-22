@@ -17,7 +17,7 @@ import LaunchLogDialog from '@/components/LaunchLogDialog.vue'
 import FallingSprites, { type FallingSpriteItem } from '@/components/effects/FallingSprites.vue'
 import ToyboxRosterDialog from '@/components/ToyboxRosterDialog.vue'
 import { usePins } from '@/composables/usePins'
-import { TOYBOX_LIMIT, useToyboxRoster } from '@/composables/useToyboxRoster'
+import { toyboxLimitForScale, useToyboxRoster } from '@/composables/useToyboxRoster'
 import { activeTheme } from '@/themes'
 import skillsData from '@/data/skills.json'
 import type { Skill, SkillCategory } from '@/types'
@@ -31,6 +31,7 @@ const { pinned, isPinned, togglePin } = usePins(skills)
 const logOpen = ref(false)
 const toyboxOpen = useLocalStorage('wn-toybox-open', false)
 const toyboxScale = useLocalStorage<number>('wn-toybox-scale', 1)
+const toyboxLimit = computed(() => toyboxLimitForScale(toyboxScale.value))
 const activeCategory = ref<SkillCategory | 'all'>('all')
 const toyboxDragActive = ref(false)
 const toyboxDropTarget = ref(false)
@@ -46,26 +47,36 @@ const toyboxSprites = computed<FallingSpriteItem[]>(() =>
   toyboxChars.value.flatMap((char) => {
     const frame = activeTheme.value.charFrame(char)
     const ratio = 72 / Math.max(frame.w, frame.h)
-    const idle = activeTheme.value.poseAsset(char, activeTheme.value.slotPose(char, 'idle'))
+    const idlePose = activeTheme.value.slotPose(char, 'idle')
+    const idle = activeTheme.value.poseAsset(char, idlePose)
+    const move = activeTheme.value.poseAsset(char, activeTheme.value.slotPose(char, 'hover'))
     const grab = activeTheme.value.poseAsset(char, activeTheme.value.slotPose(char, 'grab'))
     if (!idle) return []
+    // 大體型寶可夢的 GIF cell 是 64px、一般角色是 32px。先前只看 charFrame 會把兩者
+    // 都正規化成 72px，失去原生體型；把 poseScale 帶回來並設 2x 安全上限。
+    const nativeScale = Math.min(activeTheme.value.poseScale(char, idlePose), 2)
     return [{
       id: char,
       label: activeTheme.value.charLabel(char),
       idle,
+      move,
       grab,
-      width: Math.max(frame.w * ratio, 24),
-      height: Math.max(frame.h * ratio, 24),
+      width: Math.max(frame.w * ratio * nativeScale, 24),
+      height: Math.max(frame.h * ratio * nativeScale, 24),
     }]
   }),
 )
 const toyboxKey = computed(() => `${activeTheme.value.id}:${toyboxChars.value.join('|')}`)
 
 const addToToybox = (char: string) => {
-  const result = addToyboxChar(char)
+  const result = addToyboxChar(char, toyboxLimit.value)
   if (result === 'added') toast.success(`${activeTheme.value.charLabel(char)} 已放進娃娃機`)
   else if (result === 'duplicate') toast.info(`${activeTheme.value.charLabel(char)} 已經在娃娃機裡`)
-  else if (result === 'full') toast.warning(`娃娃機上限是 ${TOYBOX_LIMIT} 隻，請先移除角色`)
+  else if (result === 'full') toast.warning(`${Math.round(toyboxScale.value * 100)}% 尺寸上限是 ${toyboxLimit.value} 隻，請先移除角色或縮小尺寸`)
+}
+const onPrizeOut = (char: string) => {
+  removeToyboxChar(char)
+  toast.info(`${activeTheme.value.charLabel(char)} 已從 PRIZE OUT 離開娃娃機`)
 }
 const onToyboxDrop = (event: DragEvent) => {
   toyboxDropTarget.value = false
@@ -154,7 +165,7 @@ const goNext = () => {
         <div class="flex flex-wrap items-center justify-end gap-1">
           <ToyboxRosterDialog
             :chars="toyboxChars"
-            :limit="TOYBOX_LIMIT"
+            :limit="toyboxLimit"
             @add="addToToybox"
             @remove="removeToyboxChar"
             @clear="clearToybox"
@@ -173,7 +184,7 @@ const goNext = () => {
           <button
             type="button"
             class="min-w-12 rounded px-1 py-1 font-pixel text-[9px] text-muted-foreground hover:bg-muted"
-            title="重設為 100%"
+            :title="`重設為 100%；容量：60–70%=30、80–90%=24、100–110%=18、120–130%=14、140–160%=10`"
             @click="toyboxScale = 1"
           >
             {{ Math.round(toyboxScale * 100) }}%
@@ -202,8 +213,13 @@ const goNext = () => {
       </div>
       <div class="toybox-glass relative h-[26rem] overflow-hidden">
         <div class="toybox-glare pointer-events-none absolute inset-0 z-20" />
-        <div class="toybox-prize-chute pointer-events-none absolute bottom-3 left-1/2 z-0 -translate-x-1/2">
-          <span>PRIZE OUT</span>
+        <div class="toybox-floor pointer-events-none absolute inset-x-0 bottom-0 z-0 h-[42%]">
+          <div class="toybox-floor-grid absolute inset-0" />
+          <div class="toybox-floor-lip absolute inset-x-0 bottom-0 h-5" />
+        </div>
+        <div class="toybox-prize-chute pointer-events-none absolute bottom-5 left-6 z-[500]">
+          <div class="toybox-prize-mouth"><span>PRIZE OUT</span></div>
+          <div class="toybox-prize-depth" />
         </div>
         <div
           v-if="!toyboxSprites.length && !toyboxDragActive"
@@ -223,22 +239,26 @@ const goNext = () => {
           :gravity="0.9"
           :restitution="0.72"
           :grab-stiffness="0.16"
+          wander
+          @prize="onPrizeOut"
         />
         <div
           v-if="toyboxDragActive"
-          class="pointer-events-none absolute inset-4 z-50 grid place-items-center rounded-lg border-2 border-dashed border-primary bg-background/70"
+          class="pointer-events-none absolute inset-4 z-[1000] grid place-items-center rounded-lg border-2 border-dashed border-primary bg-background/70"
           :class="toyboxDropTarget ? 'text-primary' : 'text-muted-foreground'"
         >
           <div class="text-center">
             <PackageOpen class="mx-auto mb-3 size-8" />
             <p class="font-pixel text-xs">DROP CHARACTER HERE</p>
-            <p class="mt-2 text-xs">放開就加入娃娃機 · {{ toyboxChars.length }}/{{ TOYBOX_LIMIT }}</p>
+            <p class="mt-2 text-xs">放開就加入娃娃機 · {{ toyboxChars.length }}/{{ toyboxLimit }}</p>
           </div>
         </div>
       </div>
       <div class="toybox-control-deck flex flex-wrap items-center justify-between gap-2 border-t border-border px-4 py-2">
-        <span class="font-pixel text-[8px] text-muted-foreground">CAPACITY {{ toyboxChars.length }}/{{ TOYBOX_LIMIT }}</span>
-        <span class="text-[10px] text-muted-foreground">建議 12–18 隻最清楚；24 隻為效能與可玩性的硬上限。</span>
+        <span class="font-pixel text-[8px] text-muted-foreground">CAPACITY {{ toyboxChars.length }}/{{ toyboxLimit }}</span>
+        <span class="text-[10px]" :class="toyboxChars.length > toyboxLimit ? 'text-warning' : 'text-muted-foreground'">
+          {{ Math.round(toyboxScale * 100) }}% 可新增至 {{ toyboxLimit }} 隻；既有角色不會因放大被自動刪除。
+        </span>
       </div>
     </section>
 
@@ -340,21 +360,61 @@ const goNext = () => {
 .toybox-glare {
   background: linear-gradient(112deg, transparent 0 18%, rgb(255 255 255 / 0.025) 19% 26%, transparent 27% 100%);
 }
+.toybox-floor {
+  overflow: hidden;
+  border-top: 2px solid hsl(var(--primary) / 0.22);
+  background:
+    linear-gradient(180deg, rgb(37 59 75 / 0.7), rgb(22 35 55 / 0.96)),
+    linear-gradient(90deg, #14283b, #24394c 50%, #14283b);
+  clip-path: polygon(0 18%, 100% 0, 100% 100%, 0 100%);
+  box-shadow: inset 0 18px 28px rgb(0 0 0 / 0.2);
+}
+.toybox-floor-grid {
+  opacity: 0.68;
+  background-image:
+    linear-gradient(hsl(var(--primary) / 0.16) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(var(--primary) / 0.13) 1px, transparent 1px);
+  background-size: 100% 34px, 72px 100%;
+  transform: perspective(260px) rotateX(56deg) scale(1.35, 2.1);
+  transform-origin: center bottom;
+}
+.toybox-floor-lip {
+  border-top: 3px solid #64748b;
+  background: linear-gradient(180deg, #334155, #0f172a 42%, #020617);
+  box-shadow: 0 -4px 10px rgb(0 0 0 / 0.45);
+}
 .toybox-prize-chute {
-  display: grid;
-  width: 128px;
-  height: 42px;
-  place-items: end center;
-  border: 4px solid #334155;
-  border-bottom-width: 7px;
-  border-radius: 8px 8px 2px 2px;
-  color: #64748b;
-  background: linear-gradient(180deg, #020617, #0f172a);
-  box-shadow: inset 0 5px 12px rgb(0 0 0 / 0.8);
+  width: 142px;
+  height: 70px;
+  filter: drop-shadow(0 8px 5px rgb(0 0 0 / 0.45));
   font-family: var(--font-pixel, monospace);
   font-size: 7px;
 }
-.toybox-prize-chute span { padding-bottom: 2px; }
+.toybox-prize-mouth {
+  position: absolute;
+  inset: 0 0 13px;
+  display: grid;
+  place-items: center;
+  border: 5px solid #526277;
+  border-bottom-color: #273449;
+  border-radius: 7px 7px 2px 2px;
+  color: #8594aa;
+  background: radial-gradient(ellipse at 50% 25%, #14223a, #020617 72%);
+  box-shadow:
+    inset 0 10px 16px rgb(0 0 0 / 0.86),
+    inset 0 -4px 0 #0f172a;
+}
+.toybox-prize-depth {
+  position: absolute;
+  right: 7px;
+  bottom: 0;
+  left: 7px;
+  height: 15px;
+  border: 3px solid #334155;
+  border-top: 0;
+  background: linear-gradient(180deg, #1e293b, #020617);
+  clip-path: polygon(4% 0, 96% 0, 100% 100%, 0 100%);
+}
 .toybox-control-deck {
   background: linear-gradient(180deg, #334155, #0f172a 32%, hsl(var(--card)) 34%);
 }

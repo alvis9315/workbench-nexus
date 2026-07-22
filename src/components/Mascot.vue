@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { useLocalStorage } from '@vueuse/core'
+import { MessageSquareOff, MessageSquareText } from 'lucide-vue-next'
 import { activeTheme } from '@/themes'
 import { useSpriteChar } from '@/composables/useSpriteChar'
 import { useSpritePose } from '@/composables/useSpritePose'
@@ -31,6 +33,7 @@ const TIPS = [
   '釘選技能會出現在 Hotbar 快速列',
 ]
 const tip = ref(0)
+const tipsOpen = useLocalStorage('wn-mascot-tips-open', true)
 let timer: number | undefined
 onMounted(() => {
   timer = window.setInterval(() => {
@@ -45,6 +48,17 @@ const searchOpen = ref(false)
 <template>
   <!-- 右上角:右下會卡到內容區;max-w-5xl 置中版型的右上外側是留白帶,常駐不擋內容 -->
   <div class="fixed right-5 top-5 z-40 flex items-start gap-2">
+    <button
+      type="button"
+      class="mt-1 grid size-8 shrink-0 place-items-center rounded border border-[#526984] bg-[#aebdcd] text-[#27364a] shadow-[0_3px_0_#273449] transition hover:-translate-y-0.5 hover:bg-[#c2ced9]"
+      :title="tipsOpen ? '關閉小幫手訊息' : '打開小幫手訊息'"
+      :aria-label="tipsOpen ? '關閉小幫手訊息' : '打開小幫手訊息'"
+      :aria-pressed="tipsOpen"
+      @click="tipsOpen = !tipsOpen"
+    >
+      <MessageSquareOff v-if="tipsOpen" class="size-4" />
+      <MessageSquareText v-else class="size-4" />
+    </button>
     <Transition
       mode="out-in"
       enter-active-class="transition duration-300"
@@ -53,8 +67,9 @@ const searchOpen = ref(false)
       leave-to-class="opacity-0"
     >
       <p
+        v-if="tipsOpen"
         :key="tip"
-        class="mt-1 max-w-52 rounded-md rounded-tr-none border border-border bg-card/95 px-3 py-2 text-xs leading-relaxed text-muted-foreground shadow-md"
+        class="mascot-dialog mt-1 max-w-52 px-3 py-2 text-xs font-medium leading-relaxed"
       >
         {{ TIPS[tip] }}
       </p>
@@ -90,3 +105,34 @@ const searchOpen = ref(false)
 
   <GlobalSearchDialog v-model:open="searchOpen" />
 </template>
+
+<style scoped>
+.mascot-dialog {
+  position: relative;
+  border: 2px solid #526984;
+  border-radius: 4px;
+  color: #27364a;
+  background: #b9c7d5;
+  box-shadow:
+    inset 0 0 0 2px #d4dde5,
+    0 4px 0 #273449;
+}
+.mascot-dialog::before,
+.mascot-dialog::after {
+  position: absolute;
+  top: 13px;
+  width: 0;
+  height: 0;
+  content: '';
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+}
+.mascot-dialog::before {
+  right: -11px;
+  border-left: 10px solid #526984;
+}
+.mascot-dialog::after {
+  right: -7px;
+  border-left: 8px solid #b9c7d5;
+}
+</style>
