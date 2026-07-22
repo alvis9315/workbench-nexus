@@ -39,4 +39,6 @@ pnpm lint && pnpm typecheck && pnpm build
 
 ## Git
 
-Conventional Commits(feat/fix/docs/style/refactor/chore/build);branch `feature/*`。
+- Conventional Commits(feat/fix/docs/style/refactor/chore/build)。
+- 本專案目前為單人開發，預設只在 `main` 直接開發、commit 與 push。
+- 除非使用者明確要求，否則不得自行建立或切換到 feature branch。
