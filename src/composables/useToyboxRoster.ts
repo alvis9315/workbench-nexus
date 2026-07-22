@@ -14,10 +14,11 @@ export const toyboxLimitForScale = (scale: number) => {
   return 10
 }
 
-type AddResult = 'added' | 'duplicate' | 'full' | 'invalid'
+type AddResult = 'added' | 'updated' | 'duplicate' | 'full' | 'invalid'
 
 export const useToyboxRoster = () => {
   const rosters = useLocalStorage<Record<string, string[]>>('wn-toybox-rosters', {})
+  const poseStores = useLocalStorage<Record<string, Record<string, string>>>('wn-toybox-poses', {})
 
   const chars = computed<string[]>({
     get: () => {
@@ -35,21 +36,46 @@ export const useToyboxRoster = () => {
     },
   })
 
-  const add = (char: string, limit = TOYBOX_HARD_LIMIT): AddResult => {
+  const poses = computed<Record<string, string>>({
+    get: () => {
+      const theme = activeTheme.value
+      const stored = poseStores.value[theme.id] ?? {}
+      return Object.fromEntries(
+        Object.entries(stored).filter(([char, pose]) => theme.chars.includes(char) && theme.posesOf(char).includes(pose)),
+      )
+    },
+    set: (next) => {
+      const theme = activeTheme.value
+      poseStores.value = { ...poseStores.value, [theme.id]: next }
+    },
+  })
+
+  const add = (char: string, limit = TOYBOX_HARD_LIMIT, pose?: string): AddResult => {
     if (!activeTheme.value.chars.includes(char)) return 'invalid'
-    if (chars.value.includes(char)) return 'duplicate'
+    const validPose = pose && activeTheme.value.posesOf(char).includes(pose) ? pose : undefined
+    if (chars.value.includes(char)) {
+      if (validPose && poses.value[char] !== validPose) {
+        poses.value = { ...poses.value, [char]: validPose }
+        return 'updated'
+      }
+      return 'duplicate'
+    }
     if (chars.value.length >= Math.min(limit, TOYBOX_HARD_LIMIT)) return 'full'
     chars.value = [...chars.value, char]
+    if (validPose) poses.value = { ...poses.value, [char]: validPose }
     return 'added'
   }
 
   const remove = (char: string) => {
     chars.value = chars.value.filter((entry) => entry !== char)
+    const { [char]: _removed, ...remaining } = poses.value
+    poses.value = remaining
   }
 
   const clear = () => {
     chars.value = []
+    poses.value = {}
   }
 
-  return { chars, add, remove, clear }
+  return { chars, poses, add, remove, clear }
 }

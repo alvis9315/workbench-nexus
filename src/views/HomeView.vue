@@ -37,7 +37,7 @@ const toyboxLimit = computed(() => toyboxLimitForScale(toyboxScale.value))
 const activeCategory = ref<SkillCategory | 'all'>('all')
 const toyboxDragActive = ref(false)
 const toyboxDropTarget = ref(false)
-const { chars: toyboxChars, add: addToyboxChar, remove: removeToyboxChar, clear: clearToybox } = useToyboxRoster()
+const { chars: toyboxChars, poses: toyboxPoses, add: addToyboxChar, remove: removeToyboxChar, clear: clearToybox } = useToyboxRoster()
 
 const adjustToyboxScale = (delta: number) => {
   toyboxScale.value = Math.min(1.6, Math.max(0.6, Math.round((toyboxScale.value + delta) * 10) / 10))
@@ -52,9 +52,15 @@ const toyboxSprites = computed<FallingSpriteItem[]>(() =>
   toyboxChars.value.flatMap((char) => {
     const frame = activeTheme.value.charFrame(char)
     const ratio = 72 / Math.max(frame.w, frame.h)
-    const idlePose = activeTheme.value.slotPose(char, 'idle')
+    const storedPose = toyboxPoses.value[char]
+    const idlePose = storedPose && activeTheme.value.posesOf(char).includes(storedPose)
+      ? storedPose
+      : activeTheme.value.slotPose(char, 'idle')
     const idle = activeTheme.value.poseAsset(char, idlePose)
-    const move = activeTheme.value.poseAsset(char, activeTheme.value.slotPose(char, 'move'))
+    const movePose = storedPose?.startsWith('shiny_') && activeTheme.value.posesOf(char).includes(`shiny_${activeTheme.value.slotPose(char, 'move').replace(/^shiny_/, '')}`)
+      ? `shiny_${activeTheme.value.slotPose(char, 'move').replace(/^shiny_/, '')}`
+      : activeTheme.value.slotPose(char, 'move')
+    const move = activeTheme.value.poseAsset(char, movePose)
     const grab = activeTheme.value.poseAsset(char, activeTheme.value.slotPose(char, 'grab'))
     const action = activeTheme.value.poseAsset(char, activeTheme.value.slotPose(char, 'action'))
     if (!idle) return []
@@ -68,6 +74,7 @@ const toyboxSprites = computed<FallingSpriteItem[]>(() =>
       move,
       grab,
       action,
+      poseKey: idlePose,
       width: Math.max(frame.w * ratio * nativeScale, 24),
       height: Math.max(frame.h * ratio * nativeScale, 24),
     }]
@@ -76,9 +83,10 @@ const toyboxSprites = computed<FallingSpriteItem[]>(() =>
 // 只有換主題才重建物理世界；增刪單一角色由 FallingSprites 增量同步。
 const toyboxKey = computed(() => activeTheme.value.id)
 
-const addToToybox = (char: string) => {
-  const result = addToyboxChar(char, toyboxLimit.value)
+const addToToybox = (char: string, pose?: string) => {
+  const result = addToyboxChar(char, toyboxLimit.value, pose)
   if (result === 'added') toast.success(`${activeTheme.value.charLabel(char)} 已放進娃娃機`)
+  else if (result === 'updated') toast.success(`${activeTheme.value.charLabel(char)} 已切換成 ${pose?.replace(/_/g, ' ')}`)
   else if (result === 'duplicate') toast.info(`${activeTheme.value.charLabel(char)} 已經在娃娃機裡`)
   else if (result === 'full') toast.warning(`${Math.round(toyboxScale.value * 100)}% 尺寸上限是 ${toyboxLimit.value} 隻，請先移除角色或縮小尺寸`)
 }
@@ -89,6 +97,16 @@ const onPrizeOut = (char: string) => {
 const onToyboxDrop = (event: DragEvent) => {
   toyboxDropTarget.value = false
   toyboxDragActive.value = false
+  const spritePayload = event.dataTransfer?.getData('application/x-workbench-sprite')
+  if (spritePayload) {
+    try {
+      const { char, pose } = JSON.parse(spritePayload) as { char?: string; pose?: string }
+      if (char) addToToybox(char, pose)
+      return
+    } catch {
+      // 舊版或外部拖曳資料格式錯誤時，退回純角色 payload。
+    }
+  }
   const char = event.dataTransfer?.getData('application/x-workbench-character')
   if (char) addToToybox(char)
 }
@@ -221,11 +239,18 @@ const goNext = () => {
       </div>
       <div class="toybox-glass relative h-[26rem] overflow-hidden">
         <div class="toybox-glare pointer-events-none absolute inset-0 z-20" />
-        <div class="toybox-floor pointer-events-none absolute inset-x-0 bottom-0 z-0 h-[42%]">
-          <div class="toybox-floor-grid absolute inset-0" />
+        <div class="toybox-floor pointer-events-none absolute inset-x-0 bottom-0 z-0 h-[48%]">
+          <svg class="toybox-floor-grid absolute inset-0 size-full" viewBox="0 0 1000 240" preserveAspectRatio="none" aria-hidden="true">
+            <g class="toybox-depth-lines">
+              <path v-for="x in [0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]" :key="`depth-${x}`" :d="`M ${360 + x * 0.28} 0 L ${x} 240`" />
+              <path v-for="y in [0, 24, 56, 98, 154, 240]" :key="`cross-${y}`" :d="`M 0 ${y} H 1000`" />
+            </g>
+          </svg>
           <div class="toybox-floor-lip absolute inset-x-0 bottom-0 h-5" />
         </div>
-        <div class="toybox-prize-chute pointer-events-none absolute bottom-5 left-6 z-[500]">
+        <div class="toybox-prize-chute pointer-events-none absolute bottom-5 left-6 z-[700]">
+          <div class="toybox-prize-baffle toybox-prize-baffle-back" />
+          <div class="toybox-prize-baffle toybox-prize-baffle-side" />
           <div class="toybox-prize-mouth"><span>PRIZE OUT</span></div>
           <div class="toybox-prize-depth" />
         </div>
@@ -360,6 +385,8 @@ const goNext = () => {
 
 <style scoped>
 .toybox-machine {
+  isolation: isolate;
+  z-index: 0;
   border-color: hsl(var(--primary) / 0.7);
   box-shadow:
     inset 0 0 0 4px hsl(var(--background) / 0.7),
@@ -401,18 +428,15 @@ const goNext = () => {
     linear-gradient(180deg, rgb(79 84 94 / 0.72), rgb(37 41 48 / 0.98)),
     #3f444d;
   box-shadow: inset 0 20px 32px rgb(0 0 0 / 0.24);
-  perspective: 260px;
 }
 .toybox-floor-grid {
-  inset: -58% -18% -12%;
-  opacity: 0.58;
-  background-image:
-    linear-gradient(rgb(226 232 240 / 0.2) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(226 232 240 / 0.16) 1px, transparent 1px);
-  background-size: 92px 46px;
-  transform: rotateX(57deg);
-  transform-origin: center bottom;
-  clip-path: polygon(8% 0, 92% 0, 100% 100%, 0 100%);
+  opacity: 0.62;
+}
+.toybox-depth-lines {
+  fill: none;
+  stroke: rgb(226 232 240 / 0.2);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
 }
 .toybox-floor-lip {
   border-top: 3px solid #64748b;
@@ -420,19 +444,19 @@ const goNext = () => {
   box-shadow: 0 -4px 10px rgb(0 0 0 / 0.45);
 }
 .toybox-prize-chute {
-  width: 154px;
-  height: 76px;
+  width: 176px;
+  height: 92px;
   filter: drop-shadow(0 8px 5px rgb(0 0 0 / 0.45));
   font-family: var(--font-pixel, monospace);
   font-size: 7px;
 }
 .toybox-prize-mouth {
   position: absolute;
-  inset: 0 0 11px;
+  inset: 28px 0 7px;
   display: grid;
   place-items: center;
   color: #8594aa;
-  background: linear-gradient(145deg, #94a3b8, #475569 45%, #1e293b);
+  background: linear-gradient(145deg, #94a3b8, #475569 42%, #1e293b);
   clip-path: polygon(18% 0, 82% 0, 100% 100%, 0 100%);
   box-shadow:
     inset 0 8px 12px rgb(255 255 255 / 0.1),
@@ -440,7 +464,7 @@ const goNext = () => {
 }
 .toybox-prize-mouth::before {
   position: absolute;
-  inset: 6px 9px 8px;
+  inset: 5px 9px 7px;
   content: '';
   background: radial-gradient(ellipse at 50% 22%, #17233a, #020617 70%);
   clip-path: polygon(16% 0, 84% 0, 100% 100%, 0 100%);
@@ -449,18 +473,40 @@ const goNext = () => {
 .toybox-prize-mouth span {
   position: relative;
   z-index: 1;
-  transform: translateY(8px);
+  transform: translateY(6px);
 }
 .toybox-prize-depth {
   position: absolute;
-  right: 7px;
+  right: 13px;
   bottom: 0;
-  left: 7px;
-  height: 15px;
+  left: 13px;
+  height: 12px;
   border: 3px solid #334155;
   border-top: 0;
   background: linear-gradient(180deg, #1e293b, #020617);
   clip-path: polygon(8% 0, 92% 0, 100% 100%, 0 100%);
+}
+.toybox-prize-baffle {
+  position: absolute;
+  z-index: 3;
+  border: 2px solid rgb(148 163 184 / 0.78);
+  background: linear-gradient(145deg, rgb(226 232 240 / 0.23), rgb(71 85 105 / 0.34));
+  box-shadow: inset 0 0 10px rgb(255 255 255 / 0.08), 0 4px 8px rgb(0 0 0 / 0.3);
+  backdrop-filter: blur(1px);
+}
+.toybox-prize-baffle-back {
+  top: 4px;
+  left: 31px;
+  width: 118px;
+  height: 35px;
+  clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
+}
+.toybox-prize-baffle-side {
+  top: 25px;
+  left: 3px;
+  width: 43px;
+  height: 59px;
+  clip-path: polygon(72% 0, 100% 17%, 39% 100%, 0 83%);
 }
 .toybox-control-deck {
   background: linear-gradient(180deg, #334155, #0f172a 32%, hsl(var(--card)) 34%);

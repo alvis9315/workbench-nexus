@@ -38,6 +38,7 @@ const onDragStart = (event: DragEvent) => {
   }
   event.dataTransfer.effectAllowed = 'copy'
   event.dataTransfer.setData('application/x-workbench-character', char.value)
+  event.dataTransfer.setData('application/x-workbench-sprite', JSON.stringify({ char: char.value, pose: pose.value }))
   event.dataTransfer.setData('text/plain', char.value)
   emit('toyboxDragStart', char.value)
 }
