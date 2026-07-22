@@ -103,7 +103,7 @@ const THEME_CONFIG = {
     shareable: false,
     credits: 'Marvel 第三方 IP + The Spriters Resource 遊戲素材；僅限私人未發布非商業使用，禁止公開展示',
     asset_kind: 'strip',
-    base_cell: 256,
+    base_cell: 96,
     groups: [
       { id: 'spider', label: 'Spider-Verse' },
       { id: 'symbiote', label: 'Symbiote' },

@@ -4,7 +4,7 @@
   "shareable": false,
   "credits": "Marvel 第三方 IP + The Spriters Resource 遊戲素材；僅限私人未發布非商業使用，禁止公開展示",
   "asset_kind": "strip",
-  "base_cell": 256,
+  "base_cell": 96,
   "groups": [
     {
       "id": "spider",
@@ -22,11 +22,14 @@
       "label": "Spider-Man",
       "group": "spider",
       "order": 1,
-      "frame_w": 256,
-      "frame_h": 256,
+      "frame_w": 96,
+      "frame_h": 96,
       "default_pose": "idle",
       "idle_unsafe": false,
-      "pose_cells": {},
+      "pose_cells": {
+        "action": 128,
+        "hover": 128
+      },
       "pose_frames": {
         "action": 4,
         "grab": 5,
@@ -57,11 +60,14 @@
       "label": "Spider-Man（黑戰衣）",
       "group": "spider",
       "order": 2,
-      "frame_w": 256,
-      "frame_h": 256,
+      "frame_w": 96,
+      "frame_h": 96,
       "default_pose": "idle",
       "idle_unsafe": false,
-      "pose_cells": {},
+      "pose_cells": {
+        "action": 128,
+        "hover": 128
+      },
       "pose_frames": {
         "action": 4,
         "grab": 5,
@@ -92,11 +98,14 @@
       "label": "Spider-Man（Iron Spidey）",
       "group": "spider",
       "order": 3,
-      "frame_w": 256,
-      "frame_h": 256,
+      "frame_w": 96,
+      "frame_h": 96,
       "default_pose": "idle",
       "idle_unsafe": false,
-      "pose_cells": {},
+      "pose_cells": {
+        "action": 128,
+        "hover": 128
+      },
       "pose_frames": {
         "action": 4,
         "grab": 2,
@@ -127,11 +136,15 @@
       "label": "Venom",
       "group": "symbiote",
       "order": 4,
-      "frame_w": 256,
-      "frame_h": 256,
+      "frame_w": 96,
+      "frame_h": 96,
       "default_pose": "idle",
       "idle_unsafe": false,
-      "pose_cells": {},
+      "pose_cells": {
+        "action": 160,
+        "grab": 128,
+        "hover": 160
+      },
       "pose_frames": {
         "action": 6,
         "grab": 4,
@@ -162,11 +175,15 @@
       "label": "Venom（Carnage 色）",
       "group": "symbiote",
       "order": 5,
-      "frame_w": 256,
-      "frame_h": 256,
+      "frame_w": 96,
+      "frame_h": 96,
       "default_pose": "idle",
       "idle_unsafe": false,
-      "pose_cells": {},
+      "pose_cells": {
+        "action": 160,
+        "grab": 128,
+        "hover": 160
+      },
       "pose_frames": {
         "action": 6,
         "grab": 4,
@@ -197,11 +214,15 @@
       "label": "Venom（Anti-Venom 色）",
       "group": "symbiote",
       "order": 6,
-      "frame_w": 256,
-      "frame_h": 256,
+      "frame_w": 96,
+      "frame_h": 96,
       "default_pose": "idle",
       "idle_unsafe": false,
-      "pose_cells": {},
+      "pose_cells": {
+        "action": 160,
+        "grab": 128,
+        "hover": 160
+      },
       "pose_frames": {
         "action": 6,
         "grab": 4,
