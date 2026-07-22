@@ -1,0 +1,77 @@
+{
+  "theme_id": "neon-protocol",
+  "theme_name": "NEON PROTOCOL · Vesper",
+  "shareable": true,
+  "credits": "使用者原創 Vesper + PixAI 生成；公開使用須標示 Created with PixAI，詳見 CREDITS.md",
+  "asset_kind": "gif",
+  "base_cell": 128,
+  "groups": [
+    {
+      "id": "protocol-agent",
+      "label": "Protocol Agent"
+    }
+  ],
+  "fallback_group": "protocol-agent",
+  "characters": [
+    {
+      "id": "vesper",
+      "label": "Vesper",
+      "group": "protocol-agent",
+      "order": 1,
+      "frame_w": 128,
+      "frame_h": 128,
+      "default_pose": "idle-breathe-a",
+      "idle_unsafe": false,
+      "pose_cells": {},
+      "pose_labels": {
+        "bend-forward": "Lean forward",
+        "blow-kiss": "Blow a kiss",
+        "combat-idle": "Combat stance",
+        "confident-stance": "Confident stance",
+        "hand-behind-head": "Hand behind head",
+        "hand-on-hip": "Hand on hip",
+        "head-tilt": "Head tilt",
+        "hurt": "Taking a hit",
+        "idle-breathe-a": "Breathing idle A",
+        "idle-breathe-b": "Breathing idle B",
+        "idle-breathe-c": "Breathing idle C",
+        "idle-hair-flip": "Ponytail flip",
+        "idle-relaxed-a": "Relaxed idle A",
+        "idle-relaxed-b": "Relaxed idle B",
+        "idle-shoulder-roll": "Shoulder roll",
+        "idle-weight-shift": "Weight shift",
+        "peace-sign": "Peace sign",
+        "stretch": "Stretch",
+        "walk-forward": "Walk forward"
+      },
+      "poses": [
+        "bend-forward",
+        "blow-kiss",
+        "combat-idle",
+        "confident-stance",
+        "hand-behind-head",
+        "hand-on-hip",
+        "head-tilt",
+        "hurt",
+        "idle-breathe-a",
+        "idle-breathe-b",
+        "idle-breathe-c",
+        "idle-hair-flip",
+        "idle-relaxed-a",
+        "idle-relaxed-b",
+        "idle-shoulder-roll",
+        "idle-weight-shift",
+        "peace-sign",
+        "stretch",
+        "walk-forward"
+      ],
+      "slots": {
+        "idle": "idle-breathe-a",
+        "move": "walk-forward",
+        "hover": "idle-hair-flip",
+        "grab": "hurt",
+        "action": "combat-idle"
+      }
+    }
+  ]
+}

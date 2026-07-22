@@ -55,7 +55,7 @@ const searchOpen = ref(false)
   <div class="fixed right-5 top-5 z-40">
     <button
       type="button"
-      class="absolute right-[calc(100%+0.5rem)] top-1 z-30 grid size-8 place-items-center rounded border border-[#526984] bg-[#aebdcd] text-[#27364a] shadow-[0_3px_0_#273449] transition hover:-translate-y-0.5 hover:bg-[#c2ced9]"
+      class="absolute right-[calc(100%+0.5rem)] top-1 z-30 grid size-8 place-items-center rounded border border-border bg-secondary text-foreground shadow-md transition hover:-translate-y-0.5 hover:bg-muted"
       :title="tipsOpen ? '關閉小幫手訊息' : '打開小幫手訊息'"
       :aria-label="tipsOpen ? '關閉小幫手訊息' : '打開小幫手訊息'"
       :aria-pressed="tipsOpen"
@@ -115,13 +115,13 @@ const searchOpen = ref(false)
 <style scoped>
 .mascot-dialog {
   position: absolute;
-  border: 2px solid #526984;
+  border: 2px solid var(--border);
   border-radius: 4px;
-  color: #27364a;
-  background: #b9c7d5;
+  color: var(--foreground);
+  background: var(--secondary);
   box-shadow:
-    inset 0 0 0 2px #d4dde5,
-    0 4px 0 #273449;
+    inset 0 0 0 2px color-mix(in srgb, var(--card) 70%, white),
+    0 4px 0 color-mix(in srgb, var(--border) 75%, black);
 }
 .mascot-dialog::before,
 .mascot-dialog::after {
@@ -135,10 +135,10 @@ const searchOpen = ref(false)
 }
 .mascot-dialog::before {
   right: -11px;
-  border-left: 10px solid #526984;
+  border-left: 10px solid var(--border);
 }
 .mascot-dialog::after {
   right: -7px;
-  border-left: 8px solid #b9c7d5;
+  border-left: 8px solid var(--secondary);
 }
 </style>

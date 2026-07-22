@@ -10,7 +10,7 @@
    遊戲主選單風:MvC 深宇宙藍黑底 + 街機金黃選取(2026-07-20 依擁有者指示去紫,
    改 Marvel vs Capcom / Cosmic Invasion 色系;視覺公式見 docs/ux/visual-reference-guide.md)。
    全部走 CSS 變數 = token 主題(brief §6.2):換風格改 token bundle,不動元件。
-   本 app 是單一深色主題,直接把遊戲色放 :root(不做 light/dark 切換)。 */
+   外殼配色由 data-shell-theme 切換；角色素材主題與背景主題各自獨立。 */
 :root {
   --background: #060d1f;          /* 深宇宙藍黑(MvC 太空底) */
   --foreground: #e6eefb;
@@ -47,6 +47,62 @@
   --chart-3: #60a5fa;
   --chart-4: #f472b6;
   --chart-5: #38bdf8;
+  --ambient-pattern:
+    radial-gradient(1px 1px at 12% 18%, rgba(232, 230, 245, 0.5) 50%, transparent 50%),
+    radial-gradient(1px 1px at 78% 8%, rgba(232, 230, 245, 0.35) 50%, transparent 50%),
+    radial-gradient(1.5px 1.5px at 55% 32%, rgba(255, 207, 63, 0.35) 50%, transparent 50%),
+    radial-gradient(1px 1px at 30% 60%, rgba(232, 230, 245, 0.3) 50%, transparent 50%),
+    radial-gradient(1px 1px at 90% 45%, rgba(232, 230, 245, 0.4) 50%, transparent 50%),
+    radial-gradient(1.5px 1.5px at 68% 78%, rgba(232, 230, 245, 0.25) 50%, transparent 50%),
+    radial-gradient(1px 1px at 8% 85%, rgba(255, 207, 63, 0.25) 50%, transparent 50%);
+  --ambient-size: auto;
+}
+
+/* Vesper 專屬外殼：白色研究室底，取角色的青藍與粉紅霓虹為電路輔助色。 */
+:root[data-shell-theme='neon-protocol'] {
+  color-scheme: light;
+  --background: #f4fbfd;
+  --foreground: #087397;
+  --card: rgba(255, 255, 255, 0.92);
+  --card-foreground: #075d7b;
+  --popover: #ffffff;
+  --popover-foreground: #075d7b;
+  --primary: #00a7d0;
+  --primary-foreground: #ffffff;
+  --secondary: #e5f7fb;
+  --secondary-foreground: #0a6d8b;
+  --muted: #eaf4f7;
+  --muted-foreground: #527d8c;
+  --accent: #ffedf8;
+  --accent-foreground: #a72972;
+  --destructive: #db3f72;
+  --border: #79cada;
+  --input: #a8dce7;
+  --ring: #ef4fae;
+  --success: #168f83;
+  --warning: #d63b91;
+  --page-bg:
+    radial-gradient(circle at 8% 18%, rgba(0, 207, 242, 0.12), transparent 28%),
+    radial-gradient(circle at 92% 8%, rgba(255, 72, 181, 0.11), transparent 24%),
+    linear-gradient(145deg, #ffffff 0%, #effafd 52%, #fff7fc 100%);
+  --sidebar: #ffffff;
+  --sidebar-foreground: #075d7b;
+  --sidebar-primary: #00a7d0;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #e5f7fb;
+  --sidebar-accent-foreground: #087397;
+  --sidebar-border: #79cada;
+  --sidebar-ring: #ef4fae;
+  --chart-1: #00a7d0;
+  --chart-2: #ef4fae;
+  --chart-3: #36c9e8;
+  --chart-4: #9b6df2;
+  --chart-5: #168f83;
+  --ambient-pattern:
+    linear-gradient(rgba(0, 167, 208, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 167, 208, 0.07) 1px, transparent 1px),
+    linear-gradient(135deg, transparent 47%, rgba(239, 79, 174, 0.045) 48%, rgba(239, 79, 174, 0.045) 52%, transparent 53%);
+  --ambient-size: 32px 32px, 32px 32px, 96px 96px;
 }
 
 @theme inline {
@@ -114,20 +170,14 @@ textarea,
 [contenteditable='true'] {
   cursor: text;
 }
-/* 星點底紋(靜態,零動畫):選角室的太空感 */
+/* 外殼底紋：預設太空星點；Vesper 使用微細科技網格。 */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background-image:
-    radial-gradient(1px 1px at 12% 18%, rgba(232, 230, 245, 0.5) 50%, transparent 50%),
-    radial-gradient(1px 1px at 78% 8%, rgba(232, 230, 245, 0.35) 50%, transparent 50%),
-    radial-gradient(1.5px 1.5px at 55% 32%, rgba(255, 207, 63, 0.35) 50%, transparent 50%),
-    radial-gradient(1px 1px at 30% 60%, rgba(232, 230, 245, 0.3) 50%, transparent 50%),
-    radial-gradient(1px 1px at 90% 45%, rgba(232, 230, 245, 0.4) 50%, transparent 50%),
-    radial-gradient(1.5px 1.5px at 68% 78%, rgba(232, 230, 245, 0.25) 50%, transparent 50%),
-    radial-gradient(1px 1px at 8% 85%, rgba(255, 207, 63, 0.25) 50%, transparent 50%);
+  background-image: var(--ambient-pattern);
+  background-size: var(--ambient-size);
 }
 
 /* 像素風標題字(display 用;內文維持無襯線確保可讀性——視覺公式硬規則) */

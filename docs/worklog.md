@@ -1,5 +1,11 @@
 # Worklog
 
+## 2026-07-23
+- **NEON PROTOCOL 上線**:Vesper 19 組不重複 128×128 透明 GIF 完成語意命名與雙 repo 歸檔，建立單角 19-pose 主題與 idle／move／hover／grab／action 五樽位。
+- **背景主題解耦**:原深宇宙藍＋街機黃保留為 `NEXUS ARCADE`；新增獨立按鈕切換的 Vesper 科技白＋霓虹青藍／粉紅配色與電路網格，不改各頁排版。
+- **Vesper 紙片人預留**:寬螢幕中左側新增 `AVATAR BAY`，明確標示為五套服裝的未來 3D 紙片人位置，本版僅放比例預覽，未假裝已有 rig。
+- **MVC2 Spider-Man 斷點續抓**:仍只執行 Spider-Man，動畫索引 316 組中已下載 26，去除 11 個完全重複後有 15 個 selector-ready；其餘 290 組繼續依 robots crawl-delay 斷點下載。後續順序固定為 Venom → Psylocke → Wolverine-A → Captain America → Iron Man → 其餘 Marvel → Capcom。
+
 ## 2026-07-22
 - **MVC2 還原稽核**:確認原 sheet 是會跨透明橫帶換行的 packed sprite stream，不是一列一招；既有四槽降級標示為 WIP prototype。28 角共 2,433 band 建立零遺漏 inventory，後續逐角對照 command list 與 60fps 實機畫面，補完整動作與 actor／projectile timing。
 - **夾娃娃機升級**:箱頂導軌＋纜線＋三爪夾具；角色 60–160% 直接縮放現存剛體，修正連按縮放時重建競態與上方牆面卡住角色。容量隨倍率降為 30／24／18／14／10；多層 2D 地面加入隨機左右／斜向漫遊與 walk 動畫；左側 PRIZE OUT 接住抓取後投入的角色即從 roster 移除。大體型寶可夢保留原生 2x cell 比例；READY 移到卡片資訊列，不再蓋圖。

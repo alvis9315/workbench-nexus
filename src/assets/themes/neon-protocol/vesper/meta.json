@@ -1,0 +1,33 @@
+{
+  "character_id": "vesper",
+  "display_name": "Vesper",
+  "group": "protocol-agent",
+  "order": 1,
+  "default_pose": "idle-breathe-a",
+  "source": "https://github.com/alvis9315/ui-asset-library/tree/main/custom/sprites/vesper/animations",
+  "license": "User-generated original Vesper character; PixAI attribution required for public use",
+  "pose_labels": {
+    "bend-forward": "Lean forward",
+    "blow-kiss": "Blow a kiss",
+    "combat-idle": "Combat stance",
+    "confident-stance": "Confident stance",
+    "hand-behind-head": "Hand behind head",
+    "hand-on-hip": "Hand on hip",
+    "head-tilt": "Head tilt",
+    "hurt": "Taking a hit",
+    "idle-breathe-a": "Breathing idle A",
+    "idle-breathe-b": "Breathing idle B",
+    "idle-breathe-c": "Breathing idle C",
+    "idle-hair-flip": "Ponytail flip",
+    "idle-relaxed-a": "Relaxed idle A",
+    "idle-relaxed-b": "Relaxed idle B",
+    "idle-shoulder-roll": "Shoulder roll",
+    "idle-weight-shift": "Weight shift",
+    "peace-sign": "Peace sign",
+    "stretch": "Stretch",
+    "walk-forward": "Walk forward"
+  },
+  "used_in": [
+    "workbench-nexus:theme/neon-protocol"
+  ]
+}

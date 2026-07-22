@@ -7,12 +7,14 @@ import guildIcon from '@/assets/themes/guild/icon.png'
 import pokemonIcon from '@/assets/themes/pokemon/pikachu/idle.gif'
 import marvelCosmicInvasionIcon from '@/assets/themes/marvel-cosmic-invasion/icon.png'
 import marvelVsCapcom2Icon from '@/assets/themes/marvel-vs-capcom-2/icon.png'
+import neonProtocolIcon from '@/assets/themes/neon-protocol/icon.png'
 
 // 主題註冊表:懶載入——只有啟用中的主題會被 import(主包零成長鐵則;
 // pokemon 主題 565 隻角色,eager 全載會把首包撐爆)。新主題在這兩處掛上即可。
 // shareable 同步主題模組宣告(false=含第三方 IP,錄影/demo 前不得啟用;theme-mainline-v2 §3.4)
 export const THEME_META = [
   { id: 'guild', label: '冒險者公會', icon: guildIcon, shareable: true },
+  { id: 'neon-protocol', label: 'NEON PROTOCOL · Vesper', icon: neonProtocolIcon, shareable: true },
   { id: 'pokemon', label: '寶可夢圖鑑', icon: pokemonIcon, shareable: false },
   {
     id: 'marvel-cosmic-invasion',
@@ -30,6 +32,7 @@ export const THEME_META = [
 
 const loaders: Record<string, () => Promise<{ default: SpriteTheme }>> = {
   guild: () => import('@/themes/guild'),
+  'neon-protocol': () => import('@/themes/neon-protocol'),
   pokemon: () => import('@/themes/pokemon'),
   'marvel-cosmic-invasion': () => import('@/themes/marvel-cosmic-invasion'),
   'marvel-vs-capcom-2': () => import('@/themes/marvel-vs-capcom-2'),

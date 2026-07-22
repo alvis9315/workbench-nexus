@@ -3,7 +3,7 @@
 // 掃 src/assets/themes/<id>/<char>/*.{gif,png} + meta.json → 產 characters.json。
 // UI 只讀 manifest 渲染;素材或 meta 有變動時重跑本腳本(不手改 characters.json 的
 // characters 區塊——會被重生覆蓋;要改角色資料改 meta.json)。
-// 用法:node scripts/gen-theme-manifest.mjs [guild|pokemon|marvel-cosmic-invasion|marvel-vs-capcom-2|全部省略]
+// 用法:node scripts/gen-theme-manifest.mjs [guild|neon-protocol|pokemon|marvel-cosmic-invasion|marvel-vs-capcom-2|全部省略]
 import { readdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -69,6 +69,32 @@ const THEME_CONFIG = {
         order: null,
       }
     },
+  },
+  'neon-protocol': {
+    theme_name: 'NEON PROTOCOL · Vesper',
+    shareable: true,
+    credits: '使用者原創 Vesper + PixAI 生成；公開使用須標示 Created with PixAI，詳見 CREDITS.md',
+    asset_kind: 'gif',
+    base_cell: 128,
+    groups: [{ id: 'protocol-agent', label: 'Protocol Agent' }],
+    fallback_group: 'protocol-agent',
+    slots: {
+      idle: ['idle-breathe-a'],
+      move: ['walk-forward', 'idle-weight-shift'],
+      hover: ['idle-hair-flip', 'peace-sign'],
+      grab: ['hurt', 'bend-forward'],
+      action: ['combat-idle', 'confident-stance'],
+    },
+    charFromMeta: (meta, poses) => ({
+      label: meta.display_name,
+      group: meta.group,
+      default_pose: poses.includes(meta.default_pose) ? meta.default_pose : poses[0],
+      idle_unsafe: false,
+      pose_cells: {},
+      pose_offset_y: meta.pose_offset_y ?? {},
+      pose_labels: meta.pose_labels ?? {},
+      order: meta.order ?? null,
+    }),
   },
   pokemon: {
     theme_name: '寶可夢圖鑑',
