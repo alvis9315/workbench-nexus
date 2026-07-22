@@ -10,16 +10,19 @@
   ],
   "hash_status": "missing",
   "hash": null,
-  "hash_partial_notes": null,
+  "hash_partial_notes": "2026-07-22 v2 重配源在 ui-asset-library source/(credits.txt 可逐層重建 hash)",
   "visual_description": "白長髮、白袍、法杖或十字架",
-  "known_issues": [],
+  "known_issues": [
+    "2026-07-22 v2 重配(反推+重產):外觀與初版有些微差異,擁有者已確認"
+  ],
   "gif_count": 58,
   "oversize_weapon_cell": 192,
-  "license": "CC-BY / OGA-BY",
-  "credits_status": "missing",
+  "license": "per-layer; see theme CREDITS.md and asset source/credits.txt",
+  "credits_status": "complete",
   "used_in": [
-    "workbench-nexus(規劃中,尚未接上)"
+    "workbench-nexus:theme/guild"
   ],
+  "strip_count": 58,
   "group": "mage",
   "default_pose": "idle_down"
 }

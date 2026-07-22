@@ -8,18 +8,21 @@
     "弓手",
     "藍衣"
   ],
-  "hash_status": "partial",
-  "hash": null,
-  "hash_partial_notes": "hair=Sara_pink(色號待定)、dress=Slit_dress_blue、sash=Obi_pink、weapon=Great_steel + ammo=Ammo_arrow(大型)、ears=Big_ears_light、furry_ears=Wolf_Ears_?(色號待定)、furry_ears_skin=Cat_Ears_Skintone_light、shoes=Sandals_brown、nose=Button_nose_light、shadow",
+  "hash_status": "complete",
+  "hash": "#sex=female&body=Body_Color_light&head=Human_Female_Small_light&nose=Button_nose_light&shadow=Shadow_brown&hair=Sara_rose&furry_ears=Cat_Ears_rose&dress=Slit_dress_blue&legs=Slit_skirt_blue&sash=Obi_pink&shoes=Sandals_brown&sleeves=Cuffed_Longsleeves_Overlay_ivory",
+  "hash_partial_notes": null,
   "visual_description": null,
-  "known_issues": [],
-  "gif_count": 58,
-  "oversize_weapon_cell": 128,
-  "license": "CC-BY / OGA-BY",
-  "credits_status": "missing",
-  "used_in": [
-    "workbench-nexus(規劃中,尚未接上)"
+  "known_issues": [
+    "2026-07-22 v2 重配(反推+重產):外觀與初版有些微差異,擁有者已確認"
   ],
+  "gif_count": 54,
+  "oversize_weapon_cell": 128,
+  "license": "per-layer; see theme CREDITS.md and asset source/credits.txt",
+  "credits_status": "complete",
+  "used_in": [
+    "workbench-nexus:theme/guild"
+  ],
+  "strip_count": 54,
   "group": "archer",
   "default_pose": "idle_down"
 }

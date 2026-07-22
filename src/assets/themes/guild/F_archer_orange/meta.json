@@ -7,18 +7,21 @@
     "弓手",
     "橙髮"
   ],
-  "hash_status": "missing",
-  "hash": null,
+  "hash_status": "complete",
+  "hash": "#sex=female&body=Body_Color_light&head=Human_Female_Small_light&nose=Button_nose_light&shadow=Shadow_brown&hair=Pigtails_bangs_carrot&weapon=Crossbow_crossbow&vest=Corset_orange&shoes=Ghillies_orange&legs=Slit_skirt_yellow&sleeves=Cuffed_Longsleeves_Overlay_ivory",
   "hash_partial_notes": null,
   "visual_description": "橙髮辮子、橙黃連身輕裝、弓",
-  "known_issues": [],
+  "known_issues": [
+    "2026-07-22 v2 重配(反推+重產):外觀與初版有些微差異,擁有者已確認"
+  ],
   "gif_count": 54,
   "oversize_weapon_cell": null,
-  "license": "CC-BY / OGA-BY",
-  "credits_status": "missing",
+  "license": "per-layer; see theme CREDITS.md and asset source/credits.txt",
+  "credits_status": "complete",
   "used_in": [
-    "workbench-nexus(規劃中,尚未接上)"
+    "workbench-nexus:theme/guild"
   ],
+  "strip_count": 54,
   "group": "archer",
   "default_pose": "idle_down"
 }

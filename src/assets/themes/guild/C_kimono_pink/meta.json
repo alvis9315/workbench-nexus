@@ -9,20 +9,22 @@
     "粉色"
   ],
   "hash_status": "complete",
-  "hash": "#sex=female&head=Human_Female_Small_light&hair=Xlong_ash&dress=Split_Kimono_pink&dress_trim=Split_Kimono_Trim_pink&vest=Bodice_pink&dress_sleeves=Kimono_Oversized_Sleeves_pink&dress_sleeves_trim=Kimono_Oversized_Sleeves_Trim_pink&shoes=Sandals_brown&ears=Big_ears_light&furry_ears=Cat_Ears_rose&furry_ears_skin=Cat_Ears_Skintone_light&expression=Neutral_light&weapon=Whip_whip&wound_arm=Arm_red&body=Body_Color_light",
+  "hash": "#sex=female&body=Body_Color_light&head=Human_Female_Small_light&nose=Button_nose_light&shadow=Shadow_brown&hair=Xlong_ash&furry_ears=Cat_Ears_ash&dress=Split_Kimono_pink&dress_trim=Split_Kimono_Trim_pink&vest=Bodice_pink&clothes=Tanktop_pink&shoes=Sandals_brown",
   "hash_partial_notes": null,
   "visual_description": null,
   "known_issues": [
     "wound_arm=Arm_red 是誤選的殘廢/傷疤層,應該移除",
-    "body=Body_Color_light 原本從產生器 URL 漏失,此處是補回的推測值,重現前請先在官方產生器實際勾選一次確認畫面正確"
+    "body=Body_Color_light 原本從產生器 URL 漏失,此處是補回的推測值,重現前請先在官方產生器實際勾選一次確認畫面正確",
+    "2026-07-22 v2 重配(反推+重產):外觀與初版有些微差異,擁有者已確認"
   ],
-  "gif_count": 58,
+  "gif_count": 54,
   "oversize_weapon_cell": 192,
-  "license": "CC-BY / OGA-BY",
-  "credits_status": "missing",
+  "license": "per-layer; see theme CREDITS.md and asset source/credits.txt",
+  "credits_status": "complete",
   "used_in": [
-    "workbench-nexus(規劃中,尚未接上)"
+    "workbench-nexus:theme/guild"
   ],
+  "strip_count": 54,
   "group": "folk",
   "default_pose": "idle_down"
 }

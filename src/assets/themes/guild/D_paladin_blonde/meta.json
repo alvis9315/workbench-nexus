@@ -8,18 +8,21 @@
     "金髮",
     "盾牌"
   ],
-  "hash_status": "missing",
-  "hash": null,
+  "hash_status": "complete",
+  "hash": "#sex=female&body=Body_Color_light&head=Human_Female_Small_light&nose=Button_nose_light&shadow=Shadow_brown&hair=Braid2_strawberry&weapon=Arming_Sword_gold&shield=Plus_shield_plus&shoes=Sandals_navy&vest=Corset_blue&cape=Solid_blue&cape_trim=Cape_Trim_blue",
   "hash_partial_notes": null,
   "visual_description": "金髮盤髮、鎧甲白銀、盾牌 + 長柄武器",
-  "known_issues": [],
+  "known_issues": [
+    "2026-07-22 v2 重配(反推+重產):外觀與初版有些微差異,擁有者已確認"
+  ],
   "gif_count": 66,
   "oversize_weapon_cell": 128,
-  "license": "CC-BY / OGA-BY",
-  "credits_status": "missing",
+  "license": "per-layer; see theme CREDITS.md and asset source/credits.txt",
+  "credits_status": "complete",
   "used_in": [
-    "workbench-nexus(規劃中,尚未接上)"
+    "workbench-nexus:theme/guild"
   ],
+  "strip_count": 66,
   "group": "paladin",
   "default_pose": "walk_down"
 }

@@ -11,14 +11,17 @@
   "hash": "#sex=female&body=Body_Color_light&head=Human_Female_Small_light&shoes=Sandals_brown&shadow=Shadow_brown&nose=Button_nose_light&hair=Princess_redhead&weapon=Longsword_longsword&apron=Apron_half_maroon&clothes=Tunic_maroon&cape=Solid_blue&cape_trim=Cape_Trim_red",
   "hash_partial_notes": null,
   "visual_description": null,
-  "known_issues": [],
+  "known_issues": [
+    "2026-07-22 v2 重配(反推+重產):外觀與初版有些微差異,擁有者已確認"
+  ],
   "gif_count": 66,
   "oversize_weapon_cell": 192,
-  "license": "CC-BY / OGA-BY",
-  "credits_status": "missing",
+  "license": "per-layer; see theme CREDITS.md and asset source/credits.txt",
+  "credits_status": "complete",
   "used_in": [
-    "workbench-nexus(規劃中,尚未接上)"
+    "workbench-nexus:theme/guild"
   ],
+  "strip_count": 66,
   "group": "sword",
   "default_pose": "walk_down"
 }

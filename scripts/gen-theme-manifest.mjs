@@ -36,7 +36,7 @@ const THEME_CONFIG = {
   guild: {
     theme_name: '冒險者公會',
     shareable: true,
-    credits: 'LPC CC-BY/OGA-BY;逐層署名見各角色 source/credits.txt(正本在 ui-asset-library)',
+    credits: 'LPC 逐圖層授權與作者署名見 src/assets/themes/guild/CREDITS.md',
     asset_kind: 'strip',
     base_cell: 64,
     groups: [
