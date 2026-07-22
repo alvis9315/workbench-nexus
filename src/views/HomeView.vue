@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, useTemplateRef } from 'vue'
 import { useLocalStorage } from '@vueuse/core'
-import { Search, History, Grid3x3, Grid2x2, Columns2 } from 'lucide-vue-next'
+import { Search, History, Grid3x3, Grid2x2, Columns2, PackageOpen } from 'lucide-vue-next'
 import { Button } from '@/components/ui/button'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { Kbd } from '@/components/ui/kbd'
@@ -13,7 +13,9 @@ import CommandPalette from '@/components/CommandPalette.vue'
 import SkillDetailDialog from '@/components/SkillDetailDialog.vue'
 import Hotbar from '@/components/Hotbar.vue'
 import LaunchLogDialog from '@/components/LaunchLogDialog.vue'
+import FallingSprites, { type FallingSpriteItem } from '@/components/effects/FallingSprites.vue'
 import { usePins } from '@/composables/usePins'
+import { activeTheme } from '@/themes'
 import skillsData from '@/data/skills.json'
 import type { Skill, SkillCategory } from '@/types'
 // skill 頭像:SkillAvatar 內建 LPC sprite(seed→角色配對在 src/data/lpcSprites.ts,
@@ -24,7 +26,28 @@ import type { Skill, SkillCategory } from '@/types'
 const skills = skillsData as Skill[]
 const { pinned, isPinned, togglePin } = usePins(skills)
 const logOpen = ref(false)
+const toyboxOpen = useLocalStorage('wn-toybox-open', false)
 const activeCategory = ref<SkillCategory | 'all'>('all')
+
+// 物理層吃統一的四語意槽；不直接知道 guild／pokemon／Marvel 的檔案或姿勢名。
+// 每個主題的原生尺寸差異很大，先等比例正規化到 72px 再交給 FallingSprites。
+const toyboxSprites = computed<FallingSpriteItem[]>(() =>
+  activeTheme.value.chars.slice(0, 12).flatMap((char) => {
+    const frame = activeTheme.value.charFrame(char)
+    const ratio = 72 / Math.max(frame.w, frame.h)
+    const idle = activeTheme.value.poseAsset(char, activeTheme.value.slotPose(char, 'idle'))
+    const grab = activeTheme.value.poseAsset(char, activeTheme.value.slotPose(char, 'grab'))
+    if (!idle) return []
+    return [{
+      id: char,
+      label: activeTheme.value.charLabel(char),
+      idle,
+      grab,
+      width: Math.max(frame.w * ratio, 24),
+      height: Math.max(frame.h * ratio, 24),
+    }]
+  }),
+)
 
 // 選角格密度:每排 6 / 4 / 2 張,記在 localStorage。
 // class 寫全名(不能模板字串拼接)——Tailwind JIT 掃原始碼字面值
@@ -68,6 +91,15 @@ const goNext = () => {
   <main class="mx-auto max-w-5xl px-6 pb-10">
     <div class="mb-4 flex items-center justify-end gap-2">
       <ThemePicker />
+      <Button
+        :variant="toyboxOpen ? 'secondary' : 'outline'"
+        class="gap-2 text-muted-foreground"
+        :aria-pressed="toyboxOpen"
+        @click="toyboxOpen = !toyboxOpen"
+      >
+        <PackageOpen class="size-4" />
+        <span class="text-xs">夾娃娃</span>
+      </Button>
       <Button variant="outline" size="icon" class="text-muted-foreground" title="使用紀錄" @click="logOpen = true">
         <History class="size-4" />
       </Button>
@@ -79,6 +111,26 @@ const goNext = () => {
     </div>
 
     <Hotbar :pinned="pinned" :skills="skills" />
+
+    <section v-if="toyboxOpen" class="pixel-frame mb-6 overflow-hidden bg-card/70">
+      <div class="flex items-center justify-between border-b border-border/70 px-4 py-2">
+        <div>
+          <h2 class="font-pixel text-[10px] text-foreground">SPRITE DROP</h2>
+          <p class="mt-1 text-[11px] text-muted-foreground">抓住角色拖曳、甩動，再放回娃娃堆。</p>
+        </div>
+        <span class="font-pixel text-[9px] text-muted-foreground">{{ activeTheme.label }}</span>
+      </div>
+      <div class="h-80 bg-[radial-gradient(circle_at_top,hsl(var(--primary)/0.12),transparent_55%)]">
+        <FallingSprites
+          :key="activeTheme.id"
+          :sprites="toyboxSprites"
+          trigger="auto"
+          :gravity="0.9"
+          :restitution="0.72"
+          :grab-stiffness="0.16"
+        />
+      </div>
+    </section>
 
     <div class="mb-6 flex items-center justify-between gap-3">
       <CategoryFilter v-model="activeCategory" />

@@ -19,6 +19,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-vue-next": "^1.0.0",
+    "matter-js": "^0.20.0",
     "reka-ui": "^2.10.1",
     "shadcn-vue": "^2.7.4",
     "tailwind-merge": "^3.6.0",
@@ -28,6 +29,7 @@
     "vue-sonner": "^2.0.9"
   },
   "devDependencies": {
+    "@types/matter-js": "^0.20.2",
     "@types/node": "^24.13.3",
     "@vitejs/plugin-vue": "^6.0.7",
     "@vue/tsconfig": "^0.9.1",
