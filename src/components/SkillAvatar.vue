@@ -16,11 +16,16 @@ const pose = useSpritePose(props.seed)
 const asset = computed(() => activeTheme.value.poseAsset(char.value, pose.value))
 const scale = computed(() => activeTheme.value.poseScale(char.value, pose.value))
 const drawSize = computed(() => Math.round(props.size * scale.value))
-const oversizeCls = computed(() =>
+const anchorCls = computed(() =>
   activeTheme.value.oversizeAnchor === 'bottom'
     ? 'absolute bottom-0 left-1/2 z-20 max-w-none -translate-x-1/2'
     : 'absolute left-1/2 top-1/2 z-20 max-w-none -translate-x-1/2 -translate-y-1/2',
 )
+const offsetStyle = computed(() => {
+  if (!asset.value) return undefined
+  const offset = activeTheme.value.poseOffsetY(char.value, pose.value)
+  return { marginTop: `${Math.round(offset / asset.value.cell * drawSize.value)}px` }
+})
 </script>
 
 <template>
@@ -30,7 +35,8 @@ const oversizeCls = computed(() =>
       :asset="asset"
       :width="drawSize"
       class="pointer-events-none"
-      :class="scale > 1 ? oversizeCls : ''"
+      :class="anchorCls"
+      :style="offsetStyle"
     />
   </div>
 </template>

@@ -18,11 +18,16 @@ const pose = useSpritePose('mascot')
 const asset = computed(() => activeTheme.value.poseAsset(char.value, pose.value))
 const scale = computed(() => activeTheme.value.poseScale(char.value, pose.value))
 const drawSize = computed(() => Math.round(80 * scale.value))
-const oversizeCls = computed(() =>
+const anchorCls = computed(() =>
   activeTheme.value.oversizeAnchor === 'bottom'
     ? 'absolute bottom-0 left-1/2 z-20 max-w-none -translate-x-1/2'
     : 'absolute left-1/2 top-1/2 z-20 max-w-none -translate-x-1/2 -translate-y-1/2',
 )
+const offsetStyle = computed(() => {
+  if (!asset.value) return undefined
+  const offset = activeTheme.value.poseOffsetY(char.value, pose.value)
+  return { marginTop: `${Math.round(offset / asset.value.cell * drawSize.value)}px` }
+})
 
 const TIPS = [
   '⌘K 可以直接搜尋技能',
@@ -47,10 +52,10 @@ const searchOpen = ref(false)
 
 <template>
   <!-- 右上角:右下會卡到內容區;max-w-5xl 置中版型的右上外側是留白帶,常駐不擋內容 -->
-  <div class="fixed right-5 top-5 z-40 flex items-start gap-2">
+  <div class="fixed right-5 top-5 z-40">
     <button
       type="button"
-      class="mt-1 grid size-8 shrink-0 place-items-center rounded border border-[#526984] bg-[#aebdcd] text-[#27364a] shadow-[0_3px_0_#273449] transition hover:-translate-y-0.5 hover:bg-[#c2ced9]"
+      class="absolute right-[calc(100%+0.5rem)] top-1 z-30 grid size-8 place-items-center rounded border border-[#526984] bg-[#aebdcd] text-[#27364a] shadow-[0_3px_0_#273449] transition hover:-translate-y-0.5 hover:bg-[#c2ced9]"
       :title="tipsOpen ? '關閉小幫手訊息' : '打開小幫手訊息'"
       :aria-label="tipsOpen ? '關閉小幫手訊息' : '打開小幫手訊息'"
       :aria-pressed="tipsOpen"
@@ -69,7 +74,7 @@ const searchOpen = ref(false)
       <p
         v-if="tipsOpen"
         :key="tip"
-        class="mascot-dialog mt-1 max-w-52 px-3 py-2 text-xs font-medium leading-relaxed"
+        class="mascot-dialog absolute right-[calc(100%+3rem)] top-1 w-52 px-3 py-2 text-xs font-medium leading-relaxed"
       >
         {{ TIPS[tip] }}
       </p>
@@ -96,7 +101,8 @@ const searchOpen = ref(false)
             :asset="asset"
             :width="drawSize"
             class="pointer-events-none"
-            :class="scale > 1 ? oversizeCls : ''"
+            :class="anchorCls"
+            :style="offsetStyle"
           />
         </div>
       </button>
@@ -108,7 +114,7 @@ const searchOpen = ref(false)
 
 <style scoped>
 .mascot-dialog {
-  position: relative;
+  position: absolute;
   border: 2px solid #526984;
   border-radius: 4px;
   color: #27364a;

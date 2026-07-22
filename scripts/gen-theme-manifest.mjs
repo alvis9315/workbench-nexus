@@ -50,6 +50,7 @@ const THEME_CONFIG = {
     // 語意槽位的候選姿勢(依序找第一個存在的;idle 槽尊重 default_pose 的裸素體判斷)
     slots: {
       idle: ['idle_down', 'walk_down'],
+      move: ['walk_down', 'run_down', 'idle_down'],
       hover: ['run_down', 'walk_down'],
       grab: ['hurt_down', 'jump_down', 'walk_down'],
       action: ['slash_down', 'thrust_down', 'shoot_down', 'walk_down'],
@@ -64,6 +65,7 @@ const THEME_CONFIG = {
         // 服裝圖層不支援 idle 的角色(default_pose 非 idle 系)→ idle 是裸素體,輪播要濾掉
         idle_unsafe: !String(defaultPose).startsWith('idle'),
         pose_cells: {},
+        pose_offset_y: meta.pose_offset_y ?? {},
         order: null,
       }
     },
@@ -83,6 +85,7 @@ const THEME_CONFIG = {
     fallback_group: 'gen1',
     slots: {
       idle: ['idle', 'walk'],
+      move: ['walk', 'idle'],
       hover: ['walk', 'idle'],
       grab: ['walk', 'idle'],
       action: ['shiny_idle', 'idle', 'walk'],
@@ -95,6 +98,7 @@ const THEME_CONFIG = {
       pose_cells: Object.fromEntries(
         Object.entries(meta.sizes ?? {}).filter(([p]) => poses.includes(p)),
       ),
+      pose_offset_y: {},
       order: meta.dex ?? null,
     }),
   },
@@ -111,6 +115,8 @@ const THEME_CONFIG = {
     fallback_group: 'spider',
     slots: {
       idle: ['idle'],
+      // normalized hover strip 取自來源的 Walk_* 八幀；語意上在娃娃機使用 move。
+      move: ['hover', 'idle'],
       hover: ['hover', 'idle'],
       grab: ['grab', 'idle'],
       action: ['action', 'idle'],
@@ -121,6 +127,7 @@ const THEME_CONFIG = {
       default_pose: poses.includes(meta.default_pose) ? meta.default_pose : poses[0],
       idle_unsafe: false,
       pose_cells: {},
+      pose_offset_y: meta.pose_offset_y ?? {},
       order: meta.order ?? null,
     }),
   },
@@ -138,6 +145,8 @@ const THEME_CONFIG = {
     fallback_group: 'rivals',
     slots: {
       idle: ['idle'],
+      // 完整 walk 尚待 restoration review；先用 neutral strip，避免拿攻擊姿勢滑行。
+      move: ['idle'],
       hover: ['hover', 'idle'],
       grab: ['grab', 'idle'],
       action: ['action', 'idle'],
@@ -148,6 +157,7 @@ const THEME_CONFIG = {
       default_pose: poses.includes(meta.default_pose) ? meta.default_pose : poses[0],
       idle_unsafe: false,
       pose_cells: {},
+      pose_offset_y: meta.pose_offset_y ?? {},
       order: meta.order ?? null,
     }),
   },
@@ -206,6 +216,7 @@ const genTheme = (themeId) => {
       default_pose: c.default_pose,
       idle_unsafe: c.idle_unsafe,
       pose_cells: c.pose_cells,
+      ...(Object.keys(c.pose_offset_y ?? {}).length ? { pose_offset_y: c.pose_offset_y } : {}),
       ...(isStrip ? { pose_frames: poseFrames, pose_ms: poseMsMap } : {}),
       poses,
       slots: resolveSlots(cfg.slots, poses, c.default_pose, c.idle_unsafe),

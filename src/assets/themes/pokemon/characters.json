@@ -43,6 +43,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -66,6 +67,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -89,6 +91,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -112,6 +115,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -135,6 +139,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -158,6 +163,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -181,6 +187,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -204,6 +211,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -227,6 +235,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -250,6 +259,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -273,6 +283,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -296,6 +307,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -319,6 +331,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -342,6 +355,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -365,6 +379,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -388,6 +403,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -411,6 +427,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -434,6 +451,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -457,6 +475,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -480,6 +499,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -503,6 +523,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -526,6 +547,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -549,6 +571,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -572,6 +595,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -595,6 +619,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -618,6 +643,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -641,6 +667,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -664,6 +691,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -687,6 +715,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -710,6 +739,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -733,6 +763,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -756,6 +787,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -779,6 +811,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -802,6 +835,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -825,6 +859,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -848,6 +883,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -871,6 +907,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -894,6 +931,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -917,6 +955,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -940,6 +979,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -963,6 +1003,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -986,6 +1027,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1009,6 +1051,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1032,6 +1075,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1055,6 +1099,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1078,6 +1123,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1101,6 +1147,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1124,6 +1171,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1147,6 +1195,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1170,6 +1219,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1193,6 +1243,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1216,6 +1267,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1239,6 +1291,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1262,6 +1315,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1285,6 +1339,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1308,6 +1363,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1331,6 +1387,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1354,6 +1411,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1377,6 +1435,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1400,6 +1459,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1423,6 +1483,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1446,6 +1507,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1469,6 +1531,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1492,6 +1555,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1515,6 +1579,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1538,6 +1603,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1561,6 +1627,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1584,6 +1651,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1607,6 +1675,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1630,6 +1699,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1653,6 +1723,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1676,6 +1747,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1699,6 +1771,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1722,6 +1795,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1745,6 +1819,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1768,6 +1843,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1791,6 +1867,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1814,6 +1891,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1837,6 +1915,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1860,6 +1939,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1883,6 +1963,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1906,6 +1987,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1929,6 +2011,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1952,6 +2035,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1975,6 +2059,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -1998,6 +2083,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2021,6 +2107,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2044,6 +2131,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2067,6 +2155,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2090,6 +2179,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2113,6 +2203,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2136,6 +2227,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2159,6 +2251,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2182,6 +2275,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2205,6 +2299,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2228,6 +2323,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2251,6 +2347,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2274,6 +2371,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2297,6 +2395,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2320,6 +2419,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2343,6 +2443,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2366,6 +2467,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2389,6 +2491,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2412,6 +2515,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2435,6 +2539,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2458,6 +2563,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2481,6 +2587,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2504,6 +2611,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2527,6 +2635,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2550,6 +2659,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2573,6 +2683,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2596,6 +2707,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2619,6 +2731,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2642,6 +2755,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2665,6 +2779,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2688,6 +2803,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2711,6 +2827,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2734,6 +2851,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2757,6 +2875,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2780,6 +2899,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2803,6 +2923,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2826,6 +2947,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2849,6 +2971,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2872,6 +2995,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2895,6 +3019,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2918,6 +3043,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2941,6 +3067,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2964,6 +3091,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -2987,6 +3115,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3010,6 +3139,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3033,6 +3163,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3056,6 +3187,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3079,6 +3211,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3102,6 +3235,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3125,6 +3259,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3148,6 +3283,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3171,6 +3307,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3194,6 +3331,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3217,6 +3355,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3240,6 +3379,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3263,6 +3403,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3286,6 +3427,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3309,6 +3451,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3332,6 +3475,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3355,6 +3499,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3378,6 +3523,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3401,6 +3547,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3424,6 +3571,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3447,6 +3595,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3470,6 +3619,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3493,6 +3643,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3516,6 +3667,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3539,6 +3691,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3562,6 +3715,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3585,6 +3739,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3608,6 +3763,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3631,6 +3787,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3654,6 +3811,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3677,6 +3835,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3700,6 +3859,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3723,6 +3883,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3746,6 +3907,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3769,6 +3931,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3792,6 +3955,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3815,6 +3979,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3838,6 +4003,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3861,6 +4027,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3884,6 +4051,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3907,6 +4075,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3930,6 +4099,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3953,6 +4123,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3976,6 +4147,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -3999,6 +4171,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4022,6 +4195,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4045,6 +4219,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4068,6 +4243,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4091,6 +4267,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4114,6 +4291,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4137,6 +4315,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4160,6 +4339,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4183,6 +4363,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4206,6 +4387,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4229,6 +4411,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4252,6 +4435,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4275,6 +4459,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4298,6 +4483,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4321,6 +4507,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4344,6 +4531,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4367,6 +4555,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4390,6 +4579,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4413,6 +4603,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4436,6 +4627,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4459,6 +4651,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4482,6 +4675,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4505,6 +4699,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4528,6 +4723,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4551,6 +4747,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4574,6 +4771,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4597,6 +4795,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4620,6 +4819,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4643,6 +4843,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4666,6 +4867,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4689,6 +4891,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4712,6 +4915,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4735,6 +4939,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4758,6 +4963,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4781,6 +4987,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4804,6 +5011,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4827,6 +5035,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4850,6 +5059,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4873,6 +5083,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4896,6 +5107,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4919,6 +5131,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4942,6 +5155,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4965,6 +5179,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -4988,6 +5203,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5011,6 +5227,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5034,6 +5251,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5057,6 +5275,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5080,6 +5299,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5103,6 +5323,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5126,6 +5347,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5149,6 +5371,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5172,6 +5395,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5195,6 +5419,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5218,6 +5443,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5241,6 +5467,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5264,6 +5491,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5287,6 +5515,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5310,6 +5539,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5333,6 +5563,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5356,6 +5587,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5379,6 +5611,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5402,6 +5635,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5425,6 +5659,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5448,6 +5683,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5471,6 +5707,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5494,6 +5731,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5522,6 +5760,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5550,6 +5789,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5573,6 +5813,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5596,6 +5837,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5619,6 +5861,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5642,6 +5885,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5665,6 +5909,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5688,6 +5933,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5711,6 +5957,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5734,6 +5981,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5757,6 +6005,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5780,6 +6029,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5803,6 +6053,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5826,6 +6077,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5849,6 +6101,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5872,6 +6125,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5895,6 +6149,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5918,6 +6173,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5941,6 +6197,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5964,6 +6221,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -5987,6 +6245,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6010,6 +6269,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6033,6 +6293,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6056,6 +6317,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6079,6 +6341,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6102,6 +6365,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6125,6 +6389,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6148,6 +6413,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6171,6 +6437,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6194,6 +6461,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6217,6 +6485,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6240,6 +6509,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6263,6 +6533,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6286,6 +6557,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6309,6 +6581,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6332,6 +6605,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6355,6 +6629,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6378,6 +6653,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6401,6 +6677,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6424,6 +6701,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6447,6 +6725,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6470,6 +6749,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6493,6 +6773,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6521,6 +6802,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6549,6 +6831,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6572,6 +6855,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6595,6 +6879,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6618,6 +6903,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6641,6 +6927,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6664,6 +6951,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6687,6 +6975,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6710,6 +6999,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6733,6 +7023,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6756,6 +7047,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6779,6 +7071,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6802,6 +7095,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6825,6 +7119,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6848,6 +7143,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6871,6 +7167,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6894,6 +7191,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6917,6 +7215,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6940,6 +7239,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6963,6 +7263,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -6986,6 +7287,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7009,6 +7311,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7032,6 +7335,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7055,6 +7359,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7078,6 +7383,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7101,6 +7407,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7124,6 +7431,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7147,6 +7455,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7170,6 +7479,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7193,6 +7503,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7216,6 +7527,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7239,6 +7551,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7262,6 +7575,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7285,6 +7599,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7308,6 +7623,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7331,6 +7647,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7354,6 +7671,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7377,6 +7695,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7400,6 +7719,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7423,6 +7743,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7446,6 +7767,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7469,6 +7791,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7492,6 +7815,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7515,6 +7839,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7538,6 +7863,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7561,6 +7887,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7584,6 +7911,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7607,6 +7935,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7630,6 +7959,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7653,6 +7983,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7676,6 +8007,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7699,6 +8031,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7722,6 +8055,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7745,6 +8079,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7768,6 +8103,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7791,6 +8127,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7814,6 +8151,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7837,6 +8175,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7860,6 +8199,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7883,6 +8223,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7906,6 +8247,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7929,6 +8271,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7952,6 +8295,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7975,6 +8319,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -7998,6 +8343,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8021,6 +8367,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8044,6 +8391,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8067,6 +8415,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8090,6 +8439,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8113,6 +8463,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8136,6 +8487,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8159,6 +8511,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8187,6 +8540,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8210,6 +8564,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8233,6 +8588,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8256,6 +8612,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8279,6 +8636,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8302,6 +8660,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8325,6 +8684,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8348,6 +8708,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8371,6 +8732,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8394,6 +8756,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8417,6 +8780,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8440,6 +8804,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8463,6 +8828,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8486,6 +8852,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8509,6 +8876,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8532,6 +8900,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8555,6 +8924,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8578,6 +8948,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8601,6 +8972,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8624,6 +8996,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8647,6 +9020,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8670,6 +9044,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8693,6 +9068,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8716,6 +9092,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8739,6 +9116,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8762,6 +9140,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8785,6 +9164,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8808,6 +9188,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8831,6 +9212,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8854,6 +9236,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8877,6 +9260,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8900,6 +9284,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8923,6 +9308,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8946,6 +9332,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8969,6 +9356,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -8992,6 +9380,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9015,6 +9404,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9038,6 +9428,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9061,6 +9452,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9084,6 +9476,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9107,6 +9500,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9130,6 +9524,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9153,6 +9548,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9176,6 +9572,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9199,6 +9596,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9222,6 +9620,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9245,6 +9644,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9268,6 +9668,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9291,6 +9692,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9314,6 +9716,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9337,6 +9740,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9360,6 +9764,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9383,6 +9788,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9406,6 +9812,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9429,6 +9836,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9452,6 +9860,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9475,6 +9884,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9498,6 +9908,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9521,6 +9932,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9544,6 +9956,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9567,6 +9980,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9595,6 +10009,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9623,6 +10038,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9651,6 +10067,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9674,6 +10091,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9697,6 +10115,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9720,6 +10139,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9743,6 +10163,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9766,6 +10187,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9789,6 +10211,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9812,6 +10235,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9835,6 +10259,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9858,6 +10283,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9881,6 +10307,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9904,6 +10331,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9927,6 +10355,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9950,6 +10379,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9973,6 +10403,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -9996,6 +10427,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10019,6 +10451,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10042,6 +10475,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10065,6 +10499,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10088,6 +10523,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10111,6 +10547,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10134,6 +10571,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10157,6 +10595,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10180,6 +10619,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10203,6 +10643,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10226,6 +10667,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10249,6 +10691,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10272,6 +10715,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10295,6 +10739,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10318,6 +10763,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10341,6 +10787,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10364,6 +10811,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10387,6 +10835,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10410,6 +10859,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10433,6 +10883,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10456,6 +10907,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10479,6 +10931,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10502,6 +10955,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10525,6 +10979,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10548,6 +11003,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10571,6 +11027,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10594,6 +11051,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10617,6 +11075,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10640,6 +11099,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10663,6 +11123,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10686,6 +11147,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10709,6 +11171,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10732,6 +11195,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10755,6 +11219,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10778,6 +11243,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10801,6 +11267,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10824,6 +11291,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10847,6 +11315,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10870,6 +11339,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10893,6 +11363,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10916,6 +11387,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10939,6 +11411,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10962,6 +11435,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -10985,6 +11459,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11008,6 +11483,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11031,6 +11507,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11054,6 +11531,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11077,6 +11555,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11100,6 +11579,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11123,6 +11603,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11146,6 +11627,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11169,6 +11651,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11192,6 +11675,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11215,6 +11699,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11238,6 +11723,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11261,6 +11747,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11284,6 +11771,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11307,6 +11795,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11330,6 +11819,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11353,6 +11843,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11376,6 +11867,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11399,6 +11891,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11422,6 +11915,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11445,6 +11939,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11468,6 +11963,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11491,6 +11987,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11514,6 +12011,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11537,6 +12035,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11560,6 +12059,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11583,6 +12083,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11606,6 +12107,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11629,6 +12131,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11652,6 +12155,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11675,6 +12179,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11698,6 +12203,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11721,6 +12227,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11744,6 +12251,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11767,6 +12275,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11790,6 +12299,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11813,6 +12323,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11836,6 +12347,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11859,6 +12371,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11882,6 +12395,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11905,6 +12419,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11928,6 +12443,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11951,6 +12467,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11974,6 +12491,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -11997,6 +12515,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12020,6 +12539,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12043,6 +12563,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12066,6 +12587,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12089,6 +12611,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12112,6 +12635,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12135,6 +12659,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12158,6 +12683,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12181,6 +12707,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12204,6 +12731,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12227,6 +12755,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12250,6 +12779,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12273,6 +12803,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12296,6 +12827,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12319,6 +12851,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12342,6 +12875,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12365,6 +12899,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12393,6 +12928,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12421,6 +12957,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12444,6 +12981,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12472,6 +13010,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12500,6 +13039,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12528,6 +13068,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12551,6 +13092,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12574,6 +13116,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12597,6 +13140,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12620,6 +13164,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12643,6 +13188,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12666,6 +13212,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12694,6 +13241,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12722,6 +13270,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12750,6 +13299,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12778,6 +13328,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12806,6 +13357,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12834,6 +13386,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12862,6 +13415,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12890,6 +13444,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12918,6 +13473,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12946,6 +13502,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -12974,6 +13531,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -13002,6 +13560,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -13030,6 +13589,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -13058,6 +13618,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -13086,6 +13647,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -13114,6 +13676,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -13142,6 +13705,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"
@@ -13165,6 +13729,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "walk",
         "hover": "walk",
         "grab": "walk",
         "action": "shiny_idle"

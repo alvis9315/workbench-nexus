@@ -4,6 +4,8 @@
 - **MVC2 還原稽核**:確認原 sheet 是會跨透明橫帶換行的 packed sprite stream，不是一列一招；既有四槽降級標示為 WIP prototype。28 角共 2,433 band 建立零遺漏 inventory，後續逐角對照 command list 與 60fps 實機畫面，補完整動作與 actor／projectile timing。
 - **夾娃娃機升級**:箱頂導軌＋纜線＋三爪夾具；角色 60–160% 直接縮放現存剛體，修正連按縮放時重建競態與上方牆面卡住角色。容量隨倍率降為 30／24／18／14／10；多層 2D 地面加入隨機左右／斜向漫遊與 walk 動畫；左側 PRIZE OUT 接住抓取後投入的角色即從 roster 移除。大體型寶可夢保留原生 2x cell 比例；READY 移到卡片資訊列，不再蓋圖。
 - **小幫手訊息框**:改成淺灰藍、雙框與指向角色的寶可夢式對話框；提供可記憶的開啟／關閉按鈕。
+- **娃娃機地面／步態修正**:地面改為水平中性灰格板；正式加入 `move` 語意槽（Guild/Pokémon 真 walk、Cosmic Invasion 的 Walk_* strip、MVC2 暫用 neutral 等待逐角驗證），移動加入停頓、步速脈衝、2.2px 踏步起伏與左右翻面，不再等速滑行。
+- **Marvel 姿勢視覺校正**:對 Cosmic 6 外觀與 MVC2 28 角的每條 strip 逐格掃 alpha bbox，將垂直視覺中心 offset 寫入 meta／manifest；卡片、小幫手與全域搜尋套用，Venom grab 等底部偏移不再壓進名條。小幫手訊息開關改為相對角色框絕對定位，開關訊息前後位置不動。
 - **Career 分頁整併**:頂層 Pipelines＋Resume 合併為 Career Workshop；三步驟白話引導、等高 station 卡、模板選擇與現況說明集中在同一頁，舊網址保留 redirect。
 - **Marvel 其餘 PNG 歸納**:Avengers Alliance 拆 Browser 5 角／Mobile HD 單角；Spider-Verse 再拆 GBA Spider-Man 3 雙角、SNES Maximum Carnage 雙角與跨遊戲單角池，待 bbox／atlas 正規化，不硬混畫風
 - **游標主題化**:全站加入金黃像素箭頭／可點擊手套；FallingSprites 區改用吊鉤，抓住角色時切成藍色收緊鉤，文字輸入仍保留 I-beam

@@ -72,8 +72,8 @@
 要點:
 - **`frame_w` / `frame_h` 分離**——不再假設正方形。LPC 是 64×64,
   本命主題的高頭身角色會是**直式**(64×128 或 96×160),寶可夢素材尺寸另計。
-- 動畫以**語意槽位**(idle/hover/grab/action)宣告,不綁死 LPC 的動作名——
-  新主題只要能填這四個槽就能接上所有互動(roster hover、夾娃娃機 grabSrc、點擊演出)。
+- 動畫以**語意槽位**(idle/move/hover/grab/action)宣告,不綁死 LPC 的動作名——
+  新主題填五個槽即可接上漫遊步行、roster hover、夾娃娃機 grabSrc 與點擊演出。
 - `shareable` 欄位見 §3.4。
 
 ### 3.2 skill↔角色 mapping 獨立於主題

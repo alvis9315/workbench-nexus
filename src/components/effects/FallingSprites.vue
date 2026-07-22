@@ -52,7 +52,7 @@ const container = ref<HTMLElement | null>(null)
 const started = ref(false)
 const ready = ref(false)
 const grabbedId = ref<string | null>(null)
-const roamingIds = ref<Set<string>>(new Set())
+const walkingIds = ref<Set<string>>(new Set())
 const pointerInside = ref(false)
 const clawPoint = ref({ x: 0, y: 0 })
 const spriteElements = new Map<string, HTMLElement>()
@@ -78,9 +78,12 @@ interface SpriteRecord {
   item: FallingSpriteItem
   body: Body
   roaming: boolean
+  walking: boolean
   target: { x: number; y: number }
   speed: number
   facing: 1 | -1
+  stepPhase: number
+  pausedUntil: number
   nextTurnAt: number
   prizeEligibleUntil: number
   collected: boolean
@@ -97,13 +100,18 @@ const displaySize = (item: FallingSpriteItem) => ({
   height: item.height * props.scale,
 })
 
-const setRoaming = (record: SpriteRecord, value: boolean) => {
-  if (record.roaming === value) return
-  record.roaming = value
-  const next = new Set(roamingIds.value)
+const setWalking = (record: SpriteRecord, value: boolean) => {
+  if (record.walking === value) return
+  record.walking = value
+  const next = new Set(walkingIds.value)
   if (value) next.add(record.item.id)
   else next.delete(record.item.id)
-  roamingIds.value = next
+  walkingIds.value = next
+}
+
+const setRoaming = (record: SpriteRecord, value: boolean) => {
+  record.roaming = value
+  if (!value) setWalking(record, false)
 }
 
 const chooseWanderTarget = (record: SpriteRecord, width: number, height: number, now: number) => {
@@ -119,6 +127,7 @@ const chooseWanderTarget = (record: SpriteRecord, width: number, height: number,
     ),
   }
   record.speed = 0.45 + Math.random() * 0.55
+  record.pausedUntil = now + 280 + Math.random() * 900
   record.nextTurnAt = now + 1800 + Math.random() * 3200
 }
 
@@ -241,10 +250,17 @@ const sync = (now: number) => {
       const dy = record.target.y - body.position.y
       const distance = Math.hypot(dx, dy)
       if (distance < 20 || now >= record.nextTurnAt) {
+        setWalking(record, false)
         chooseWanderTarget(record, width, height, now)
+      } else if (now < record.pausedUntil) {
+        setWalking(record, false)
+        Body.setVelocity(body, { x: body.velocity.x * 0.62, y: body.velocity.y * 0.45 })
       } else {
-        const desiredX = (dx / distance) * record.speed
-        const desiredY = (dy / distance) * record.speed * 0.72
+        setWalking(record, true)
+        // 每一步略有快慢與上下起伏，不再像固定速度的貼圖平移。
+        const cadence = 0.76 + (Math.sin(now * 0.016 + record.stepPhase) + 1) * 0.12
+        const desiredX = (dx / distance) * record.speed * cadence
+        const desiredY = (dy / distance) * record.speed * 0.72 * cadence
         if (Math.abs(desiredX) > 0.05) record.facing = desiredX >= 0 ? 1 : -1
         Body.setVelocity(body, {
           x: body.velocity.x * 0.45 + desiredX * 0.55,
@@ -267,8 +283,9 @@ const sync = (now: number) => {
 
     const element = spriteElements.get(item.id)
     if (element) {
+      const stepBob = record.walking ? Math.sin(now * 0.016 + record.stepPhase) * 2.2 : 0
       element.style.left = `${body.position.x}px`
-      element.style.top = `${body.position.y}px`
+      element.style.top = `${body.position.y + stepBob}px`
       element.style.transform = `translate(-50%, -50%) rotate(${body.angle}rad) scaleX(${record.facing})`
       element.style.zIndex = String(30 + Math.round(body.position.y))
     }
@@ -299,7 +316,7 @@ const stop = () => {
   records = []
   walls = []
   grabbedId.value = null
-  roamingIds.value = new Set()
+  walkingIds.value = new Set()
   ready.value = false
   lastTick = 0
   appliedScale = props.scale
@@ -329,9 +346,12 @@ const start = async () => {
       item,
       body,
       roaming: false,
+      walking: false,
       target: { x: 0, y: 0 },
       speed: 0.6,
       facing: Math.random() > 0.5 ? 1 : -1,
+      stepPhase: Math.random() * Math.PI * 2,
+      pausedUntil: 0,
       nextTurnAt: 0,
       prizeEligibleUntil: 0,
       collected: false,
@@ -469,7 +489,7 @@ watch(() => props.grabStiffness, (stiffness) => {
       <PixelSprite
         :asset="grabbedId === item.id
           ? (item.grab ?? item.idle)
-          : (roamingIds.has(item.id) ? (item.move ?? item.idle) : item.idle)"
+          : (walkingIds.has(item.id) ? (item.move ?? item.idle) : item.idle)"
         :width="item.width * scale"
         :height="item.height * scale"
       />

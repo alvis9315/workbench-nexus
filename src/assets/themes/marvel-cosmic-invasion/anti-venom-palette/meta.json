@@ -7,5 +7,13 @@
   "source_variant": "Venom/08 [White - Antivenom]",
   "source": "https://www.spriters-resource.com/pc_computer/marvelcosmicinvasion/asset/500417/",
   "license": "Marvel third-party IP; private local non-commercial use only; no public deployment",
-  "used_in": ["workbench-nexus:marvel-cosmic-invasion"]
+  "used_in": [
+    "workbench-nexus:marvel-cosmic-invasion"
+  ],
+  "pose_offset_y": {
+    "action": -32,
+    "grab": -21,
+    "hover": -45,
+    "idle": -8
+  }
 }

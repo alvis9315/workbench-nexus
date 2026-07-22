@@ -258,6 +258,7 @@
       ],
       "slots": {
         "idle": "walk_down",
+        "move": "walk_down",
         "hover": "run_down",
         "grab": "hurt_down",
         "action": "slash_down"
@@ -443,6 +444,7 @@
       ],
       "slots": {
         "idle": "idle_down",
+        "move": "walk_down",
         "hover": "run_down",
         "grab": "hurt_down",
         "action": "slash_down"
@@ -628,6 +630,7 @@
       ],
       "slots": {
         "idle": "idle_down",
+        "move": "walk_down",
         "hover": "run_down",
         "grab": "hurt_down",
         "action": "slash_down"
@@ -862,6 +865,7 @@
       ],
       "slots": {
         "idle": "walk_down",
+        "move": "walk_down",
         "hover": "run_down",
         "grab": "hurt_down",
         "action": "slash_down"
@@ -1064,6 +1068,7 @@
       ],
       "slots": {
         "idle": "idle_down",
+        "move": "walk_down",
         "hover": "run_down",
         "grab": "hurt_down",
         "action": "slash_down"
@@ -1249,6 +1254,7 @@
       ],
       "slots": {
         "idle": "idle_down",
+        "move": "walk_down",
         "hover": "run_down",
         "grab": "hurt_down",
         "action": "slash_down"

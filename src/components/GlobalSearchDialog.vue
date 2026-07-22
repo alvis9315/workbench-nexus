@@ -120,6 +120,11 @@ watch(open, (v) => {
 onUnmounted(() => clearInterval(timer))
 const charAsset = computed(() => activeTheme.value.poseAsset(char.value, pose.value))
 const charDrawSize = computed(() => Math.round(144 * activeTheme.value.poseScale(char.value, pose.value)))
+const charOffsetStyle = computed(() => {
+  if (!charAsset.value) return undefined
+  const offset = activeTheme.value.poseOffsetY(char.value, pose.value)
+  return { marginTop: `${Math.round(offset / charAsset.value.cell * charDrawSize.value)}px` }
+})
 // oversize 錨定比照 SkillAvatar:貼底主題(寶可夢大隻)腳踩框底、往上溢出,不會掉出彈窗外
 const charAnchorCls = computed(() =>
   activeTheme.value.oversizeAnchor === 'bottom'
@@ -209,6 +214,7 @@ const charAnchorCls = computed(() =>
               :width="charDrawSize"
               class="pointer-events-none"
               :class="charAnchorCls"
+              :style="charOffsetStyle"
             />
           </div>
           <p class="font-pixel text-[10px] text-muted-foreground">{{ activeTheme.charLabel(char) }}</p>

@@ -7,5 +7,13 @@
   "source_variant": "Spider-Man/06 [Black - Black Suit]",
   "source": "https://www.spriters-resource.com/pc_computer/marvelcosmicinvasion/asset/500411/",
   "license": "Marvel third-party IP; private local non-commercial use only; no public deployment",
-  "used_in": ["workbench-nexus:marvel-cosmic-invasion"]
+  "used_in": [
+    "workbench-nexus:marvel-cosmic-invasion"
+  ],
+  "pose_offset_y": {
+    "action": -31,
+    "grab": -3,
+    "hover": -28,
+    "idle": -12
+  }
 }

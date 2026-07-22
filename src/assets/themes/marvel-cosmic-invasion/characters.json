@@ -30,6 +30,12 @@
         "action": 128,
         "hover": 128
       },
+      "pose_offset_y": {
+        "action": -31,
+        "grab": -3,
+        "hover": -28,
+        "idle": -12
+      },
       "pose_frames": {
         "action": 4,
         "grab": 5,
@@ -50,6 +56,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "hover",
         "hover": "hover",
         "grab": "grab",
         "action": "action"
@@ -68,6 +75,12 @@
         "action": 128,
         "hover": 128
       },
+      "pose_offset_y": {
+        "action": -31,
+        "grab": -3,
+        "hover": -28,
+        "idle": -12
+      },
       "pose_frames": {
         "action": 4,
         "grab": 5,
@@ -88,6 +101,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "hover",
         "hover": "hover",
         "grab": "grab",
         "action": "action"
@@ -105,6 +119,12 @@
       "pose_cells": {
         "action": 128,
         "hover": 128
+      },
+      "pose_offset_y": {
+        "action": -31,
+        "grab": -13,
+        "hover": -28,
+        "idle": -12
       },
       "pose_frames": {
         "action": 4,
@@ -126,6 +146,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "hover",
         "hover": "hover",
         "grab": "grab",
         "action": "action"
@@ -145,6 +166,12 @@
         "grab": 128,
         "hover": 160
       },
+      "pose_offset_y": {
+        "action": -32,
+        "grab": -21,
+        "hover": -45,
+        "idle": -8
+      },
       "pose_frames": {
         "action": 6,
         "grab": 4,
@@ -165,6 +192,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "hover",
         "hover": "hover",
         "grab": "grab",
         "action": "action"
@@ -184,6 +212,12 @@
         "grab": 128,
         "hover": 160
       },
+      "pose_offset_y": {
+        "action": -32,
+        "grab": -21,
+        "hover": -45,
+        "idle": -8
+      },
       "pose_frames": {
         "action": 6,
         "grab": 4,
@@ -204,6 +238,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "hover",
         "hover": "hover",
         "grab": "grab",
         "action": "action"
@@ -223,6 +258,12 @@
         "grab": 128,
         "hover": 160
       },
+      "pose_offset_y": {
+        "action": -32,
+        "grab": -21,
+        "hover": -45,
+        "idle": -8
+      },
       "pose_frames": {
         "action": 6,
         "grab": 4,
@@ -243,6 +284,7 @@
       ],
       "slots": {
         "idle": "idle",
+        "move": "hover",
         "hover": "hover",
         "grab": "grab",
         "action": "action"

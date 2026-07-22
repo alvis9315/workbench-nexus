@@ -53,6 +53,7 @@ export const createManifestTheme = (
     },
     spriteUrl: (char, pose) => spriteUrls[char]?.[pose] ?? spriteUrls[char]?.[defaultPoseOf(char)],
     poseScale: (char, pose) => (byId.get(char)?.pose_cells[pose] ?? manifest.base_cell) / manifest.base_cell,
+    poseOffsetY: (char, pose) => byId.get(char)?.pose_offset_y?.[pose] ?? 0,
     oversizeAnchor: opts.oversizeAnchor,
     slotPose: (char, slot: SpriteSlot) => byId.get(char)?.slots[slot] ?? defaultPoseOf(char),
     charFrame: (char) => {

@@ -25,5 +25,11 @@
   "used_in": [
     "workbench-nexus:theme/marvel-vs-capcom-2"
   ],
-  "restoration_status": "prototype semantic sample; not a complete move restoration"
+  "restoration_status": "prototype semantic sample; not a complete move restoration",
+  "pose_offset_y": {
+    "action": -61,
+    "grab": -68,
+    "hover": -16,
+    "idle": -11
+  }
 }

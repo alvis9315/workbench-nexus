@@ -1,6 +1,6 @@
 /** 語意槽位(theme-mainline-v2 §3.1):跨主題一致的角色動畫用途。
- *  idle=靜置、hover=滑過/興奮、grab=被抓起(夾娃娃機)、action=施展動作 */
-export type SpriteSlot = 'idle' | 'hover' | 'grab' | 'action'
+ *  idle=靜置、move=走路、hover=滑過/興奮、grab=被抓起、action=施展動作 */
+export type SpriteSlot = 'idle' | 'move' | 'hover' | 'grab' | 'action'
 
 /** 主題 manifest(characters.json,由 scripts/gen-theme-manifest.mjs 產生——
  *  改角色資料改 meta.json 後重跑腳本,不手改 manifest) */
@@ -43,6 +43,8 @@ export interface ManifestCharacter {
   idle_unsafe: boolean
   /** 姿勢格尺寸覆寫(px),只記與 base_cell 不同者 → poseScale 依此計算 */
   pose_cells: Record<string, number>
+  /** 卡片／小幫手用的每姿勢垂直視覺校正，單位為素材原生 px。 */
+  pose_offset_y?: Record<string, number>
   /** strip 主題才有:各姿勢幀數(產生腳本從 PNG 檔頭解析) */
   pose_frames?: Record<string, number>
   /** strip 主題才有:各姿勢每格毫秒 */
@@ -84,6 +86,8 @@ export interface SpriteTheme {
   spriteUrl(char: string, pose: string): string | undefined
   /** 相對標準顯示框的倍率(>1 = 素材畫布較大,會做破格溢出效果) */
   poseScale(char: string, pose: string): number
+  /** 將透明留白不對稱的姿勢校正回視覺中心，回傳素材原生 px。 */
+  poseOffsetY(char: string, pose: string): number
   /** oversize(poseScale>1)素材的錨定方式,取決於素材畫布為什麼變大:
    *  'bottom'=體型差(角色本體就是大隻,內容貼底,底部對齊才與小隻齊平,如寶可夢 64px 大隻)
    *  'center'=動作格(角色仍在畫布中央,武器/特效四向溢出,置中才不會人物上飄,如公會武器大格) */

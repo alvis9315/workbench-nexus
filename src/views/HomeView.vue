@@ -49,7 +49,7 @@ const toyboxSprites = computed<FallingSpriteItem[]>(() =>
     const ratio = 72 / Math.max(frame.w, frame.h)
     const idlePose = activeTheme.value.slotPose(char, 'idle')
     const idle = activeTheme.value.poseAsset(char, idlePose)
-    const move = activeTheme.value.poseAsset(char, activeTheme.value.slotPose(char, 'hover'))
+    const move = activeTheme.value.poseAsset(char, activeTheme.value.slotPose(char, 'move'))
     const grab = activeTheme.value.poseAsset(char, activeTheme.value.slotPose(char, 'grab'))
     if (!idle) return []
     // 大體型寶可夢的 GIF cell 是 64px、一般角色是 32px。先前只看 charFrame 會把兩者
@@ -364,19 +364,16 @@ const goNext = () => {
   overflow: hidden;
   border-top: 2px solid hsl(var(--primary) / 0.22);
   background:
-    linear-gradient(180deg, rgb(37 59 75 / 0.7), rgb(22 35 55 / 0.96)),
-    linear-gradient(90deg, #14283b, #24394c 50%, #14283b);
-  clip-path: polygon(0 18%, 100% 0, 100% 100%, 0 100%);
+    linear-gradient(180deg, rgb(77 82 91 / 0.82), rgb(38 42 49 / 0.98)),
+    #343943;
   box-shadow: inset 0 18px 28px rgb(0 0 0 / 0.2);
 }
 .toybox-floor-grid {
-  opacity: 0.68;
+  opacity: 0.5;
   background-image:
-    linear-gradient(hsl(var(--primary) / 0.16) 1px, transparent 1px),
-    linear-gradient(90deg, hsl(var(--primary) / 0.13) 1px, transparent 1px);
-  background-size: 100% 34px, 72px 100%;
-  transform: perspective(260px) rotateX(56deg) scale(1.35, 2.1);
-  transform-origin: center bottom;
+    linear-gradient(rgb(203 213 225 / 0.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(203 213 225 / 0.13) 1px, transparent 1px);
+  background-size: 72px 34px;
 }
 .toybox-floor-lip {
   border-top: 3px solid #64748b;
