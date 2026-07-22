@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import {
   Bodies,
   Body,
@@ -12,6 +12,8 @@ import {
 } from 'matter-js'
 import PixelSprite from '@/components/PixelSprite.vue'
 import type { PoseAsset } from '@/themes/types'
+import hookCursor from '@/assets/cursors/crane-hook.svg?url'
+import hookGrabCursor from '@/assets/cursors/crane-hook-grab.svg?url'
 
 export interface FallingSpriteItem {
   id: string
@@ -48,6 +50,11 @@ const started = ref(false)
 const ready = ref(false)
 const grabbedId = ref<string | null>(null)
 const spriteElements = new Map<string, HTMLElement>()
+const cursorStyle = computed(() => ({
+  cursor: grabbedId.value
+    ? `url("${hookGrabCursor}") 8 27, grabbing`
+    : `url("${hookCursor}") 6 27, grab`,
+}))
 
 let engine: Engine | null = null
 let mouse: Mouse | null = null
@@ -253,6 +260,7 @@ watch(
     class="falling-sprites relative size-full min-h-64 overflow-hidden select-none"
     role="application"
     aria-label="可拖曳的像素角色夾娃娃機"
+    :style="cursorStyle"
     @click="onClick"
     @pointerenter="onHover"
   >

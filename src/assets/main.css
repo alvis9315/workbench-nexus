@@ -96,6 +96,23 @@ body {
   min-height: 100vh;
   background: var(--page-bg);
   position: relative;
+  cursor: url('./cursors/arcade-arrow.svg') 3 3, default;
+}
+
+/* 街機風游標：一般操作沿用金黃選取色；可點擊物改成像素手套。
+   文字輸入保留 I-beam，避免造型優先於可用性。 */
+a,
+button,
+[role='button'],
+select,
+summary,
+label[for] {
+  cursor: url('./cursors/arcade-pointer.svg') 13 4, pointer;
+}
+input,
+textarea,
+[contenteditable='true'] {
+  cursor: text;
 }
 /* 星點底紋(靜態,零動畫):選角室的太空感 */
 body::before {

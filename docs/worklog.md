@@ -1,6 +1,7 @@
 # Worklog
 
 ## 2026-07-22
+- **游標主題化**:全站加入金黃像素箭頭／可點擊手套；FallingSprites 區改用吊鉤，抓住角色時切成藍色收緊鉤，文字輸入仍保留 I-beam
 - **C4 完成**:`FallingSprites.vue` + Matter.js 接入主頁 `SPRITE DROP`;activeTheme 取 6–12 角,支援碰撞／拖曳擺盪／grab 換姿勢／resize／越界與卸載清理;Chrome headless 實測拖放語意切換及三主題載入
 - **新來源收件**:Vesper 149 檔分成 concept-art／pixel-concepts／pixel-rotations／motion-studies／raw;定案主題 `NEON PROTOCOL`、首角 `Vesper`、機能軍事／霓虹特勤、Low Top-Down。因缺四語意連續幀,只歸檔不建立假主題
 - **Marvel 私用主題**:`Marvel: Cosmic Invasion` 六外觀 × 四語意 strip 上線;其餘原始素材分 MVC2／Avengers Alliance／跨平台 Spider-Verse 候選族;全部 `shareable:false`
