@@ -44,6 +44,7 @@ export const createManifestTheme = (
       return hashPick(seed, chars)
     },
     posesOf: (char) => byId.get(char)?.poses ?? Object.keys(spriteUrls[char] ?? {}).sort(),
+    poseLabel: (char, pose) => byId.get(char)?.pose_labels?.[pose] ?? pose,
     defaultPoseOf,
     clothedPosesOf: (char) => {
       const c = byId.get(char)

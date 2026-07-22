@@ -51,6 +51,8 @@ export interface ManifestCharacter {
   pose_ms?: Record<string, number>
   /** 混合素材主題可逐姿勢覆寫 asset_kind，例如 MVC2 的舊 PNG strip + 新 GIF。 */
   pose_kinds?: Record<string, 'strip' | 'gif'>
+  /** 顯示用名稱；檔名／pose key 保持穩定技術識別，不直接暴露給使用者。 */
+  pose_labels?: Record<string, string>
   poses: string[]
   /** 語意槽位 → 姿勢名(素材檔存在保證由產生腳本負責) */
   slots: Record<SpriteSlot, string>
@@ -80,6 +82,8 @@ export interface SpriteTheme {
   charForSeed(seed: string): string
   /** 角色的全部姿勢 */
   posesOf(char: string): string[]
+  /** 姿勢的人類可讀名稱；沒有覆寫時回傳 pose key。 */
+  poseLabel(char: string, pose: string): string
   /** 角色的預設姿勢(必須是「安全」姿勢,如全裝不裸素體) */
   defaultPoseOf(char: string): string
   /** 適合隨機輪播的姿勢(小幫手動畫用) */

@@ -145,8 +145,8 @@ const THEME_CONFIG = {
     fallback_group: 'rivals',
     slots: {
       idle: ['idle'],
-      // 完整 walk 尚待 restoration review；先用 neutral strip，避免拿攻擊姿勢滑行。
-      move: ['idle'],
+      // Spider-Man 的 source-walk-forward 已由 0_2/0_3 反向序列比對與畫面檢查確認。
+      move: ['source-walk-forward', 'idle'],
       hover: ['hover', 'idle'],
       grab: ['grab', 'idle'],
       action: ['action', 'idle'],
@@ -158,6 +158,7 @@ const THEME_CONFIG = {
       idle_unsafe: false,
       pose_cells: {},
       pose_offset_y: meta.pose_offset_y ?? {},
+      pose_labels: {},
       order: meta.order ?? null,
     }),
   },
@@ -184,6 +185,10 @@ const genTheme = (themeId) => {
     const metaPath = join(charDir, 'meta.json')
     if (!existsSync(metaPath)) continue
     const meta = JSON.parse(readFileSync(metaPath, 'utf8'))
+    const poseLabelsPath = join(charDir, 'pose-labels.json')
+    const generatedPoseLabels = existsSync(poseLabelsPath)
+      ? JSON.parse(readFileSync(poseLabelsPath, 'utf8'))
+      : {}
     const files = readdirSync(charDir).filter((f) => /\.(?:png|gif)$/.test(f))
     const fileByPose = new Map()
     for (const file of files) {
@@ -195,6 +200,7 @@ const genTheme = (themeId) => {
       .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
     if (!poses.length) continue
     const c = cfg.charFromMeta(meta, poses)
+    c.pose_labels = { ...(c.pose_labels ?? {}), ...generatedPoseLabels }
     const poseFrames = {}
     const poseMsMap = {}
     const poseKinds = {}
@@ -229,6 +235,7 @@ const genTheme = (themeId) => {
       ...(Object.values(poseKinds).some((kind) => kind !== cfg.asset_kind)
         ? { pose_kinds: poseKinds }
         : {}),
+      ...(Object.keys(c.pose_labels).length ? { pose_labels: c.pose_labels } : {}),
       poses,
       slots: resolveSlots(cfg.slots, poses, c.default_pose, c.idle_unsafe),
     })

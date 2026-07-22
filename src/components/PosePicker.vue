@@ -25,7 +25,8 @@ const query = ref('')
 const char = useSpriteChar(props.seed)
 const pose = useSpritePose(props.seed)
 
-const pretty = (p: string) => p.replace(/_/g, ' ')
+const pretty = (p: string) => p.replace(/[_-]/g, ' ')
+const poseLabel = (p: string) => activeTheme.value.poseLabel(char.value, p)
 
 // "combat_idle_down" → 組=combat idle、項=down;無方向字尾的整名自成一組
 const groups = computed(() => {
@@ -53,8 +54,8 @@ const pick = (p: string) => {
       <button
         type="button"
         class="cursor-pointer rounded border border-border bg-background/80 px-1 py-0.5 text-muted-foreground hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary data-[state=open]:border-primary data-[state=open]:text-primary"
-        :aria-label="`切換 ${name ?? seed} 的姿勢(現在:${pretty(pose)})`"
-        :title="`切換姿勢(現在:${pretty(pose)})`"
+        :aria-label="`切換 ${name ?? seed} 的姿勢(現在:${poseLabel(pose)})`"
+        :title="`切換姿勢(現在:${poseLabel(pose)})`"
         @click.stop
       >
         <PersonStanding class="size-2.5" />
@@ -82,11 +83,11 @@ const pick = (p: string) => {
               <CommandItem
                 v-for="it in items"
                 :key="it.pose"
-                :value="pretty(it.pose)"
+                :value="`${poseLabel(it.pose)} ${pretty(it.pose)}`"
                 @select="pick(it.pose)"
               >
                 <!-- 搜尋比對的是 textContent:sr-only 塞完整姿勢名,搜 walk 才對得到「walk down」 -->
-                <span>{{ it.dir || pretty(it.pose) }}</span>
+                <span>{{ it.dir || poseLabel(it.pose) }}</span>
                 <span v-if="it.dir" class="sr-only">{{ pretty(it.pose) }}</span>
                 <span v-if="it.pose === pose" class="ml-auto font-pixel text-[9px] text-primary">✓ 使用中</span>
               </CommandItem>

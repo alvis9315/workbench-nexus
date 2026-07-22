@@ -977,30 +977,29 @@
       "pose_kinds": {
         "action": "strip",
         "grab": "strip",
-        "group-00-anim-000": "gif",
-        "group-00-anim-001": "gif",
-        "group-00-anim-002": "gif",
-        "group-00-anim-003": "gif",
-        "group-00-anim-004": "gif",
-        "group-00-anim-005": "gif",
         "hover": "strip",
-        "idle": "strip"
+        "idle": "strip",
+        "source-neutral-cycle": "gif",
+        "source-walk-backward": "gif",
+        "source-walk-forward": "gif"
+      },
+      "pose_labels": {
+        "source-neutral-cycle": "Neutral cycle (verification pending)",
+        "source-walk-backward": "Walk backward",
+        "source-walk-forward": "Walk forward"
       },
       "poses": [
         "action",
         "grab",
-        "group-00-anim-000",
-        "group-00-anim-001",
-        "group-00-anim-002",
-        "group-00-anim-003",
-        "group-00-anim-004",
-        "group-00-anim-005",
         "hover",
-        "idle"
+        "idle",
+        "source-neutral-cycle",
+        "source-walk-backward",
+        "source-walk-forward"
       ],
       "slots": {
         "idle": "idle",
-        "move": "idle",
+        "move": "source-walk-forward",
         "hover": "hover",
         "grab": "grab",
         "action": "action"
