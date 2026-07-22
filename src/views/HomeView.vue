@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, useTemplateRef } from 'vue'
 import { useLocalStorage } from '@vueuse/core'
-import { Search, History, Grid3x3, Grid2x2, Columns2, PackageOpen, Minus, Plus, RotateCcw } from 'lucide-vue-next'
+import { Search, History, Grid3x3, Grid2x2, Columns2, PackageOpen, Minus, Plus, RotateCcw, MousePointer2, Gamepad2 } from 'lucide-vue-next'
 import { toast } from 'vue-sonner'
 import { Button } from '@/components/ui/button'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
@@ -31,6 +31,8 @@ const { pinned, isPinned, togglePin } = usePins(skills)
 const logOpen = ref(false)
 const toyboxOpen = useLocalStorage('wn-toybox-open', false)
 const toyboxScale = useLocalStorage<number>('wn-toybox-scale', 1)
+const clawControlMode = useLocalStorage<'free' | 'arcade'>('wn-claw-control-mode', 'free')
+const clawCommand = ref<{ sequence: number; action: 'left' | 'right' | 'up' | 'down' | 'confirm' }>({ sequence: 0, action: 'confirm' })
 const toyboxLimit = computed(() => toyboxLimitForScale(toyboxScale.value))
 const activeCategory = ref<SkillCategory | 'all'>('all')
 const toyboxDragActive = ref(false)
@@ -39,6 +41,9 @@ const { chars: toyboxChars, add: addToyboxChar, remove: removeToyboxChar, clear:
 
 const adjustToyboxScale = (delta: number) => {
   toyboxScale.value = Math.min(1.6, Math.max(0.6, Math.round((toyboxScale.value + delta) * 10) / 10))
+}
+const sendClawCommand = (action: typeof clawCommand.value.action) => {
+  clawCommand.value = { sequence: clawCommand.value.sequence + 1, action }
 }
 
 // 物理層吃統一的四語意槽；不直接知道 guild／pokemon／Marvel 的檔案或姿勢名。
@@ -51,6 +56,7 @@ const toyboxSprites = computed<FallingSpriteItem[]>(() =>
     const idle = activeTheme.value.poseAsset(char, idlePose)
     const move = activeTheme.value.poseAsset(char, activeTheme.value.slotPose(char, 'move'))
     const grab = activeTheme.value.poseAsset(char, activeTheme.value.slotPose(char, 'grab'))
+    const action = activeTheme.value.poseAsset(char, activeTheme.value.slotPose(char, 'action'))
     if (!idle) return []
     // 大體型寶可夢的 GIF cell 是 64px、一般角色是 32px。先前只看 charFrame 會把兩者
     // 都正規化成 72px，失去原生體型；把 poseScale 帶回來並設 2x 安全上限。
@@ -61,12 +67,14 @@ const toyboxSprites = computed<FallingSpriteItem[]>(() =>
       idle,
       move,
       grab,
+      action,
       width: Math.max(frame.w * ratio * nativeScale, 24),
       height: Math.max(frame.h * ratio * nativeScale, 24),
     }]
   }),
 )
-const toyboxKey = computed(() => `${activeTheme.value.id}:${toyboxChars.value.join('|')}`)
+// 只有換主題才重建物理世界；增刪單一角色由 FallingSprites 增量同步。
+const toyboxKey = computed(() => activeTheme.value.id)
 
 const addToToybox = (char: string) => {
   const result = addToyboxChar(char, toyboxLimit.value)
@@ -239,6 +247,8 @@ const goNext = () => {
           :gravity="0.9"
           :restitution="0.72"
           :grab-stiffness="0.16"
+          :control-mode="clawControlMode"
+          :command="clawCommand"
           wander
           @prize="onPrizeOut"
         />
@@ -255,9 +265,33 @@ const goNext = () => {
         </div>
       </div>
       <div class="toybox-control-deck flex flex-wrap items-center justify-between gap-2 border-t border-border px-4 py-2">
-        <span class="font-pixel text-[8px] text-muted-foreground">CAPACITY {{ toyboxChars.length }}/{{ toyboxLimit }}</span>
+        <div class="flex flex-wrap items-center gap-1.5">
+          <span class="mr-2 font-pixel text-[8px] text-muted-foreground">CAPACITY {{ toyboxChars.length }}/{{ toyboxLimit }}</span>
+          <Button
+            size="sm"
+            :variant="clawControlMode === 'free' ? 'secondary' : 'ghost'"
+            class="h-7 gap-1.5 px-2 text-[10px]"
+            @click="clawControlMode = 'free'"
+          >
+            <MousePointer2 class="size-3" />自由甩爪
+          </Button>
+          <Button
+            size="sm"
+            :variant="clawControlMode === 'arcade' ? 'secondary' : 'ghost'"
+            class="h-7 gap-1.5 px-2 text-[10px]"
+            @click="clawControlMode = 'arcade'"
+          >
+            <Gamepad2 class="size-3" />實機按鍵
+          </Button>
+          <div v-if="clawControlMode === 'arcade'" class="ml-1 flex items-center gap-1" aria-label="夾爪方向控制">
+            <Button v-for="key in (['left', 'up', 'down', 'right'] as const)" :key="key" size="icon" variant="outline" class="size-7" @click="sendClawCommand(key)">
+              {{ { left: '←', right: '→', up: '↑', down: '↓' }[key] }}
+            </Button>
+            <Button size="sm" class="h-7 px-3 font-pixel text-[8px]" @click="sendClawCommand('confirm')">DROP / GRAB</Button>
+          </div>
+        </div>
         <span class="text-[10px]" :class="toyboxChars.length > toyboxLimit ? 'text-warning' : 'text-muted-foreground'">
-          {{ Math.round(toyboxScale * 100) }}% 可新增至 {{ toyboxLimit }} 隻；既有角色不會因放大被自動刪除。
+          {{ clawControlMode === 'arcade' ? '方向鍵移動；第一次下降、第二次抓取，抓起後再按一次放開。' : `${Math.round(toyboxScale * 100)}% 可新增至 ${toyboxLimit} 隻；既有角色不會因放大被自動刪除。` }}
         </span>
       </div>
     </section>
@@ -362,18 +396,23 @@ const goNext = () => {
 }
 .toybox-floor {
   overflow: hidden;
-  border-top: 2px solid hsl(var(--primary) / 0.22);
+  border-top: 2px solid rgb(148 163 184 / 0.55);
   background:
-    linear-gradient(180deg, rgb(77 82 91 / 0.82), rgb(38 42 49 / 0.98)),
-    #343943;
-  box-shadow: inset 0 18px 28px rgb(0 0 0 / 0.2);
+    linear-gradient(180deg, rgb(79 84 94 / 0.72), rgb(37 41 48 / 0.98)),
+    #3f444d;
+  box-shadow: inset 0 20px 32px rgb(0 0 0 / 0.24);
+  perspective: 260px;
 }
 .toybox-floor-grid {
-  opacity: 0.5;
+  inset: -58% -18% -12%;
+  opacity: 0.58;
   background-image:
-    linear-gradient(rgb(203 213 225 / 0.18) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(203 213 225 / 0.13) 1px, transparent 1px);
-  background-size: 72px 34px;
+    linear-gradient(rgb(226 232 240 / 0.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(226 232 240 / 0.16) 1px, transparent 1px);
+  background-size: 92px 46px;
+  transform: rotateX(57deg);
+  transform-origin: center bottom;
+  clip-path: polygon(8% 0, 92% 0, 100% 100%, 0 100%);
 }
 .toybox-floor-lip {
   border-top: 3px solid #64748b;
@@ -381,25 +420,36 @@ const goNext = () => {
   box-shadow: 0 -4px 10px rgb(0 0 0 / 0.45);
 }
 .toybox-prize-chute {
-  width: 142px;
-  height: 70px;
+  width: 154px;
+  height: 76px;
   filter: drop-shadow(0 8px 5px rgb(0 0 0 / 0.45));
   font-family: var(--font-pixel, monospace);
   font-size: 7px;
 }
 .toybox-prize-mouth {
   position: absolute;
-  inset: 0 0 13px;
+  inset: 0 0 11px;
   display: grid;
   place-items: center;
-  border: 5px solid #526277;
-  border-bottom-color: #273449;
-  border-radius: 7px 7px 2px 2px;
   color: #8594aa;
-  background: radial-gradient(ellipse at 50% 25%, #14223a, #020617 72%);
+  background: linear-gradient(145deg, #94a3b8, #475569 45%, #1e293b);
+  clip-path: polygon(18% 0, 82% 0, 100% 100%, 0 100%);
   box-shadow:
-    inset 0 10px 16px rgb(0 0 0 / 0.86),
-    inset 0 -4px 0 #0f172a;
+    inset 0 8px 12px rgb(255 255 255 / 0.1),
+    inset 0 -6px 0 #0f172a;
+}
+.toybox-prize-mouth::before {
+  position: absolute;
+  inset: 6px 9px 8px;
+  content: '';
+  background: radial-gradient(ellipse at 50% 22%, #17233a, #020617 70%);
+  clip-path: polygon(16% 0, 84% 0, 100% 100%, 0 100%);
+  box-shadow: inset 0 12px 18px rgb(0 0 0 / 0.9);
+}
+.toybox-prize-mouth span {
+  position: relative;
+  z-index: 1;
+  transform: translateY(8px);
 }
 .toybox-prize-depth {
   position: absolute;
@@ -410,7 +460,7 @@ const goNext = () => {
   border: 3px solid #334155;
   border-top: 0;
   background: linear-gradient(180deg, #1e293b, #020617);
-  clip-path: polygon(4% 0, 96% 0, 100% 100%, 0 100%);
+  clip-path: polygon(8% 0, 92% 0, 100% 100%, 0 100%);
 }
 .toybox-control-deck {
   background: linear-gradient(180deg, #334155, #0f172a 32%, hsl(var(--card)) 34%);

@@ -19,6 +19,7 @@ export interface FallingSpriteItem {
   idle: PoseAsset
   move?: PoseAsset
   grab?: PoseAsset
+  action?: PoseAsset
   /** 未套用 scale 前的顯示尺寸；不等於素材原生 cell。 */
   width: number
   height: number
@@ -35,6 +36,8 @@ const props = withDefaults(
     /** 落到下半部後在 2D 地面上以不同深度自由漫遊。 */
     wander?: boolean
     trigger?: 'auto' | 'click' | 'hover'
+    controlMode?: 'free' | 'arcade'
+    command?: { sequence: number; action: 'left' | 'right' | 'up' | 'down' | 'confirm' }
   }>(),
   {
     scale: 1,
@@ -44,6 +47,7 @@ const props = withDefaults(
     uprightWhenFree: false,
     wander: false,
     trigger: 'auto',
+    controlMode: 'free',
   },
 )
 const emit = defineEmits<{ prize: [id: string] }>()
@@ -53,17 +57,24 @@ const started = ref(false)
 const ready = ref(false)
 const grabbedId = ref<string | null>(null)
 const walkingIds = ref<Set<string>>(new Set())
+const battlingIds = ref<Set<string>>(new Set())
 const pointerInside = ref(false)
 const clawPoint = ref({ x: 0, y: 0 })
+const clawAnchorX = ref(0)
+const clawAngle = ref(0)
+const clawClosed = ref(false)
+const arcadeStatus = ref<'aim' | 'descending' | 'lifting' | 'holding'>('aim')
 const spriteElements = new Map<string, HTMLElement>()
-const clawVisible = computed(() => pointerInside.value || grabbedId.value !== null)
+const clawVisible = computed(() => started.value && (props.controlMode === 'arcade' || pointerInside.value || Math.abs(clawAngle.value) > 0.012 || grabbedId.value !== null))
 const cableStyle = computed(() => ({
-  left: `${clawPoint.value.x}px`,
-  height: `${Math.max(clawPoint.value.y - 46, 0)}px`,
+  left: `${clawAnchorX.value}px`,
+  height: `${Math.max(Math.hypot(clawPoint.value.x - clawAnchorX.value, clawPoint.value.y - 58), 0)}px`,
+  transform: `translateX(-50%) rotate(${Math.atan2(clawPoint.value.x - clawAnchorX.value, Math.max(clawPoint.value.y - 58, 1))}rad)`,
 }))
 const clawStyle = computed(() => ({
   left: `${clawPoint.value.x}px`,
   top: `${clawPoint.value.y}px`,
+  rotate: `${clawAngle.value}rad`,
 }))
 
 let engine: Engine | null = null
@@ -74,6 +85,14 @@ let animationFrame = 0
 let lastTick = 0
 let appliedScale = props.scale
 let walls: Body[] = []
+let clawAnchorTarget = 0
+let clawAnchorVelocity = 0
+let clawRopeLength = 120
+let clawRopeTarget = 120
+let clawAngularVelocity = 0
+let lastAnchorVelocity = 0
+let manualGrabbedId: string | null = null
+let arcadeAutoGrabAt = 0
 interface SpriteRecord {
   item: FallingSpriteItem
   body: Body
@@ -87,6 +106,7 @@ interface SpriteRecord {
   nextTurnAt: number
   prizeEligibleUntil: number
   collected: boolean
+  battlingUntil: number
 }
 let records: SpriteRecord[] = []
 
@@ -109,6 +129,33 @@ const setWalking = (record: SpriteRecord, value: boolean) => {
   walkingIds.value = next
 }
 
+const setBattling = (record: SpriteRecord, until: number) => {
+  record.battlingUntil = until
+  const next = new Set(battlingIds.value)
+  next.add(record.item.id)
+  battlingIds.value = next
+  setWalking(record, false)
+}
+
+const clearBattling = (record: SpriteRecord) => {
+  if (!battlingIds.value.has(record.item.id)) return
+  const next = new Set(battlingIds.value)
+  next.delete(record.item.id)
+  battlingIds.value = next
+}
+
+const playBounds = (item: FallingSpriteItem, width: number, height: number) => {
+  const size = displaySize(item)
+  // 旋轉中的整張圖也不得越過左右銀色滑軌，因此用外接圓而非剛體寬度。
+  const halfW = Math.max(Math.hypot(size.width, size.height) / 2, 18)
+  const halfH = Math.max(size.height / 2, 18)
+  return {
+    minX: 14 + halfW,
+    maxX: Math.max(width - 14 - halfW, 14 + halfW),
+    maxY: height - 24 - halfH,
+  }
+}
+
 const setRoaming = (record: SpriteRecord, value: boolean) => {
   record.roaming = value
   if (!value) setWalking(record, false)
@@ -120,9 +167,9 @@ const chooseWanderTarget = (record: SpriteRecord, width: number, height: number,
   const halfH = Math.max(size.height / 2, 18)
   const floorTop = height * 0.58
   record.target = {
-    x: halfW + Math.random() * Math.max(width - halfW * 2, 1),
+    x: 14 + halfW + Math.random() * Math.max(width - 28 - halfW * 2, 1),
     y: Math.min(
-      height - halfH - 18,
+      height - halfH - 24,
       floorTop + halfH + Math.random() * Math.max(height - floorTop - halfH * 2 - 24, 1),
     ),
   }
@@ -133,10 +180,101 @@ const chooseWanderTarget = (record: SpriteRecord, width: number, height: number,
 
 const isInsidePrizeMouth = (body: Body, height: number) => (
   body.position.x >= 24 &&
-  body.position.x <= 166 &&
+  body.position.x <= 180 &&
   body.position.y >= height - 92 &&
   body.position.y <= height - 10
 )
+
+const updateClawPhysics = (deltaSeconds: number, width: number, height: number) => {
+  if (!clawAnchorX.value) {
+    clawAnchorX.value = width / 2
+    clawAnchorTarget = width / 2
+  }
+  clawAnchorTarget = Math.min(Math.max(clawAnchorTarget, 48), width - 48)
+  clawRopeTarget = Math.min(Math.max(clawRopeTarget, 46), height - 72)
+
+  const anchorAcceleration = (clawAnchorTarget - clawAnchorX.value) * 38 - clawAnchorVelocity * 9
+  clawAnchorVelocity += anchorAcceleration * deltaSeconds
+  clawAnchorX.value += clawAnchorVelocity * deltaSeconds
+  clawRopeLength += (clawRopeTarget - clawRopeLength) * Math.min(deltaSeconds * 7, 1)
+
+  // 支點加速會把爪子甩向反方向；放開滑鼠後仍靠慣性自然衰減。
+  const supportAcceleration = (clawAnchorVelocity - lastAnchorVelocity) / Math.max(deltaSeconds, 0.001)
+  const angularAcceleration = -14 * Math.sin(clawAngle.value) - supportAcceleration / Math.max(clawRopeLength, 60) - clawAngularVelocity * 0.48
+  clawAngularVelocity += angularAcceleration * deltaSeconds
+  clawAngle.value += clawAngularVelocity * deltaSeconds
+  clawAngle.value = Math.min(Math.max(clawAngle.value, -0.72), 0.72)
+  lastAnchorVelocity = clawAnchorVelocity
+
+  clawPoint.value = {
+    x: clawAnchorX.value + Math.sin(clawAngle.value) * clawRopeLength,
+    y: 8 + Math.cos(clawAngle.value) * clawRopeLength + 58,
+  }
+}
+
+const nearestRecordToClaw = () => {
+  let nearest: SpriteRecord | null = null
+  let nearestDistance = 92
+  for (const record of records) {
+    if (record.collected) continue
+    const distance = Math.hypot(record.body.position.x - clawPoint.value.x, record.body.position.y - clawPoint.value.y)
+    if (distance < nearestDistance) {
+      nearest = record
+      nearestDistance = distance
+    }
+  }
+  return nearest
+}
+
+const closeArcadeClaw = () => {
+  if (arcadeStatus.value !== 'descending') return
+  clawClosed.value = true
+  const record = nearestRecordToClaw()
+  if (record) {
+    manualGrabbedId = record.item.id
+    grabbedId.value = record.item.id
+    setRoaming(record, false)
+    record.prizeEligibleUntil = 0
+    record.body.frictionAir = 0.12
+  }
+  arcadeStatus.value = 'lifting'
+  clawRopeTarget = 72
+}
+
+const releaseManualGrab = () => {
+  const record = records.find((entry) => entry.item.id === manualGrabbedId)
+  if (record) {
+    record.body.frictionAir = 0.02
+    record.prizeEligibleUntil = performance.now() + 1800
+    Body.setVelocity(record.body, { x: clawAnchorVelocity * 0.04, y: 0.6 })
+  }
+  manualGrabbedId = null
+  grabbedId.value = null
+  clawClosed.value = false
+  arcadeStatus.value = 'aim'
+}
+
+const runArcadeCommand = (action: 'left' | 'right' | 'up' | 'down' | 'confirm') => {
+  if (props.controlMode !== 'arcade' || !container.value) return
+  if (action === 'left' || action === 'right') {
+    clawAnchorTarget += action === 'left' ? -54 : 54
+    return
+  }
+  if (action === 'up' || action === 'down') {
+    clawRopeTarget += action === 'up' ? -34 : 34
+    return
+  }
+  if (arcadeStatus.value === 'descending') {
+    closeArcadeClaw()
+  } else if (arcadeStatus.value === 'holding') {
+    releaseManualGrab()
+  } else if (arcadeStatus.value === 'aim') {
+    clawClosed.value = false
+    arcadeStatus.value = 'descending'
+    clawRopeTarget = Math.max(container.value.clientHeight - 94, 80)
+    arcadeAutoGrabAt = performance.now() + 1500
+  }
+}
 
 const rebuildWalls = () => {
   if (!engine || !container.value) return
@@ -144,20 +282,21 @@ const rebuildWalls = () => {
 
   const { clientWidth: width, clientHeight: height } = container.value
   const thickness = 96
+  const railInset = 12
+  const floorInset = 22
   const wallOptions = { isStatic: true, restitution: 0.2, friction: 0.8, label: 'boundary' }
   walls = [
-    Bodies.rectangle(width / 2, height + thickness / 2, width + thickness * 2, thickness, wallOptions),
-    Bodies.rectangle(-thickness / 2, height / 2, thickness, height + thickness * 3, wallOptions),
-    Bodies.rectangle(width + thickness / 2, height / 2, thickness, height + thickness * 3, wallOptions),
+    Bodies.rectangle(width / 2, height - floorInset + thickness / 2, width + thickness * 2, thickness, wallOptions),
+    Bodies.rectangle(railInset - thickness / 2, height / 2, thickness, height + thickness * 3, wallOptions),
+    Bodies.rectangle(width - railInset + thickness / 2, height / 2, thickness, height + thickness * 3, wallOptions),
   ]
   Composite.add(engine.world, walls)
 
-  for (const { body } of records) {
-    const halfWidth = Math.max((body.bounds.max.x - body.bounds.min.x) / 2, 12)
-    const halfHeight = Math.max((body.bounds.max.y - body.bounds.min.y) / 2, 12)
+  for (const { body, item } of records) {
+    const bounds = playBounds(item, width, height)
     Body.setPosition(body, {
-      x: Math.min(Math.max(body.position.x, halfWidth), Math.max(width - halfWidth, halfWidth)),
-      y: Math.min(body.position.y, height - halfHeight),
+      x: Math.min(Math.max(body.position.x, bounds.minX), bounds.maxX),
+      y: Math.min(body.position.y, bounds.maxY),
     })
   }
 }
@@ -165,7 +304,7 @@ const rebuildWalls = () => {
 const resetBody = (body: Body, item: FallingSpriteItem, index: number) => {
   if (!container.value) return
   const size = displaySize(item)
-  const padding = Math.max(size.width / 2, 12)
+  const padding = Math.max(size.width / 2, 12) + 14
   const range = Math.max(container.value.clientWidth - padding * 2, 1)
   Body.setPosition(body, {
     x: padding + Math.random() * range,
@@ -177,6 +316,7 @@ const resetBody = (body: Body, item: FallingSpriteItem, index: number) => {
 }
 
 const onStartDrag = (event: IEvent<MouseConstraint>) => {
+  if (props.controlMode !== 'free') return
   // Matter 在 startdrag/enddrag runtime event 上附 body，但 @types 未列這個欄位。
   const body = (event as IEvent<MouseConstraint> & { body?: Body }).body
   if (!body) return
@@ -198,6 +338,27 @@ const onEndDrag = (event: IEvent<MouseConstraint>) => {
   grabbedId.value = null
 }
 
+const onCollisionStart = (event: IEvent<Engine> & { pairs?: Array<{ bodyA: Body; bodyB: Body }> }) => {
+  const now = performance.now()
+  for (const pair of event.pairs ?? []) {
+    const first = records.find((entry) => entry.body.id === pair.bodyA.id)
+    const second = records.find((entry) => entry.body.id === pair.bodyB.id)
+    if (
+      !first ||
+      !second ||
+      first.collected ||
+      second.collected ||
+      grabbedId.value === first.item.id ||
+      grabbedId.value === second.item.id
+    ) continue
+    setBattling(first, now + 560)
+    setBattling(second, now + 560)
+    const direction = first.body.position.x <= second.body.position.x ? -1 : 1
+    first.facing = direction === -1 ? 1 : -1
+    second.facing = direction === -1 ? -1 : 1
+  }
+}
+
 const sync = (now: number) => {
   if (!engine || !container.value) return
   // Matter.js 建議單步不超過 60fps 的 16.67ms，避免大 delta 穿牆與 console 警告。
@@ -207,9 +368,23 @@ const sync = (now: number) => {
 
   const width = container.value.clientWidth
   const height = container.value.clientHeight
+  updateClawPhysics(delta / 1000, width, height)
+  if (arcadeStatus.value === 'descending' && now >= arcadeAutoGrabAt) closeArcadeClaw()
+  if (arcadeStatus.value === 'lifting' && clawRopeLength <= 82) arcadeStatus.value = 'holding'
   records.forEach((record, index) => {
     const { item, body } = record
     if (record.collected) return
+    const bounds = playBounds(item, width, height)
+    if (body.position.x < bounds.minX || body.position.x > bounds.maxX || body.position.y > bounds.maxY) {
+      Body.setPosition(body, {
+        x: Math.min(Math.max(body.position.x, bounds.minX), bounds.maxX),
+        y: Math.min(body.position.y, bounds.maxY),
+      })
+      Body.setVelocity(body, {
+        x: body.position.x <= bounds.minX || body.position.x >= bounds.maxX ? body.velocity.x * -0.25 : body.velocity.x,
+        y: body.position.y >= bounds.maxY ? Math.min(body.velocity.y, 0) : body.velocity.y,
+      })
+    }
     if (
       body.position.x < -200 ||
       body.position.x > width + 200 ||
@@ -238,7 +413,20 @@ const sync = (now: number) => {
 
     if (record.prizeEligibleUntil && record.prizeEligibleUntil < now) record.prizeEligibleUntil = 0
 
-    const canWander = props.wander && grabbedId.value !== item.id && record.prizeEligibleUntil === 0
+    if (record.battlingUntil && record.battlingUntil <= now) {
+      record.battlingUntil = 0
+      clearBattling(record)
+    }
+
+    if (manualGrabbedId === item.id) {
+      const size = displaySize(item)
+      Body.setPosition(body, { x: clawPoint.value.x, y: Math.min(clawPoint.value.y + size.height * 0.25, bounds.maxY) })
+      Body.setVelocity(body, { x: 0, y: 0 })
+      Body.setAngularVelocity(body, 0)
+      Body.setAngle(body, 0)
+    }
+
+    const canWander = props.wander && grabbedId.value !== item.id && record.prizeEligibleUntil === 0 && record.battlingUntil === 0
     if (canWander && !record.roaming && body.position.y >= height * 0.58) {
       setRoaming(record, true)
       chooseWanderTarget(record, width, height, now)
@@ -304,6 +492,7 @@ const stop = () => {
     Events.off(mouseConstraint, 'startdrag', onStartDrag)
     Events.off(mouseConstraint, 'enddrag', onEndDrag)
   }
+  if (engine) Events.off(engine, 'collisionStart', onCollisionStart)
   if (mouse) Mouse.clearSourceEvents(mouse)
   if (engine) {
     Composite.clear(engine.world, false, true)
@@ -317,9 +506,61 @@ const stop = () => {
   walls = []
   grabbedId.value = null
   walkingIds.value = new Set()
+  battlingIds.value = new Set()
   ready.value = false
   lastTick = 0
   appliedScale = props.scale
+  started.value = false
+  manualGrabbedId = null
+  clawClosed.value = false
+  arcadeStatus.value = 'aim'
+}
+
+const createRecord = (item: FallingSpriteItem, index: number): SpriteRecord => {
+  const size = displaySize(item)
+  const body = Bodies.rectangle(0, 0, size.width * 0.9, size.height * 0.9, {
+    restitution: props.restitution,
+    friction: 0.35,
+    frictionAir: 0.02,
+    density: 0.002,
+    label: item.id,
+  })
+  resetBody(body, item, index)
+  return {
+    item,
+    body,
+    roaming: false,
+    walking: false,
+    target: { x: 0, y: 0 },
+    speed: 0.6,
+    facing: Math.random() > 0.5 ? 1 : -1,
+    stepPhase: Math.random() * Math.PI * 2,
+    pausedUntil: 0,
+    nextTurnAt: 0,
+    prizeEligibleUntil: 0,
+    collected: false,
+    battlingUntil: 0,
+  }
+}
+
+const reconcileSprites = () => {
+  if (!engine) return
+  const nextItems = new Map(props.sprites.map((item) => [item.id, item]))
+  const removed = records.filter((record) => !nextItems.has(record.item.id))
+  for (const record of removed) Composite.remove(engine.world, record.body)
+  records = records.filter((record) => nextItems.has(record.item.id))
+  const remainingIds = new Set(records.map((record) => record.item.id))
+  walkingIds.value = new Set([...walkingIds.value].filter((id) => remainingIds.has(id)))
+  battlingIds.value = new Set([...battlingIds.value].filter((id) => remainingIds.has(id)))
+  if (manualGrabbedId && !remainingIds.has(manualGrabbedId)) releaseManualGrab()
+  for (const record of records) record.item = nextItems.get(record.item.id) ?? record.item
+
+  const existing = new Set(records.map((record) => record.item.id))
+  const added = props.sprites.filter((item) => !existing.has(item.id)).map((item, index) => createRecord(item, records.length + index))
+  if (added.length) {
+    records.push(...added)
+    Composite.add(engine.world, added.map((record) => record.body))
+  }
 }
 
 const start = async () => {
@@ -332,31 +573,7 @@ const start = async () => {
   appliedScale = props.scale
   rebuildWalls()
 
-  records = props.sprites.map((item, index) => {
-    const size = displaySize(item)
-    const body = Bodies.rectangle(0, 0, size.width * 0.9, size.height * 0.9, {
-      restitution: props.restitution,
-      friction: 0.35,
-      frictionAir: 0.02,
-      density: 0.002,
-      label: item.id,
-    })
-    resetBody(body, item, index)
-    return {
-      item,
-      body,
-      roaming: false,
-      walking: false,
-      target: { x: 0, y: 0 },
-      speed: 0.6,
-      facing: Math.random() > 0.5 ? 1 : -1,
-      stepPhase: Math.random() * Math.PI * 2,
-      pausedUntil: 0,
-      nextTurnAt: 0,
-      prizeEligibleUntil: 0,
-      collected: false,
-    }
-  })
+  records = props.sprites.map(createRecord)
   Composite.add(engine.world, records.map(({ body }) => body))
 
   mouse = Mouse.create(container.value)
@@ -364,9 +581,11 @@ const start = async () => {
     mouse,
     constraint: { stiffness: props.grabStiffness, damping: 0.12, render: { visible: false } },
   })
+  mouseConstraint.collisionFilter.mask = props.controlMode === 'free' ? 0xffffffff : 0
   Composite.add(engine.world, mouseConstraint)
   Events.on(mouseConstraint, 'startdrag', onStartDrag)
   Events.on(mouseConstraint, 'enddrag', onEndDrag)
+  Events.on(engine, 'collisionStart', onCollisionStart)
 
   resizeObserver = new ResizeObserver(rebuildWalls)
   resizeObserver.observe(container.value)
@@ -380,12 +599,10 @@ const onHover = () => {
   if (props.trigger === 'hover') void start()
 }
 const updateClawPoint = (event: PointerEvent) => {
-  if (!container.value) return
+  if (!container.value || props.controlMode !== 'free') return
   const rect = container.value.getBoundingClientRect()
-  clawPoint.value = {
-    x: Math.min(Math.max(event.clientX - rect.left, 0), rect.width),
-    y: Math.min(Math.max(event.clientY - rect.top, 48), rect.height),
-  }
+  clawAnchorTarget = Math.min(Math.max(event.clientX - rect.left, 48), rect.width - 48)
+  clawRopeTarget = Math.min(Math.max(event.clientY - rect.top - 8, 46), rect.height - 72)
 }
 const onPointerEnter = (event: PointerEvent) => {
   pointerInside.value = true
@@ -395,11 +612,31 @@ const onPointerEnter = (event: PointerEvent) => {
 const onPointerLeave = () => {
   pointerInside.value = false
 }
+const onKeydown = (event: KeyboardEvent) => {
+  if (props.controlMode !== 'arcade') return
+  const keys: Record<string, 'left' | 'right' | 'up' | 'down' | 'confirm'> = {
+    ArrowLeft: 'left',
+    ArrowRight: 'right',
+    ArrowUp: 'up',
+    ArrowDown: 'down',
+    Enter: 'confirm',
+    ' ': 'confirm',
+  }
+  const action = keys[event.key]
+  if (!action) return
+  if (action === 'confirm' && event.target !== container.value) return
+  event.preventDefault()
+  runArcadeCommand(action)
+}
 
 onMounted(() => {
+  window.addEventListener('keydown', onKeydown)
   if (props.trigger === 'auto') void start()
 })
-onBeforeUnmount(stop)
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', onKeydown)
+  stop()
+})
 
 watch(() => props.scale, (nextScale) => {
   if (!engine || !container.value || appliedScale <= 0) {
@@ -424,6 +661,23 @@ watch(() => props.restitution, (restitution) => {
 watch(() => props.grabStiffness, (stiffness) => {
   if (mouseConstraint) mouseConstraint.constraint.stiffness = stiffness
 })
+watch(() => props.sprites.map((item) => item.id).join('|'), () => {
+  if (!started.value) void start()
+  else reconcileSprites()
+})
+watch(() => props.command?.sequence, (sequence, previous) => {
+  if (sequence && sequence !== previous && props.command) runArcadeCommand(props.command.action)
+})
+watch(() => props.controlMode, (mode) => {
+  if (mouseConstraint) mouseConstraint.collisionFilter.mask = mode === 'free' ? 0xffffffff : 0
+  if (mode === 'arcade' && container.value) {
+    clawAnchorTarget = clawAnchorX.value || container.value.clientWidth / 2
+    clawRopeTarget = 100
+    container.value.focus()
+  } else if (manualGrabbedId) {
+    releaseManualGrab()
+  }
+})
 </script>
 
 <template>
@@ -431,6 +685,7 @@ watch(() => props.grabStiffness, (stiffness) => {
     ref="container"
     class="falling-sprites relative size-full min-h-64 overflow-hidden select-none"
     role="application"
+    tabindex="0"
     aria-label="可拖曳的像素角色夾娃娃機"
     @click="onClick"
     @pointerenter="onPointerEnter"
@@ -439,6 +694,12 @@ watch(() => props.grabStiffness, (stiffness) => {
   >
     <div class="claw-top-rail pointer-events-none absolute inset-x-0 top-0 z-[900] h-2" />
     <div
+      v-if="controlMode === 'arcade'"
+      class="pointer-events-none absolute right-4 top-4 z-[960] rounded border border-slate-500/60 bg-slate-950/75 px-2 py-1 font-pixel text-[7px] text-slate-300"
+    >
+      CLAW {{ arcadeStatus.toUpperCase() }}
+    </div>
+    <div
       v-show="clawVisible"
       class="claw-cable pointer-events-none absolute top-0 z-[900] w-0.5 -translate-x-1/2"
       :style="cableStyle"
@@ -446,7 +707,7 @@ watch(() => props.grabStiffness, (stiffness) => {
     <svg
       v-show="clawVisible"
       class="claw-machine pointer-events-none absolute z-[950] h-[58px] w-[64px] -translate-x-1/2 -translate-y-full overflow-visible drop-shadow-[0_2px_3px_rgb(0_0_0/0.5)]"
-      :class="{ 'is-closed': grabbedId }"
+      :class="{ 'is-closed': grabbedId || clawClosed }"
       :style="clawStyle"
       viewBox="0 0 64 58"
       aria-hidden="true"
@@ -489,7 +750,9 @@ watch(() => props.grabStiffness, (stiffness) => {
       <PixelSprite
         :asset="grabbedId === item.id
           ? (item.grab ?? item.idle)
-          : (walkingIds.has(item.id) ? (item.move ?? item.idle) : item.idle)"
+          : (battlingIds.has(item.id)
+            ? (item.action ?? item.grab ?? item.idle)
+            : (walkingIds.has(item.id) ? (item.move ?? item.idle) : item.idle))"
         :width="item.width * scale"
         :height="item.height * scale"
       />
