@@ -172,18 +172,33 @@ const setRoaming = (record: SpriteRecord, value: boolean) => {
   if (!value) setWalking(record, false)
 }
 
+// HomeView 的洞口位於 left:24px、bottom:20px、176x92px。角色本體不能進入
+// 洞口及擋板後方；只有使用者抓著角色時能跨進這個保留區並投入出口。
+const prizeChuteBounds = (item: FallingSpriteItem, height: number) => {
+  const size = displaySize(item)
+  return {
+    right: 24 + 176 + 12 + size.width / 2,
+    top: height - 20 - 92 - 16 - size.height / 2,
+  }
+}
+
 const chooseWanderTarget = (record: SpriteRecord, width: number, height: number, now: number) => {
   const size = displaySize(record.item)
   const halfW = Math.max(size.width / 2, 18)
   const halfH = Math.max(size.height / 2, 18)
   const floorTop = height * 0.53
-  record.target = {
+  const target = {
     x: 14 + halfW + Math.random() * Math.max(width - 28 - halfW * 2, 1),
     y: Math.min(
       height - halfH - 24,
       floorTop + halfH + Math.random() * Math.max(height - floorTop - halfH * 2 - 24, 1),
     ),
   }
+  const chute = prizeChuteBounds(record.item, height)
+  if (target.x < chute.right && target.y > chute.top) {
+    target.x = Math.min(chute.right + Math.random() * 70, width - halfW - 14)
+  }
+  record.target = target
   record.speed = 0.45 + Math.random() * 0.55
   record.pausedUntil = now + 280 + Math.random() * 900
   record.nextTurnAt = now + 1800 + Math.random() * 3200
@@ -195,6 +210,24 @@ const isInsidePrizeMouth = (body: Body, height: number) => (
   body.position.y >= height - 92 &&
   body.position.y <= height - 10
 )
+
+const keepOutsidePrizeChute = (record: SpriteRecord, width: number, height: number) => {
+  if (grabbedId.value === record.item.id || manualGrabbedId === record.item.id) return
+  const chute = prizeChuteBounds(record.item, height)
+  if (record.body.position.x >= chute.right || record.body.position.y <= chute.top) return
+
+  const size = displaySize(record.item)
+  const safeX = Math.min(chute.right, width - Math.max(size.width / 2, 18) - 14)
+  Body.setPosition(record.body, { x: safeX, y: record.body.position.y })
+  Body.setVelocity(record.body, {
+    x: Math.max(Math.abs(record.body.velocity.x) * 0.35, 0.28),
+    y: record.body.velocity.y * 0.45,
+  })
+  record.facing = 1
+  if (record.target.x < chute.right && record.target.y > chute.top) {
+    record.target.x = Math.min(chute.right + 36, width - Math.max(size.width / 2, 18) - 14)
+  }
+}
 
 const updateClawPhysics = (deltaSeconds: number, width: number, height: number) => {
   if (!clawAnchorX.value) {
@@ -452,6 +485,10 @@ const sync = (now: number) => {
     }
 
     if (record.prizeEligibleUntil && record.prizeEligibleUntil < now) record.prizeEligibleUntil = 0
+
+    // 洞口是場景中的實體缺口，不是可站立的背景層。完成投入判定後，把一般
+    // 掉落／漫遊角色擋在洞口與兩面擋板之外，避免從透明區域穿到後方。
+    keepOutsidePrizeChute(record, width, height)
 
     if (record.battlingUntil && record.battlingUntil <= now) {
       record.battlingUntil = 0
