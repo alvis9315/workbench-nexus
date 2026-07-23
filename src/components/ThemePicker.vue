@@ -69,7 +69,8 @@ const pick = (id: string) => {
             width="20"
             height="20"
             alt=""
-            class="pointer-events-none size-5 shrink-0 object-contain object-bottom [image-rendering:pixelated]"
+            class="pointer-events-none shrink-0 object-contain object-bottom [image-rendering:pixelated]"
+            :class="t.id === 'neon-protocol' ? '-my-1.5 h-8 w-7' : 'size-5'"
           />
           <span class="truncate">{{ t.label }}</span>
           <span
