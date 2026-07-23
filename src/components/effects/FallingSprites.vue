@@ -522,7 +522,14 @@ const sync = (now: number) => {
       clearBattling(record)
     }
 
-    if (manualGrabbedId === item.id) {
+    // 實機按鍵夾取與滑鼠自由甩爪都必須把獎品綁在「實際爪尖」，不能只讓
+    // Matter 的 mouse constraint 把角色留在游標／最初抓取點，否則爪子繼續
+    // 鐘擺運動時會和角色分離。直上直下模式也沿用相同的爪尖座標。
+    const heldByClaw = manualGrabbedId === item.id || (
+      props.controlMode !== 'arcade' &&
+      grabbedId.value === item.id
+    )
+    if (heldByClaw) {
       const size = displaySize(item)
       const tip = clawTipPoint()
       Body.setPosition(body, { x: tip.x, y: Math.min(tip.y + size.height * 0.25, bounds.maxY) })
