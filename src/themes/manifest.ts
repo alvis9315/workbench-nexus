@@ -53,7 +53,11 @@ export const createManifestTheme = (
       return c?.idle_unsafe ? poses.filter((p) => !p.includes('idle')) : poses
     },
     spriteUrl: (char, pose) => spriteUrls[char]?.[pose] ?? spriteUrls[char]?.[defaultPoseOf(char)],
-    poseScale: (char, pose) => (byId.get(char)?.pose_cells[pose] ?? manifest.base_cell) / manifest.base_cell,
+    poseScale: (char, pose) => {
+      const character = byId.get(char)
+      const cellScale = (character?.pose_cells[pose] ?? manifest.base_cell) / manifest.base_cell
+      return cellScale * (character?.display_scale ?? 1)
+    },
     poseOffsetY: (char, pose) => byId.get(char)?.pose_offset_y?.[pose] ?? 0,
     oversizeAnchor: opts.oversizeAnchor,
     slotPose: (char, slot: SpriteSlot) => byId.get(char)?.slots[slot] ?? defaultPoseOf(char),

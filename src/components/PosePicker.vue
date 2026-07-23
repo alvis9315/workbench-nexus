@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import { PersonStanding } from 'lucide-vue-next'
+import { computed, nextTick, ref, watch } from 'vue'
+import { Check, PersonStanding } from 'lucide-vue-next'
 import { PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'reka-ui'
 import {
   Command,
@@ -22,6 +22,7 @@ const props = defineProps<{ seed: string; name?: string }>()
 
 const open = ref(false)
 const query = ref('')
+const listRoot = ref<HTMLElement | null>(null)
 const char = useSpriteChar(props.seed)
 const pose = useSpritePose(props.seed)
 
@@ -45,6 +46,17 @@ const pick = (p: string) => {
   pose.value = p
   open.value = false
 }
+
+watch(open, async (visible) => {
+  if (!visible) return
+  query.value = ''
+  await nextTick()
+  requestAnimationFrame(() => {
+    listRoot.value
+      ?.querySelector<HTMLElement>('[data-current="true"]')
+      ?.scrollIntoView({ block: 'center' })
+  })
+})
 </script>
 
 <template>
@@ -71,28 +83,31 @@ const pick = (p: string) => {
       >
         <Command>
           <CommandInput v-model="query" placeholder="搜尋姿勢…" />
-          <CommandList>
-            <CommandEmpty>沒有符合的姿勢</CommandEmpty>
-            <!-- 只有一個無方向項的組(如 weapon_oversize1_r7)不給 heading,
-                 避免「標題+同名項目」重複兩行的怪顯示 -->
-            <CommandGroup
-              v-for="[action, items] in groups"
-              :key="action"
-              :heading="items.length === 1 && !items[0].dir ? undefined : pretty(action)"
-            >
-              <CommandItem
-                v-for="it in items"
-                :key="it.pose"
-                :value="`${poseLabel(it.pose)} ${pretty(it.pose)}`"
-                @select="pick(it.pose)"
+          <div ref="listRoot">
+            <CommandList>
+              <CommandEmpty>沒有符合的姿勢</CommandEmpty>
+              <!-- 只有一個無方向項的組(如 weapon_oversize1_r7)不給 heading,
+                   避免「標題+同名項目」重複兩行的怪顯示 -->
+              <CommandGroup
+                v-for="[action, items] in groups"
+                :key="action"
+                :heading="items.length === 1 && !items[0].dir ? undefined : pretty(action)"
               >
-                <!-- 搜尋比對的是 textContent:sr-only 塞完整姿勢名,搜 walk 才對得到「walk down」 -->
-                <span>{{ it.dir || poseLabel(it.pose) }}</span>
-                <span v-if="it.dir" class="sr-only">{{ pretty(it.pose) }}</span>
-                <span v-if="it.pose === pose" class="ml-auto font-pixel text-[9px] text-primary">✓ 使用中</span>
-              </CommandItem>
-            </CommandGroup>
-          </CommandList>
+                <CommandItem
+                  v-for="it in items"
+                  :key="it.pose"
+                  :value="`${poseLabel(it.pose)} ${pretty(it.pose)}`"
+                  :data-current="it.pose === pose ? 'true' : undefined"
+                  @select="pick(it.pose)"
+                >
+                  <!-- 搜尋比對的是 textContent:sr-only 塞完整姿勢名,搜 walk 才對得到「walk down」 -->
+                  <span>{{ it.dir || poseLabel(it.pose) }}</span>
+                  <span v-if="it.dir" class="sr-only">{{ pretty(it.pose) }}</span>
+                  <Check v-if="it.pose === pose" class="ml-auto size-4 text-primary" aria-label="已選取" />
+                </CommandItem>
+              </CommandGroup>
+            </CommandList>
+          </div>
         </Command>
       </PopoverContent>
     </PopoverPortal>

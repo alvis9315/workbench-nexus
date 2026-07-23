@@ -11,10 +11,11 @@ export const useSpritePose = (seed: string) =>
   computed({
     get: () => {
       const t = activeTheme.value
-      const stored = spriteStore(`wn-sprite-poses:${t.id}`).value[seed]
-      if (stored) return stored
       const charOverride = spriteStore(`wn-sprite-chars:${t.id}`).value[seed]
       const char = charOverride && t.chars.includes(charOverride) ? charOverride : t.charForSeed(seed)
+      const stored = spriteStore(`wn-sprite-poses:${t.id}`).value[seed]
+      // 素材從主題移除後，舊 localStorage 不得留在無效 pose key。
+      if (stored && t.posesOf(char).includes(stored)) return stored
       return t.defaultPoseOf(char)
     },
     set: (v: string) => {

@@ -13,11 +13,16 @@ import {
 import PixelSprite from '@/components/PixelSprite.vue'
 import type { PoseAsset } from '@/themes/types'
 
+type WalkDirection = 'up' | 'down' | 'left' | 'right'
+type ClawCommand = 'left' | 'right' | 'up' | 'down' | 'confirm' | 'drop' | 'grab'
+
 export interface FallingSpriteItem {
   id: string
   label: string
   idle: PoseAsset
   move?: PoseAsset
+  /** 有四方向素材的主題依 2.5D 移動向量切換步態。 */
+  moveByDirection?: Partial<Record<WalkDirection, PoseAsset>>
   grab?: PoseAsset
   action?: PoseAsset
   /** 同角色切換姿勢時用來增量更新，不重建整個物理世界。 */
@@ -39,7 +44,7 @@ const props = withDefaults(
     wander?: boolean
     trigger?: 'auto' | 'click' | 'hover'
     controlMode?: 'free' | 'direct' | 'arcade'
-    command?: { sequence: number; action: 'left' | 'right' | 'up' | 'down' | 'confirm' }
+    command?: { sequence: number; action: ClawCommand }
   }>(),
   {
     scale: 1,
@@ -59,6 +64,7 @@ const started = ref(false)
 const ready = ref(false)
 const grabbedId = ref<string | null>(null)
 const walkingIds = ref<Set<string>>(new Set())
+const walkingDirections = ref<Record<string, WalkDirection>>({})
 const battlingIds = ref<Set<string>>(new Set())
 const pointerInside = ref(false)
 const clawPoint = ref({ x: 0, y: 0 })
@@ -104,6 +110,8 @@ const clawDepth = ref(0.5)
 let clawDepthTarget = 0.5
 let manualGrabbedId: string | null = null
 let arcadeAutoGrabAt = 0
+const ARCADE_DROP_SPEED = 82
+const ARCADE_LIFT_SPEED = 128
 interface SpriteRecord {
   item: FallingSpriteItem
   body: Body
@@ -138,6 +146,11 @@ const setWalking = (record: SpriteRecord, value: boolean) => {
   if (value) next.add(record.item.id)
   else next.delete(record.item.id)
   walkingIds.value = next
+}
+
+const setWalkingDirection = (record: SpriteRecord, direction: WalkDirection) => {
+  if (walkingDirections.value[record.item.id] === direction) return
+  walkingDirections.value = { ...walkingDirections.value, [record.item.id]: direction }
 }
 
 const setBattling = (record: SpriteRecord, until: number) => {
@@ -252,12 +265,15 @@ const updateClawPhysics = (deltaSeconds: number, width: number, height: number) 
     clawAnchorX.value += clawAnchorVelocity * deltaSeconds
   }
 
-  const ropeRate = arcadeStatus.value === 'descending'
-    ? 1.05
+  // 固定 px/s：指數追蹤會讓目標越遠的前景爪初速越快，導致前／後深度速度不一致。
+  const ropeSpeed = arcadeStatus.value === 'descending'
+    ? ARCADE_DROP_SPEED
     : arcadeStatus.value === 'lifting'
-      ? 2.6
-      : props.controlMode === 'direct' ? 7 : 4
-  clawRopeLength += (clawRopeTarget - clawRopeLength) * Math.min(deltaSeconds * ropeRate, 1)
+      ? ARCADE_LIFT_SPEED
+      : props.controlMode === 'direct' ? 190 : 145
+  const ropeDelta = clawRopeTarget - clawRopeLength
+  const ropeStep = Math.sign(ropeDelta) * Math.min(Math.abs(ropeDelta), ropeSpeed * deltaSeconds)
+  clawRopeLength += ropeStep
 
   if (props.controlMode !== 'direct') {
     // 支點加速會把爪子甩向反方向；較慢的回復力保留厚重金屬爪的擺幅。
@@ -320,7 +336,17 @@ const releaseManualGrab = () => {
   arcadeStatus.value = 'aim'
 }
 
-const runArcadeCommand = (action: 'left' | 'right' | 'up' | 'down' | 'confirm') => {
+const beginArcadeDrop = () => {
+  if (!container.value || arcadeStatus.value !== 'aim') return
+  clawClosed.value = false
+  arcadeStatus.value = 'descending'
+  const floorY = container.value.clientHeight * 0.53 + clawDepth.value * (container.value.clientHeight * 0.47 - 24)
+  clawRopeTarget = Math.max(floorY - clawSupportY.value - 52, 80)
+  const travelMs = Math.abs(clawRopeTarget - clawRopeLength) / ARCADE_DROP_SPEED * 1000
+  arcadeAutoGrabAt = performance.now() + travelMs + 500
+}
+
+const runArcadeCommand = (action: ClawCommand) => {
   if (props.controlMode !== 'arcade' || !container.value) return
   if (action === 'left' || action === 'right') {
     if (arcadeStatus.value === 'descending' || arcadeStatus.value === 'lifting') return
@@ -333,17 +359,18 @@ const runArcadeCommand = (action: 'left' | 'right' | 'up' | 'down' | 'confirm') 
     clawDepthTarget += action === 'up' ? -0.14 : 0.14
     return
   }
-  if (arcadeStatus.value === 'descending') {
-    closeArcadeClaw()
-  } else if (arcadeStatus.value === 'holding') {
-    releaseManualGrab()
-  } else if (arcadeStatus.value === 'aim') {
-    clawClosed.value = false
-    arcadeStatus.value = 'descending'
-    const floorY = container.value.clientHeight * 0.53 + clawDepth.value * (container.value.clientHeight * 0.47 - 24)
-    clawRopeTarget = Math.max(floorY - clawSupportY.value - 52, 80)
-    arcadeAutoGrabAt = performance.now() + 5200
+  if (action === 'drop') {
+    if (arcadeStatus.value === 'holding') releaseManualGrab()
+    else beginArcadeDrop()
+    return
   }
+  if (action === 'grab') {
+    closeArcadeClaw()
+    return
+  }
+  if (arcadeStatus.value === 'descending') closeArcadeClaw()
+  else if (arcadeStatus.value === 'holding') releaseManualGrab()
+  else beginArcadeDrop()
 }
 
 const rebuildWalls = () => {
@@ -529,7 +556,13 @@ const sync = (now: number) => {
         const perspectiveSpeed = 0.78 + depth * 0.22
         const desiredX = (dx / distance) * record.speed * cadence * perspectiveSpeed
         const desiredY = (dy / distance) * record.speed * 0.72 * cadence * perspectiveSpeed
-        if (Math.abs(desiredX) > 0.05) record.facing = desiredX >= 0 ? 1 : -1
+        const walkDirection: WalkDirection = Math.abs(desiredY) > Math.abs(desiredX)
+          ? (desiredY >= 0 ? 'down' : 'up')
+          : (desiredX >= 0 ? 'right' : 'left')
+        setWalkingDirection(record, walkDirection)
+        // Guild 有真實左右圖時不再鏡像第二次；其餘主題仍用 facing 翻面。
+        if (record.item.moveByDirection) record.facing = 1
+        else if (Math.abs(desiredX) > 0.05) record.facing = desiredX >= 0 ? 1 : -1
         Body.setVelocity(body, {
           x: body.velocity.x * 0.45 + desiredX * 0.55,
           y: body.velocity.y * 0.25 + desiredY * 0.75,
@@ -589,6 +622,7 @@ const stop = () => {
   walls = []
   grabbedId.value = null
   walkingIds.value = new Set()
+  walkingDirections.value = {}
   battlingIds.value = new Set()
   ready.value = false
   lastTick = 0
@@ -705,7 +739,7 @@ const onPointerLeave = () => {
 }
 const onKeydown = (event: KeyboardEvent) => {
   if (props.controlMode !== 'arcade') return
-  const keys: Record<string, 'left' | 'right' | 'up' | 'down' | 'confirm'> = {
+  const keys: Record<string, ClawCommand> = {
     ArrowLeft: 'left',
     ArrowRight: 'right',
     ArrowUp: 'up',
@@ -852,7 +886,9 @@ watch(() => props.controlMode, (mode) => {
           ? (item.grab ?? item.idle)
           : (battlingIds.has(item.id)
             ? (item.action ?? item.grab ?? item.idle)
-            : (walkingIds.has(item.id) ? (item.move ?? item.idle) : item.idle))"
+            : (walkingIds.has(item.id)
+              ? (item.moveByDirection?.[walkingDirections[item.id] ?? 'down'] ?? item.move ?? item.idle)
+              : item.idle))"
         :width="item.width * scale"
         :height="item.height * scale"
         class="relative z-10"

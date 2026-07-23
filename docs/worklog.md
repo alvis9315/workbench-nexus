@@ -1,7 +1,10 @@
 # Worklog
 
 ## 2026-07-23
-- **NEON PROTOCOL 上線**:Vesper 19 組不重複 128×128 透明 GIF 完成語意命名與雙 repo 歸檔，建立單角 19-pose 主題與 idle／move／hover／grab／action 五樽位。
+- **娃娃機步態／爪子操作**:Guild 角色依 2.5D 移動向量即時切換 `walk_up/down/left/right`；實機模式拆為 DROP／GRAB 兩鍵，下降改為不受前後深度影響的 82px/s 固定慢速，上升 128px/s。
+- **PosePicker 定位**:選定項只保留打勾 icon；重開下拉時自動把當前 pose 捲到可視中央。
+- **Vesper 比例修正**:新增不篡改原始畫布尺寸的 `display_scale:2`，技能卡與娃娃機皆接近 Guild 角色的視覺高度；`Breathing idle A` 實體與 metadata 從雙 repo 移除，舊 localStorage 會自動回退至有效預設姿勢。
+- **NEON PROTOCOL 上線**:Vesper 18 組不重複 128×128 透明 GIF 完成語意命名與雙 repo 歸檔，建立單角 18-pose 主題與 idle／move／hover／grab／action 五樽位；`Breathing idle A` 已依擁有者指示從兩個 repo 移除。
 - **背景主題解耦**:原深宇宙藍＋街機黃保留為 `NEXUS ARCADE`；新增獨立按鈕切換的 Vesper 科技白＋霓虹青藍／粉紅配色與電路網格，不改各頁排版。
 - **Vesper 紙片人預留**:寬螢幕中左側新增 `AVATAR BAY`，明確標示為五套服裝的未來 3D 紙片人位置，本版僅放比例預覽，未假裝已有 rig。
 - **MVC2 Spider-Man 斷點續抓**:仍只執行 Spider-Man，動畫索引 316 組中已下載 126，去除 22 個完全重複後有 104 個 selector-ready；其餘 190 組繼續依 robots crawl-delay 斷點下載。後續順序固定為 Venom → Psylocke → Wolverine-A → Captain America → Iron Man → 其餘 Marvel → Capcom。

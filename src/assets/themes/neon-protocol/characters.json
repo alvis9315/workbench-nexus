@@ -20,7 +20,8 @@
       "order": 1,
       "frame_w": 128,
       "frame_h": 128,
-      "default_pose": "idle-breathe-a",
+      "display_scale": 2,
+      "default_pose": "idle-breathe-b",
       "idle_unsafe": false,
       "pose_cells": {},
       "pose_labels": {
@@ -32,7 +33,6 @@
         "hand-on-hip": "Hand on hip",
         "head-tilt": "Head tilt",
         "hurt": "Taking a hit",
-        "idle-breathe-a": "Breathing idle A",
         "idle-breathe-b": "Breathing idle B",
         "idle-breathe-c": "Breathing idle C",
         "idle-hair-flip": "Ponytail flip",
@@ -53,7 +53,6 @@
         "hand-on-hip",
         "head-tilt",
         "hurt",
-        "idle-breathe-a",
         "idle-breathe-b",
         "idle-breathe-c",
         "idle-hair-flip",
@@ -66,7 +65,7 @@
         "walk-forward"
       ],
       "slots": {
-        "idle": "idle-breathe-a",
+        "idle": "idle-breathe-b",
         "move": "walk-forward",
         "hover": "idle-hair-flip",
         "grab": "hurt",

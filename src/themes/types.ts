@@ -38,6 +38,8 @@ export interface ManifestCharacter {
   order: number | null
   frame_w: number
   frame_h: number
+  /** 原始畫布內角色佔比過小時的顯示補償；不改寫真實圖檔尺寸。 */
+  display_scale?: number
   default_pose: string
   /** true = idle 系姿勢是裸素體(服裝圖層不支援 idle),輪播與 idle 槽避開 */
   idle_unsafe: boolean

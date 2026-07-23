@@ -32,7 +32,7 @@ const logOpen = ref(false)
 const toyboxOpen = useLocalStorage('wn-toybox-open', false)
 const toyboxScale = useLocalStorage<number>('wn-toybox-scale', 1)
 const clawControlMode = useLocalStorage<'free' | 'direct' | 'arcade'>('wn-claw-control-mode', 'free')
-const clawCommand = ref<{ sequence: number; action: 'left' | 'right' | 'up' | 'down' | 'confirm' }>({ sequence: 0, action: 'confirm' })
+const clawCommand = ref<{ sequence: number; action: 'left' | 'right' | 'up' | 'down' | 'confirm' | 'drop' | 'grab' }>({ sequence: 0, action: 'confirm' })
 const toyboxLimit = computed(() => toyboxLimitForScale(toyboxScale.value))
 const activeCategory = ref<SkillCategory | 'all'>('all')
 const toyboxDragActive = ref(false)
@@ -73,6 +73,12 @@ const toyboxSprites = computed<FallingSpriteItem[]>(() =>
     }
     const movePose = appearancePoseFor('move')
     const move = activeTheme.value.poseAsset(char, movePose)
+    const directionalEntries = (['up', 'down', 'left', 'right'] as const)
+      .map((direction) => [direction, activeTheme.value.poseAsset(char, `walk_${direction}`)] as const)
+      .filter((entry): entry is readonly [typeof entry[0], NonNullable<typeof entry[1]>] => Boolean(entry[1]))
+    const moveByDirection = directionalEntries.length === 4
+      ? Object.fromEntries(directionalEntries)
+      : undefined
     const grabPose = appearancePoseFor('grab')
     const actionPose = appearancePoseFor('action')
     const grab = activeTheme.value.poseAsset(char, grabPose)
@@ -86,6 +92,7 @@ const toyboxSprites = computed<FallingSpriteItem[]>(() =>
       label: activeTheme.value.charLabel(char),
       idle,
       move,
+      moveByDirection,
       grab,
       action,
       poseKey: idlePose,
@@ -327,13 +334,14 @@ const goNext = () => {
           </Button>
           <div v-if="clawControlMode === 'arcade'" class="ml-1 flex items-center gap-1" aria-label="夾爪方向控制">
             <Button v-for="key in (['left', 'up', 'down', 'right'] as const)" :key="key" size="icon" variant="outline" class="size-7 text-[10px]" :title="({ left: '向左', right: '向右', up: '向後', down: '向前' } as const)[key]" @click="sendClawCommand(key)">
-              {{ { left: '←', right: '→', up: '後', down: '前' }[key] }}
+              {{ { left: '←', right: '→', up: '↑', down: '↓' }[key] }}
             </Button>
-            <Button size="sm" class="h-7 px-3 font-pixel text-[8px]" @click="sendClawCommand('confirm')">DROP / GRAB</Button>
+            <Button size="sm" class="h-7 px-3 font-pixel text-[8px]" @click="sendClawCommand('drop')">DROP</Button>
+            <Button size="sm" variant="outline" class="h-7 px-3 font-pixel text-[8px]" @click="sendClawCommand('grab')">GRAB</Button>
           </div>
         </div>
         <span class="text-[10px]" :class="toyboxChars.length > toyboxLimit ? 'text-warning' : 'text-muted-foreground'">
-          {{ clawControlMode === 'arcade' ? '左右＋前後定位；DROP 後慢速下降，再按一次可提早抓取。' : `${Math.round(toyboxScale * 100)}% 可新增至 ${toyboxLimit} 隻；既有角色不會因放大被自動刪除。` }}
+          {{ clawControlMode === 'arcade' ? '左右＋前後定位；DROP 固定慢速下降，GRAB 閉爪並上升，持有時再按 DROP 釋放。' : `${Math.round(toyboxScale * 100)}% 可新增至 ${toyboxLimit} 隻；既有角色不會因放大被自動刪除。` }}
         </span>
       </div>
     </section>
