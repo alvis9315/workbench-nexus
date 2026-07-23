@@ -2,6 +2,7 @@
 
 ## 2026-07-23
 - **娃娃機姿勢鎖定**:角色加入時選定的 pose 成為整段娃娃機生命週期唯一顯示素材；走路、碰撞、被抓與放下只改物理狀態，不再切換 `move／grab／action`。Pokémon `shiny_*` 因此不會途中變回普通色。
+- **Operator Prompt System v1.0**:NEON PROTOCOL AI 角色生成改採 `Series Shared → Character Identity → Outfit Module → Generation Control` 四層正本；日後生成需求必須交代 PixAI／網格化／PixelLab 各階段，並依實際模型欄位提供完整正向與 Negative Prompt。
 - **NEON PROTOCOL 世界聖經**:ARCA 三層都市、PROTOCOL、LUMEN 視覺 DNA、Vesper／Lyra／Corvus／Nova 角色卡與通用生成模板歸入素材正本，Workbench 不複製第二份。
 - **娃娃機步態／爪子操作**:Guild 角色依 2.5D 移動向量即時切換 `walk_up/down/left/right`；實機模式拆為 DROP／GRAB 兩鍵，下降改為不受前後深度影響的 82px/s 固定慢速，上升 128px/s。
 - **PosePicker 定位**:選定項只保留打勾 icon；重開下拉時自動把當前 pose 捲到可視中央。
@@ -9,7 +10,7 @@
 - **NEON PROTOCOL 上線**:Vesper 18 組不重複 128×128 透明 GIF 完成語意命名與雙 repo 歸檔，建立單角 18-pose 主題與 idle／move／hover／grab／action 五樽位；`Breathing idle A` 已依擁有者指示從兩個 repo 移除。
 - **背景主題解耦**:原深宇宙藍＋街機黃保留為 `NEXUS ARCADE`；新增獨立按鈕切換的 Vesper 科技白＋霓虹青藍／粉紅配色與電路網格，不改各頁排版。
 - **Vesper 紙片人預留**:寬螢幕中左側新增 `AVATAR BAY`，明確標示為五套服裝的未來 3D 紙片人位置，本版僅放比例預覽，未假裝已有 rig。
-- **MVC2 Spider-Man 資料蒐集**:仍只執行 Spider-Man，actor animation GIF 已完成 316/316，去除 39 個完全重複別名後有 277 個 selector-ready、0 個待下載；hitbox GIF 已完成 317/317；逐 keyframe sprite PNG 已完成 111/907，collision hitbox/hurtbox PNG 已完成 3/1117，暫時網路失敗保留重試而不判定缺檔。無可靠證據的招式對應維持 `needs_game_verification`。角色順序固定為 Venom → Psylocke → Wolverine-A → Captain America → Iron Man → 其餘 Marvel → Capcom。
+- **MVC2 Spider-Man 資料蒐集**:仍只執行 Spider-Man，actor animation GIF 已完成 316/316，去除 39 個完全重複別名後有 277 個 selector-ready、0 個待下載；hitbox GIF 已完成 317/317；逐 keyframe sprite PNG 已完成 141/907，collision hitbox/hurtbox PNG 已完成 3/1117，暫時網路失敗保留重試而不判定缺檔。無可靠證據的招式對應維持 `needs_game_verification`。角色順序固定為 Venom → Psylocke → Wolverine-A → Captain America → Iron Man → 其餘 Marvel → Capcom。
 
 ## 2026-07-22
 - **MVC2 還原稽核**:確認原 sheet 是會跨透明橫帶換行的 packed sprite stream，不是一列一招；既有四槽降級標示為 WIP prototype。28 角共 2,433 band 建立零遺漏 inventory，後續逐角對照 command list 與 60fps 實機畫面，補完整動作與 actor／projectile timing。
