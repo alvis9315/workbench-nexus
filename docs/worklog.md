@@ -7,7 +7,7 @@
 - **NEON PROTOCOL 上線**:Vesper 18 組不重複 128×128 透明 GIF 完成語意命名與雙 repo 歸檔，建立單角 18-pose 主題與 idle／move／hover／grab／action 五樽位；`Breathing idle A` 已依擁有者指示從兩個 repo 移除。
 - **背景主題解耦**:原深宇宙藍＋街機黃保留為 `NEXUS ARCADE`；新增獨立按鈕切換的 Vesper 科技白＋霓虹青藍／粉紅配色與電路網格，不改各頁排版。
 - **Vesper 紙片人預留**:寬螢幕中左側新增 `AVATAR BAY`，明確標示為五套服裝的未來 3D 紙片人位置，本版僅放比例預覽，未假裝已有 rig。
-- **MVC2 Spider-Man 資料蒐集**:仍只執行 Spider-Man，actor animation GIF 已完成 316/316，去除 39 個完全重複別名後有 277 個 selector-ready、0 個待下載；hitbox GIF 已完成 201/317，後續繼續抓剩餘 hitbox／sprite／effect 媒體。無可靠證據的招式對應維持 `needs_game_verification`。角色順序固定為 Venom → Psylocke → Wolverine-A → Captain America → Iron Man → 其餘 Marvel → Capcom。
+- **MVC2 Spider-Man 資料蒐集**:仍只執行 Spider-Man，actor animation GIF 已完成 316/316，去除 39 個完全重複別名後有 277 個 selector-ready、0 個待下載；hitbox GIF 已完成 251/317，後續繼續抓剩餘 hitbox／sprite／effect 媒體。無可靠證據的招式對應維持 `needs_game_verification`。角色順序固定為 Venom → Psylocke → Wolverine-A → Captain America → Iron Man → 其餘 Marvel → Capcom。
 
 ## 2026-07-22
 - **MVC2 還原稽核**:確認原 sheet 是會跨透明橫帶換行的 packed sprite stream，不是一列一招；既有四槽降級標示為 WIP prototype。28 角共 2,433 band 建立零遺漏 inventory，後續逐角對照 command list 與 60fps 實機畫面，補完整動作與 actor／projectile timing。
