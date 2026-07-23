@@ -1,6 +1,8 @@
 # Worklog
 
 ## 2026-07-23
+- **娃娃機姿勢鎖定**:角色加入時選定的 pose 成為整段娃娃機生命週期唯一顯示素材；走路、碰撞、被抓與放下只改物理狀態，不再切換 `move／grab／action`。Pokémon `shiny_*` 因此不會途中變回普通色。
+- **NEON PROTOCOL 世界聖經**:ARCA 三層都市、PROTOCOL、LUMEN 視覺 DNA、Vesper／Lyra／Corvus／Nova 角色卡與通用生成模板歸入素材正本，Workbench 不複製第二份。
 - **娃娃機步態／爪子操作**:Guild 角色依 2.5D 移動向量即時切換 `walk_up/down/left/right`；實機模式拆為 DROP／GRAB 兩鍵，下降改為不受前後深度影響的 82px/s 固定慢速，上升 128px/s。
 - **PosePicker 定位**:選定項只保留打勾 icon；重開下拉時自動把當前 pose 捲到可視中央。
 - **Vesper 比例修正**:新增不篡改原始畫布尺寸的 `display_scale:2`，技能卡與娃娃機皆接近 Guild 角色的視覺高度；`Breathing idle A` 實體與 metadata 從雙 repo 移除，舊 localStorage 會自動回退至有效預設姿勢。

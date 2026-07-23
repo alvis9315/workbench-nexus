@@ -46,7 +46,8 @@ const sendClawCommand = (action: typeof clawCommand.value.action) => {
   clawCommand.value = { sequence: clawCommand.value.sequence + 1, action }
 }
 
-// 物理層吃統一的四語意槽；不直接知道 guild／pokemon／Marvel 的檔案或姿勢名。
+// 娃娃機只播放使用者加入時選定的 pose。走路、碰撞與抓取只改變物理狀態，
+// 不得偷偷切到 move／grab／action；Pokémon shiny 也因此會從加入到離場始終鎖定。
 // 每個主題的原生尺寸差異很大，先等比例正規化到 72px 再交給 FallingSprites。
 const toyboxSprites = computed<FallingSpriteItem[]>(() =>
   toyboxChars.value.flatMap((char) => {
@@ -57,32 +58,6 @@ const toyboxSprites = computed<FallingSpriteItem[]>(() =>
       ? storedPose
       : activeTheme.value.slotPose(char, 'idle')
     const idle = activeTheme.value.poseAsset(char, idlePose)
-    // Pokémon 的 shiny 是外觀分類，不是可以在動作間任意切換的 pose。
-    // 一旦選定 shiny，所有動作只能使用 shiny 資產；普通色亦不得誤用 shiny slot。
-    const isShinyVariant = storedPose?.startsWith('shiny_') ?? false
-    const appearancePoseFor = (slot: 'move' | 'grab' | 'action') => {
-      const semanticPose = activeTheme.value.slotPose(char, slot)
-      const normalPose = semanticPose.replace(/^shiny_/, '')
-      if (isShinyVariant) {
-        const shinyPose = `shiny_${normalPose}`
-        return activeTheme.value.posesOf(char).includes(shinyPose) ? shinyPose : idlePose
-      }
-      if (!semanticPose.startsWith('shiny_')) return semanticPose
-      if (activeTheme.value.posesOf(char).includes(normalPose)) return normalPose
-      return activeTheme.value.slotPose(char, 'idle').replace(/^shiny_/, '')
-    }
-    const movePose = appearancePoseFor('move')
-    const move = activeTheme.value.poseAsset(char, movePose)
-    const directionalEntries = (['up', 'down', 'left', 'right'] as const)
-      .map((direction) => [direction, activeTheme.value.poseAsset(char, `walk_${direction}`)] as const)
-      .filter((entry): entry is readonly [typeof entry[0], NonNullable<typeof entry[1]>] => Boolean(entry[1]))
-    const moveByDirection = directionalEntries.length === 4
-      ? Object.fromEntries(directionalEntries)
-      : undefined
-    const grabPose = appearancePoseFor('grab')
-    const actionPose = appearancePoseFor('action')
-    const grab = activeTheme.value.poseAsset(char, grabPose)
-    const action = activeTheme.value.poseAsset(char, actionPose)
     if (!idle) return []
     // 大體型寶可夢的 GIF cell 是 64px、一般角色是 32px。先前只看 charFrame 會把兩者
     // 都正規化成 72px，失去原生體型；把 poseScale 帶回來並設 2x 安全上限。
@@ -91,10 +66,6 @@ const toyboxSprites = computed<FallingSpriteItem[]>(() =>
       id: char,
       label: activeTheme.value.charLabel(char),
       idle,
-      move,
-      moveByDirection,
-      grab,
-      action,
       poseKey: idlePose,
       width: Math.max(frame.w * ratio * nativeScale, 24),
       height: Math.max(frame.h * ratio * nativeScale, 24),
